@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import {
   TbBrandFacebook,
@@ -30,24 +29,24 @@ export default function Footer() {
       </aside>
       <nav>
         <div className="grid grid-flow-col gap-4">
-          <Link href="/">
+          <a target="_blank" href="https://www.facebook.com/justbenuk/">
             <TbBrandFacebook className="text-3xl" />
-          </Link>
-          <Link href="/">
+          </a>
+          <a target="_blank" href="https://x.com/justbenuk">
             <TbBrandTwitter className="text-3xl" />
-          </Link>
-          <Link href="/">
+          </a>
+          <a target="_blank" href="https://discord.gg/XdBvC5Sp">
             <TbBrandDiscord className="text-3xl" />
-          </Link>
-          <Link href="/">
+          </a>
+          <a target="_blank" href="mailto:ben@justben.uk">
             <TbBrandGmail className="text-3xl" />
-          </Link>
-          <Link href="/">
+          </a>
+          <a target="_blank" href="https://wa.me/447916019809">
             <TbBrandWhatsapp className="text-3xl" />
-          </Link>
-          <Link href="/">
+          </a>
+          <a target="_blank" href="tel:07916019809">
             <TbPhone className="text-3xl" />
-          </Link>
+          </a>
         </div>
       </nav>
     </footer>
