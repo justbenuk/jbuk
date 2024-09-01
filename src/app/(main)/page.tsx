@@ -138,7 +138,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <ButtonLink route="/projects">See More</ButtonLink>
+              <ButtonLink route="/work">See More</ButtonLink>
             </div>
           </div>
         </div>
