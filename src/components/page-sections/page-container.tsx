@@ -5,5 +5,5 @@ interface PCProps {
 }
 
 export default function PageContainer({ children }: PCProps) {
-  return <div className="container mx-auto px-6 xlpx-0">{children}</div>;
+  return <div className="container mx-auto px-6 xl:px-0">{children}</div>;
 }

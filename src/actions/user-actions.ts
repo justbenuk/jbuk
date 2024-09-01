@@ -8,7 +8,12 @@ export async function fetchUser(id: string) {
     },
     include: {
       servers: true,
-      projects: true,
+      projects: {
+        select: {
+          github_url: true,
+          project_url: true,
+        },
+      },
       accounts: {
         select: {
           provider: true,

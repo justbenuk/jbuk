@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 interface UIProps {
   userimage: string;
+  role: string;
 }
-export default function AvvatarDropdown({ userimage }: UIProps) {
+export default function AvvatarDropdown({ userimage, role }: UIProps) {
   return (
     <div className="p-0 m-auto">
       <div className="dropdown dropdown-left">
@@ -24,8 +26,13 @@ export default function AvvatarDropdown({ userimage }: UIProps) {
           className="menu dropdown-content bg-base-100 rounded-box z-[1] mt-10 w-52 p-2 shadow"
         >
           <li>
-            <a>Item 1</a>
+            <Link href="/profile">Profile</Link>
           </li>
+          {role === "Admin" && (
+            <li>
+              <Link href="/dashboard">Dashboard</Link>
+            </li>
+          )}
           <li>
             <form>
               <button onClick={() => signOut()} className="text-red-500">

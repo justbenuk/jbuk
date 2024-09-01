@@ -3,6 +3,7 @@ import { menuItems } from "@/data/menu-items";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import AvvatarDropdown from "../page-sections/avatar-dropdown";
+
 interface MIProps {
   title: string;
   href: string;
@@ -20,7 +21,10 @@ export default function MainMenu() {
       ))}
       {session?.user ? (
         <li className="font-semibold text-lg">
-          <AvvatarDropdown userimage={session?.user?.image as string} />
+          <AvvatarDropdown
+            userimage={session?.user?.image as string}
+            role={session?.user?.role}
+          />
         </li>
       ) : (
         <li className="font-semibold text-lg">
