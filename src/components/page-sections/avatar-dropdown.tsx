@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import { signOut } from "next-auth/react";
 interface UIProps {
   userimage: string;
 }
@@ -27,7 +27,11 @@ export default function AvvatarDropdown({ userimage }: UIProps) {
             <a>Item 1</a>
           </li>
           <li>
-            <a>Item 2</a>
+            <form>
+              <button onClick={() => signOut()} className="text-red-500">
+                Logout
+              </button>
+            </form>
           </li>
         </ul>
       </div>

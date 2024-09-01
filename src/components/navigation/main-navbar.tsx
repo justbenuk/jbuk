@@ -29,7 +29,7 @@ export default function MainNavbar() {
           JBUK
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex navbar-end">
+      <div className="navbar-center hidden lg:flex ml-auto w-auto navbar-end">
         <MainMenu />
       </div>
     </div>
