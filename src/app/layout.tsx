@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/utils/auth";
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -17,10 +20,13 @@ interface RProps {
   children: ReactNode;
 }
 
-export default function RootLayout({ children }: RProps) {
+export default async function RootLayout({ children }: RProps) {
+  const session = await auth();
   return (
     <html lang="en" data-theme="light">
-      <body className={poppins.className}>{children}</body>
+      <SessionProvider session={session}>
+        <body className={poppins.className}>{children}</body>
+      </SessionProvider>
     </html>
   );
 }
