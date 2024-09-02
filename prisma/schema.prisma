@@ -18,6 +18,13 @@ enum Role {
     Admin
 }
 
+enum Status {
+    Planning
+    Development
+    Testing
+    Completed
+  }
+
 model User {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
@@ -52,6 +59,10 @@ model Project {
     id      String @id  @default(auto()) @map("_id") @db.ObjectId
     user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId  String? @db.ObjectId
+    title String?
+    domain String?
+    project_type String?
+    status Status @default(Planning)
     github_url String
     project_url String
     servers Server[]
