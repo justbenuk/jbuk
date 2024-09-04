@@ -1,5 +1,27 @@
 "use server";
 import { db } from "@/utils/db";
+
+//get all projects
+export async function AllProjectsAction({
+  offset = 1,
+  limit = 1,
+}: {
+  offset?: number;
+  limit?: number;
+}) {
+  //building the pagination
+  const data = await db.project.findMany({
+    skip: offset,
+    take: limit,
+  });
+
+  const totalCount = await db.project.count();
+
+  const totalPages = Math.ceil(totalCount / limit);
+
+  return { data, totalCount, totalPages };
+}
+
 export async function AddProjectAction(
   prevState: { message: string },
   formData: FormData,
