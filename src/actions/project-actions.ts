@@ -26,6 +26,9 @@ export async function AddProjectAction(
     const response = await db.project.create({
       data: {
         userId: user.id,
+        title: formData.get("title") as string,
+        domain: formData.get("domain") as string,
+        project_type: formData.get("project_type") as string,
         github_url: formData.get("github_url") as string,
         project_url: formData.get("project_url") as string,
       },

@@ -1,10 +1,11 @@
 import { TbServer } from "react-icons/tb";
 import Link from "next/link";
-export default function ServverTables({ userServers }: any) {
+export default function AllServerTables() {
+  const servers = [] as [];
   return (
     <div className="mt-4">
       <div className="bg-gray-900 text-gray-300 rounded-t-lg">
-        <h1 className="text-sm px-4 py-3 font-bold">Servers</h1>
+        <h1 className="text-sm p-2 font-bold">Servers</h1>
       </div>
 
       <div className="overflow-x-auto">
@@ -19,7 +20,7 @@ export default function ServverTables({ userServers }: any) {
             </tr>
           </thead>
           <tbody>
-            {userServers.map((server: any, idx: number) => (
+            {servers.map((server: any, idx: number) => (
               <tr key={idx}>
                 <th>{server.title}</th>
                 <td>{server.supplier_name}</td>
@@ -44,7 +45,7 @@ export default function ServverTables({ userServers }: any) {
             ))}
           </tbody>
         </table>
-        {userServers.length === 0 && (
+        {servers.length === 0 && (
           <p className="font-bold text-center p-6">
             You currently have no servers set up
           </p>

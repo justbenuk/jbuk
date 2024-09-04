@@ -9,7 +9,7 @@ import {
 } from "react-icons/tb";
 export default function Footer() {
   return (
-    <footer className="footer footer-center bg-gray-900 text-gray-300 px-10 py-12">
+    <footer className="footer footer-center bg-gray-900 text-gray-300 px-10 py-6">
       <aside>
         <div className="overflow-hidden py-4">
           <Image
@@ -23,7 +23,7 @@ export default function Footer() {
         <p className="font-bold text-xl">
           Just Ben UK
           <br />
-          Building Cistom Web Applications For Fun
+          Building Custom Web Applications For Fun
         </p>
         <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
       </aside>

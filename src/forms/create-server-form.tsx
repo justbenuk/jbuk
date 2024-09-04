@@ -71,7 +71,7 @@ export default function CreateServerForm() {
         <input
           className={`${state?.message?.serverTitle ? "input-error" : null} input input-bordered input-md`}
           id="supplier_url"
-          name="suppleer_url"
+          name="supplier_url"
           placeholder="Supplier Url"
         />
         {state?.message?.name && (

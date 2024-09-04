@@ -10,6 +10,10 @@ export async function fetchUser(id: string) {
       servers: true,
       projects: {
         select: {
+          title: true,
+          domain: true,
+          project_type: true,
+          status: true,
           github_url: true,
           project_url: true,
         },
