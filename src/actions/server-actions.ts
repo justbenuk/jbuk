@@ -1,5 +1,13 @@
 "use server";
 import { db } from "@/utils/db";
+
+export default async function AllServersAction({
+  offset = 1,
+  limit = 1,
+}: {
+  offset?: number;
+  limit?: number;
+}) {}
 export async function AddServerAction(
   prevState: { message: string },
   formData: FormData,
