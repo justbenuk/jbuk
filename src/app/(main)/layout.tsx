@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Lprops } from "@/types";
+import NavigationBar from "@/components/navigation-bar";
+import GlobalFooter from "@/components/global-footer";
 
 export const metadata: Metadata = {
   title: "Just Ben UK",
@@ -8,5 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Lprops) {
-  return <>{children}</>;
+  return (
+    <main className="flex flex-col justify-between min-h-screen">
+      <NavigationBar />
+      {children}
+      <GlobalFooter />
+    </main>
+  );
 }
