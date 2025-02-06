@@ -5,6 +5,10 @@ import Link from "next/link";
 import { FaPhone, FaEnvelope, FaTwitter } from "react-icons/fa";
 import ContactItem from "@/components/contact/contact-item";
 
+export const metadata = {
+  title: "Contact Me | Just Ben UK",
+};
+
 export default function ContactPage() {
   return (
     <Container>
@@ -31,28 +35,18 @@ export default function ContactPage() {
                 title="Phone"
                 text="07916019809"
               />
-              <Link href="mail:justbenuk@gmail.com">
-                <li className="flex flex-row items-center gap-6">
-                  <div className="border rounded-full p-4">
-                    <FaEnvelope className="text-2xl" />
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    <h1 className="uppercase text-xl font-semibold">Email</h1>
-                    <p>justbenuk@gmail.com</p>
-                  </div>
-                </li>
-              </Link>
-              <a href="https://x.com/justbenuk" target="_blank">
-                <li className="flex flex-row items-center gap-6">
-                  <div className="border rounded-full p-4">
-                    <FaTwitter className="text-2xl" />
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    <h1 className="uppercase text-xl font-semibold">Twitter</h1>
-                    <p>@justbnuk</p>
-                  </div>
-                </li>
-              </a>
+              <ContactItem
+                link="mail:justbenuk@gmail.com"
+                icon={<FaEnvelope className="text-2xl" />}
+                title="Email"
+                text="justbenuk@gmail.com"
+              />
+              <ContactItem
+                link="https://x.com/justbenuk"
+                icon={<FaTwitter className="text-2xl" />}
+                title="Twitter"
+                text="@justbenuk"
+              />
             </ul>
           </div>
         </div>
