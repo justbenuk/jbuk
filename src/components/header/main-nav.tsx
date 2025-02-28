@@ -4,7 +4,7 @@ import ResponsiveMenuItems from "./responsive-menu-items";
 
 export default function MainNavbar() {
   return (
-    <header className="flex flex-row items-center justify-between px-6 py-4 border-b">
+    <header className="flex flex-row items-center justify-between px-6 py-4 border-b bg-white">
       <MainLogo />
       <div className="hidden md:flex">
         <DesktopMenuItems />

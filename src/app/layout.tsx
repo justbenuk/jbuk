@@ -14,8 +14,8 @@ type Props = {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en" className="antialiased bg-gray-200">
-      <body className="flex flex-col justify-between min-h-screen">
+    <html lang="en" className="antialiased">
+      <body className="flex flex-col justify-between min-h-screen bg-gray-200">
         <MainNavbar />
         <main className="flex-grow">{children}</main>
         <footer>footer</footer>
