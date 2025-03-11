@@ -26,7 +26,6 @@ export default function MobileList() {
           <DropdownMenuItem>
             <Link href='/register'>Register</Link>
           </DropdownMenuItem>
-
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu >
