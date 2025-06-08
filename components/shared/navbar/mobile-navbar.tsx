@@ -4,7 +4,7 @@ import MobileMenuItem from "./mobile-menu-item";
 export default function MobileNavbar() {
   return (
     <Sheet>
-      <SheetTrigger className="lg:hidden">
+      <SheetTrigger className="absolute top-5 right-5">
         <MenuIcon className="size-5" />
       </SheetTrigger>
       <SheetContent>
