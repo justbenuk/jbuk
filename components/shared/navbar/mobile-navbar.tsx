@@ -11,7 +11,9 @@ export default function MobileNavbar() {
         <SheetHeader>
           <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
-        <MobileMenuItem />
+        <div className="px-10">
+          <MobileMenuItem />
+        </div>
       </SheetContent>
     </Sheet>
   )
