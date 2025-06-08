@@ -1,15 +1,10 @@
-import { FolderCodeIcon, HomeIcon, MessageSquareIcon, SquareUser } from "lucide-react";
+import { FolderCodeIcon, HomeIcon, MessageSquareIcon, } from "lucide-react";
 
 export const MAINMENUITEMS = [
   {
     name: 'Home',
     href: '/',
     icon: HomeIcon
-  },
-  {
-    name: 'About Me',
-    href: '/about-me',
-    icon: SquareUser
   },
   {
     name: 'My Work',
