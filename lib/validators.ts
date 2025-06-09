@@ -3,7 +3,7 @@ import { z } from "zod";
 export const insertContactFormSchema = z.object({
   name: z.string().min(1, 'Please supply your name'),
   email: z.string().email('Please supply a valid email'),
-  contactNumber: z.string().optional(),
+  phoneNumber: z.string().optional(),
   domain: z.string().optional(),
   message: z.string().min(1, 'You must leave a message')
 })

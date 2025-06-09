@@ -19,7 +19,7 @@ export default function CreateContactForm() {
     resolver: zodResolver(insertContactFormSchema),
     defaultValues: {
       name: '',
-      contactNumber: '',
+      phoneNumber: '',
       domain: '',
       email: '',
       message: ''
@@ -68,7 +68,7 @@ export default function CreateContactForm() {
             />
             <FormField
               control={form.control}
-              name='contactNumber'
+              name='phoneNumber'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>contact Number</FormLabel>
