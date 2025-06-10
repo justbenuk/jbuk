@@ -1,15 +1,15 @@
-import MobileNavbar from "@/components/shared/navbar/mobile-navbar";
+import Header from "@/components/shared/header/header";
 import ToggleMode from "@/components/shared/navbar/toggle-mode";
 import { ReactNode } from "react";
 
 type RootLayoutProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <div className="min-h-screen">
-      <MobileNavbar />
+      <Header />
       <main>{children}</main>
       <ToggleMode />
     </div>
