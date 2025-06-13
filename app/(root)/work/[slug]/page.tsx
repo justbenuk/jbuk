@@ -1,6 +1,8 @@
+import Container from "@/components/shared/container";
+
 export default function WorkSinglePage() {
   return (
-    <div>this is the work single page</div>
+    <Container>this is the work single page</Container>
   )
 }
 

@@ -16,17 +16,17 @@ export default function LetsTalkPage() {
         <div className="flex flex-col items-center justify-center space-y-2">
           <MailIcon className="size-10 mb-6 text-yellow-500" />
           <p className="font-semibold text-sm">Can I help you today?</p>
-          <Link className="underline underline-offset-4 text-xs" href={'mailto:justbenuk@gmail.com'}>Send me an email</Link>
+          <Link className="underline underline-offset-4 text-xs" href={'mailto:justbenuk@gmail.com'} target="_blank">Send me an email</Link>
         </div>
         <div className="flex flex-col items-center justify-center space-y-2">
           <PhoneIcon className="size-10 mb-6 text-yellow-500" />
           <p className="font-semibold text-sm">Feel free to get in touch?</p>
-          <Link className="underline underline-offset-4 text-xs" href={'tel:07916019809'}>Give me a call today</Link>
+          <Link className="underline underline-offset-4 text-xs" href={'tel:07916019809'} target="_blank">Give me a call today</Link>
         </div>
         <div className="flex flex-col items-center justify-center space-y-2">
           <PackageIcon className="size-10 mb-6 text-yellow-500" />
           <p className="font-semibold text-sm">Ready to get started?</p>
-          <Link className="underline underline-offset-4 text-xs" href={'tel:07916019809'}>Lets get started</Link>
+          <Link className="underline underline-offset-4 text-xs" href={'tel:07916019809'} target="_blank">Lets get started</Link>
         </div>
       </div>
       <div className="flex flex-col items-center justify-center space-y-2 py-10">
