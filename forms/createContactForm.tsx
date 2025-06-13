@@ -1,7 +1,6 @@
 "use client";
 import { InsertContactFormAction } from "@/actions/contact-actions";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -132,8 +131,8 @@ export default function CreateContactForm() {
           />
         </div>
         <div className="flex justify-end">
-          <Button className="bg-teal-500" size={"lg"}>
-            Send message
+          <Button className="bg-yellow-500 font-semibold text-background dark:text-white" size={"lg"}>
+            Send Message
           </Button>
         </div>
       </form>

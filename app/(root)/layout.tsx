@@ -1,5 +1,5 @@
 import Header from "@/components/shared/header/header";
-import ToggleMode from "@/components/shared/navbar/toggle-mode";
+import Footer from '@/components/shared/footer/footer'
 import { ReactNode } from "react";
 
 type RootLayoutProps = {
@@ -8,10 +8,10 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col justify-between">
       <Header />
       <main>{children}</main>
-      <ToggleMode />
+      <Footer />
     </div>
   );
 }
