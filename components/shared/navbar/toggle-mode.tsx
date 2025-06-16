@@ -13,7 +13,7 @@ export default function ToggleMode() {
   }, [])
   if (!mounted) return null
   return (
-    <div className="absolute bottom-5 right-10">
+    <div className="absolute bottom-10 right-10">
       <div>
         {
           theme === 'light' ? (
