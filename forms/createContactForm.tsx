@@ -131,7 +131,7 @@ export default function CreateContactForm() {
           />
         </div>
         <div className="flex justify-end">
-          <Button className="bg-yellow-500 font-semibold text-background dark:text-white" size={"lg"}>
+          <Button className="bg-teal-500 font-semibold text-background dark:text-white" size={"lg"}>
             Send Message
           </Button>
         </div>

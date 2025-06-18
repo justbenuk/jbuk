@@ -13,20 +13,18 @@ export default function ToggleMode() {
   }, [])
   if (!mounted) return null
   return (
-    <div className="absolute bottom-10 right-10">
-      <div>
-        {
-          theme === 'light' ? (
-            <Button size={'icon'} variant={'outline'} onClick={() => setTheme('dark')}>
-              <MoonIcon className="size-4" />
-            </Button>
-          ) : (
-            <Button size={'icon'} variant={'outline'} onClick={() => setTheme('light')}>
-              <SunIcon className="size-4" />
-            </Button>
-          )
-        }
-      </div>
+    <div>
+      {
+        theme === 'light' ? (
+          <Button size={'icon'} variant={'ghost'} onClick={() => setTheme('dark')}>
+            <MoonIcon className="size-5" />
+          </Button>
+        ) : (
+          <Button size={'icon'} variant={'ghost'} onClick={() => setTheme('light')}>
+            <SunIcon className="size-5" />
+          </Button>
+        )
+      }
     </div>
 
   )

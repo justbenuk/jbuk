@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
 import MobileMenuItem from "./mobile-menu-item";
+
 export default function MobileNavbar() {
   return (
     <Sheet>
