@@ -1,8 +1,10 @@
+import Container from "@/components/global/container";
+import Hero from "@/components/hero/hero"
 
 export default function Home() {
   return (
-    <div>
-      <p>this is the home page</p>
-    </div>
+    <Container>
+      <Hero />
+    </Container>
   );
 }

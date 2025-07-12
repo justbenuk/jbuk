@@ -14,7 +14,7 @@ export default function DesktopMenuitem({ item }: DesktopMenuProps) {
   const pathname = usePathname()
   const active = item.href === pathname && 'font-bold'
   return (
-    <Link href={item.href} className={cn('', active)}>{item.name}</Link>
+    <Link href={item.href} className={cn('uppercase text-sm', active)}>{item.name}</Link>
   )
 }
 
