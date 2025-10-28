@@ -1,11 +1,11 @@
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenuButton } from "@/components/ui/sidebar";
 import { auth } from "@/lib/auth";
-import { HomeIcon, Users2Icon } from "lucide-react";
+import { HomeIcon } from "lucide-react";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import UsersMenu from "./users-menu";
 import Link from "next/link";
 import AuthMenu from "./auth-menu";
+import SiteMenu from "./site-menu";
 
 export default async function DashboardSidebar() {
   const session = await auth.api.getSession({
@@ -14,26 +14,6 @@ export default async function DashboardSidebar() {
 
   if (!session) {
     redirect('/login')
-  }
-  const data = {
-    user: session.user,
-    users: [
-      {
-        title: 'Users',
-        url: '/dashboard/users',
-        icon: Users2Icon,
-        items: [
-          {
-            title: 'All Users',
-            url: '/dashboard/users'
-          },
-          {
-            title: 'Banned Users',
-            url: '/dashboard/users/banned'
-          }
-        ]
-      }
-    ],
   }
 
   return (
@@ -47,10 +27,10 @@ export default async function DashboardSidebar() {
         </SidebarMenuButton>
       </SidebarHeader>
       <SidebarContent>
-        <UsersMenu userMenu={data.users} />
+        <SiteMenu />
       </SidebarContent>
       <SidebarFooter>
-        <AuthMenu user={data.user} />
+        <AuthMenu user={session.user} />
       </SidebarFooter>
     </Sidebar>
   )

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { fetchAllUsers } from "@/features/dashbnoard/actions/dashboard-auth-actions"
 import DashboardTitle from "@/features/dashbnoard/components/dashboard-title"
+import AllBannedTable from "@/features/dashbnoard/tables/users/all-banned-table"
 import AllUsersTable from "@/features/dashbnoard/tables/users/all-users-table"
 import { BanIcon, PlusIcon, UsersIcon } from "lucide-react"
 import { Metadata } from "next"
@@ -14,10 +15,12 @@ export default async function DashboardUsersPage() {
 
   //fetch all users
   const users = await fetchAllUsers()
+  //fetch the banned users
+  const bannedUsers = users.filter((user) => user.banned === true)
 
   //get the counts for the users dashboard page
   const totalUsers = users.length
-  const banned = users.filter((user) => user.banned === true).length
+  const bannedCount = users.filter((user) => user.banned === true).length
   const varified = users.filter((user) => user.emailVerified === true).length
 
   if (!users) {
@@ -70,7 +73,7 @@ export default async function DashboardUsersPage() {
             <CardDescription className="text-xs">Total number of banned users</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-semibold">{banned}</p>
+            <p className="text-2xl font-semibold">{bannedCount}</p>
           </CardContent>
         </Card>
         <Card>
@@ -89,6 +92,7 @@ export default async function DashboardUsersPage() {
         </Card>
       </div>
       <AllUsersTable users={users} />
+      <AllBannedTable users={bannedUsers} />
     </div>
   )
 }
