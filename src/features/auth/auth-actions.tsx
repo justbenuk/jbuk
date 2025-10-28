@@ -41,6 +41,7 @@ export async function registerUserAction(data: z.infer<typeof registerUserSchema
         email: validated.email,
         password: validated.password,
         image: '/assets/profile.jpg',
+        callbackURL: process.env.BETTER_AUTH_URL + '/client'
       }
     })
     redirect('/login')
@@ -55,7 +56,8 @@ export async function loginUserAction(data: z.infer<typeof loginUserSchema>) {
     await auth.api.signInEmail({
       body: {
         email: validated.email,
-        password: validated.password
+        password: validated.password,
+        callbackURL: process.env.BETTER_AUTH_URL + '/client'
       }
     })
     redirect('/dashboard')

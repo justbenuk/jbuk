@@ -26,10 +26,14 @@ export default async function DashboardSidebar() {
           {
             title: 'All Users',
             url: '/dashboard/users'
+          },
+          {
+            title: 'Banned Users',
+            url: '/dashboard/users/banned'
           }
         ]
       }
-    ]
+    ],
   }
 
   return (

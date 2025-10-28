@@ -18,7 +18,7 @@ interface UserProps {
 export default function UsersMenu({ userMenu }: UserProps) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Users</SidebarGroupLabel>
+      <SidebarGroupLabel>Site</SidebarGroupLabel>
       <SidebarMenu>
         {userMenu.map((item) => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible">

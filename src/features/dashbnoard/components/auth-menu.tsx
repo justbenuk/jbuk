@@ -4,10 +4,14 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 import { userSignoutaction } from "@/features/auth/auth-actions";
 import { UserProps } from "@/types";
-import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, ShieldAlertIcon, Sparkles } from "lucide-react";
+import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, ShieldAlertIcon } from "lucide-react";
 import Link from "next/link";
 
-export default function AuthMenu({ user }: UserProps) {
+interface AuthMenuProps {
+  user: UserProps
+}
+
+export default function AuthMenu({ user }: AuthMenuProps) {
   const { isMobile } = useSidebar()
   return (
     <SidebarMenu>

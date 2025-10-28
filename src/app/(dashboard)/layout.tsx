@@ -1,3 +1,4 @@
+import DashbordContainer from "@/components/dashboard-container";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import DashboardSidebar from "@/features/dashbnoard/components/dashboard-sidebar";
@@ -17,9 +18,9 @@ export default function DashboardLayout({ children }: RootProps) {
             />
           </div>
         </header>
-        <div className="p-6">
+        <DashbordContainer>
           {children}
-        </div>
+        </DashbordContainer>
       </SidebarInset>
     </SidebarProvider>
   )
