@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { headers } from 'next/headers'
 import z from "zod";
 import { loginUserSchema, registerUserSchema } from "./auth-validators";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 export async function isLoggedinAction() {
   //check if the user has a session
@@ -33,7 +34,7 @@ export async function isAdminAction() {
 
 export async function registerUserAction(data: z.infer<typeof registerUserSchema>) {
   try {
-    //validate the user form 
+    //validate the user form
     const validated = registerUserSchema.parse(data)
     await auth.api.signUpEmail({
       body: {
@@ -41,12 +42,14 @@ export async function registerUserAction(data: z.infer<typeof registerUserSchema
         email: validated.email,
         password: validated.password,
         image: '/assets/profile.jpg',
-        callbackURL: process.env.BETTER_AUTH_URL + '/client'
       }
     })
-    redirect('/login')
+    redirect('/client')
   } catch (error) {
-    throw new Error(`${error}`)
+    if (isRedirectError(error)) {
+      throw error
+    }
+    throw error
   }
 }
 
@@ -57,12 +60,14 @@ export async function loginUserAction(data: z.infer<typeof loginUserSchema>) {
       body: {
         email: validated.email,
         password: validated.password,
-        callbackURL: process.env.BETTER_AUTH_URL + '/client'
       }
     })
-    redirect('/dashboard')
+    redirect('/client')
   } catch (error) {
-    throw new Error(`${error}`)
+    if (isRedirectError(error)) {
+      throw error
+    }
+    throw error
   }
 }
 

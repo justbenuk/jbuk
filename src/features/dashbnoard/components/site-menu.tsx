@@ -1,5 +1,5 @@
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
-import { Users2Icon } from "lucide-react"
+import { MessageCircleIcon, Users2Icon } from "lucide-react"
 import Link from "next/link"
 
 
@@ -8,6 +8,14 @@ export default function SiteMenu() {
     <SidebarGroup>
       <SidebarGroupLabel>Site</SidebarGroupLabel>
       <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild>
+            <Link href='/dashboard/messages'>
+              <MessageCircleIcon />
+              Messages
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
         <SidebarMenuItem>
           <SidebarMenuButton asChild>
             <Link href='/dashboard/users'>

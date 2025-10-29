@@ -31,7 +31,7 @@ export default function AllUsersTable({ users }: UserListProps) {
     }),
     columnHelper.accessor('emailVerified', {
       header: 'Verified',
-      cell: (info) => info.getValue() ? (<Badge className="bg-green-500">Verified</Badge>) : (<Badge className="bg-yellow-500">Not Verified</Badge>)
+      cell: (info) => info.getValue() ? (<Badge variant={'outline'} className="border border-green-500 bg-green-500/10 text-green-500">Verified</Badge>) : (<Badge variant={'outline'} className="border border-yellow-500 bg-yellow-500/10 text-yellow-500">Not Verified</Badge>)
     }),
     columnHelper.accessor('image', {
       cell: (info) => <Image src={info.getValue() as string} width={25} height={25} alt="profile image" className="rounded-full" />
@@ -44,7 +44,7 @@ export default function AllUsersTable({ users }: UserListProps) {
       cell: (info) => info.getValue()
     }),
     columnHelper.accessor('banned', {
-      cell: (info) => info.getValue() ? (<Badge variant={'destructive'}>Banned</Badge>) : (<Badge variant={'secondary'}>Not Banned</Badge>)
+      cell: (info) => info.getValue() ? (<Badge variant={'outline'} className="border border-red-500 bg-red-500/10 text-red-500">Banned</Badge>) : (<Badge variant={'secondary'}>Not Banned</Badge>)
     }),
     columnHelper.display({
       id: 'actions',
