@@ -33,6 +33,7 @@ export default function ContactForm() {
       form.reset()
     }
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleForm)} className="max-w-2xl mx-auto">

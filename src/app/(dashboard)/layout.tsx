@@ -18,7 +18,7 @@ export default function DashboardLayout({ children }: RootProps) {
             />
           </div>
         </header>
-        <DashbordContainer>
+        <DashbordContainer className="mt-8">
           {children}
         </DashbordContainer>
       </SidebarInset>
