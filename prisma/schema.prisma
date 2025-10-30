@@ -84,3 +84,13 @@ model Contact {
 
   @@map("contact")
 }
+
+model ProjectMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  type      String
+  budget    String
+  details   String
+  createdAt DateTime @default(now())
+}

@@ -1,43 +1,31 @@
 import DashbordContainer from "@/components/dashboard-container"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty"
+import { isAdminAction } from "@/features/auth/auth-actions"
 import { fetchAllMessage } from "@/features/contant/contact-actions"
 import MessagesTable from "@/features/contant/messages-table"
+import NextStepsTable from "@/features/contant/next-steps-table"
 import DashboardTitle from "@/features/dashbnoard/components/dashboard-title"
-import { MessageCircle } from "lucide-react"
 
 export default async function MessagesPage() {
-
-  const messages = await fetchAllMessage()
-
-  if (messages.length === 0 || !messages) {
-    return (
-      <Card>
-        <CardContent>
-          <Empty>
-            <EmptyHeader>
-              <EmptyMedia variant={'icon'} className="bg-teal-500 text-white">
-                <MessageCircle />
-              </EmptyMedia>
-              <EmptyTitle>No Messages Yet</EmptyTitle>
-              <EmptyDescription>No one has left you any messages</EmptyDescription>
-            </EmptyHeader>
-          </Empty>
-
-        </CardContent>
-      </Card>
-    )
-  }
-
+  await isAdminAction()
+  const [messages, nextSteps] = await fetchAllMessage()
   return (
     <DashbordContainer className="mt-4 space-y-4">
-      <DashboardTitle title="Messages" description="All messages sent via the contact form" />
+      <DashboardTitle title="All Messages" description="All messages sent via the contact form" />
       <Card>
         <CardHeader>
-          <CardTitle>All Messages</CardTitle>
+          <CardTitle>Contact Form</CardTitle>
         </CardHeader>
         <CardContent>
           <MessagesTable messages={messages} />
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Next Steps</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <NextStepsTable nextSteps={nextSteps} />
         </CardContent>
       </Card>
     </DashbordContainer>
