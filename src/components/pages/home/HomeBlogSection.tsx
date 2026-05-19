@@ -9,8 +9,8 @@ export default function HomeBlogSection() {
   return (
     <section>
       <div className="flex flex-row items-center justify-between pb-6">
-        <h1 className="text-xl font-semibold text-gray-400">Latest Posts</h1>
-        <Link href={'/posts'} className="text-gray-400">View All</Link>
+        <h1 className="text-xl font-semibold text-muted-foreground">Latest Posts</h1>
+        <Link href={'/posts'} className="text-muted-foreground">View All</Link>
       </div>
       <div className="grid gap-6">
         {posts.map((post) => (
@@ -29,4 +29,3 @@ export default function HomeBlogSection() {
     </section>
   )
 }
-
