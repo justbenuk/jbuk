@@ -3,10 +3,22 @@ import "./globals.css";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+
+const themeScript = `
+  try {
+    const theme = localStorage.getItem("theme") || "dark";
+    const isDark = theme === "dark";
+    document.documentElement.classList.toggle("dark", isDark);
+    document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+  } catch (_) {
+    document.documentElement.classList.add("dark");
+    document.documentElement.style.colorScheme = "dark";
+  }
+`;
 
 export const metadata: Metadata = {
   title: {
@@ -18,11 +30,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: GlobalProps) {
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)} suppressHydrationWarning>
+    <html lang="en" className={cn("dark font-sans", inter.variable)} style={{ colorScheme: "dark" }} suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
-        <ThemeProvider defaultTheme="dark" disableTransitionOnChange attribute={'class'}>{children}
-          <Toaster />
-        </ThemeProvider>
+        <Script id="theme-script" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {children}
+        <Toaster />
       </body>
     </html>
   );

@@ -1,25 +1,22 @@
 'use client'
 
-import { useTheme } from "next-themes"
 import { Button } from "../ui/button"
 import { MoonIcon, SunIcon } from "lucide-react"
 
 export default function ThemeSwitcher() {
 
-  const { theme, setTheme } = useTheme()
-  const isDark = theme === 'dark'
+  function toggleTheme() {
+    const root = document.documentElement
+    const isDark = root.classList.toggle('dark')
+
+    root.style.colorScheme = isDark ? 'dark' : 'light'
+    localStorage.setItem('theme', isDark ? 'dark' : 'light')
+  }
 
   return (
-    <div suppressHydrationWarning>
-      {isDark ? (
-        <Button variant={'ghost'} onClick={() => setTheme('light')} aria-label="Switch to light theme">
-          <SunIcon className="size-4" />
-        </Button>
-      ) : (
-        <Button variant={'ghost'} onClick={() => setTheme('dark')} aria-label="Switch to dark theme">
-          <MoonIcon className="size-4" />
-        </Button>
-      )}
-    </div>
+    <Button variant={'ghost'} onClick={toggleTheme} aria-label="Toggle theme">
+      <SunIcon className="hidden size-4 dark:block" />
+      <MoonIcon className="size-4 dark:hidden" />
+    </Button>
   )
 }

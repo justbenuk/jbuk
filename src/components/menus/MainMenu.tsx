@@ -14,11 +14,11 @@ export default function MainMenu() {
           <MenuIcon className="pointer-events-none size-6 text-primary" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="flex flex-col w-6 min-w-0 p-0 gap-3 mt-3" align="center">
+      <DropdownMenuContent className="flex flex-col w-6 min-w-0 p-0 gap-3 mt-3 shadow-none border-none" align="center">
         {MAINMENULIST.map((menu) => {
           const Icon = menu.icon
           return (
-            <DropdownMenuItem key={menu.name} asChild className="justify-center p-0">
+            <DropdownMenuItem key={menu.name} asChild className="justify-center p-0 bg-transparent">
               <Link href={menu.href} className="flex size-6 items-center justify-center">
                 <Icon className="size-5 bg-none" />
               </Link>

@@ -16,7 +16,7 @@ export default function HomeBlogSection() {
         {posts.map((post) => (
           <Link href={post.slug} key={post.id} className="grid gap-6 border-b-4 border-dashed pb-4">
             <div>
-              <h1 className="text-primary font-semibold text-xl">{post.title}</h1>
+              <h1 className="text-primary font-semibold text-2xl">{post.title}</h1>
               <p>{post.excerpt}</p>
             </div>
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-center md:justify-between">
