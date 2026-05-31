@@ -14,7 +14,7 @@ export default function HomeBlogSection() {
       </div>
       <div className="grid gap-6">
         {posts.map((post) => (
-          <Link href={post.slug} key={post.id} className="grid gap-6 border-b-4 border-dashed pb-4">
+          <Link href={`/posts/${post.slug}`} key={post.id} className="grid gap-6 border-b-4 border-dashed pb-4">
             <div>
               <h1 className="text-primary font-semibold text-2xl">{post.title}</h1>
               <p>{post.excerpt}</p>
