@@ -3,6 +3,7 @@
 import { auth } from "@/lib/auth";
 import { LoginUserSchema, RegisterUserSchema } from "@/validaters/AuthValidationSchemas";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import z from "zod";
 
 export async function RegisterUserAction(values: z.infer<typeof RegisterUserSchema>) {
@@ -43,4 +44,26 @@ export async function LoginUserAction(values: z.infer<typeof LoginUserSchema>) {
     console.error(`Login User: ${error}`)
     return { success: false, message: 'Failed to login user' }
   }
+}
+
+export async function isLoggedIn() {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
+
+  if (!session) redirect('/auth')
+
+  return true
+}
+
+export async function isAdmin() {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
+
+  if (!session) redirect('/auth')
+
+  if (session.user.role !== 'admin') redirect('/unauthorised')
+
+  return true
 }

@@ -1,4 +1,4 @@
-import { HomeIcon, MailIcon, NewspaperIcon, PencilIcon, User2Icon } from "lucide-react";
+import { HomeIcon, LockIcon, MailIcon, NewspaperIcon, PencilIcon, User2Icon } from "lucide-react";
 
 export const MAINMENULIST = [
   {
@@ -25,5 +25,10 @@ export const MAINMENULIST = [
     name: 'contact',
     href: '/contact',
     icon: MailIcon
+  },
+  {
+    name: 'client',
+    href: '/auth',
+    icon: LockIcon
   }
 ]
