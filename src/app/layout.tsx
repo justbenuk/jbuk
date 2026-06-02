@@ -34,7 +34,7 @@ export default function RootLayout({ children }: GlobalProps) {
       <body className="min-h-full flex flex-col">
         <Script id="theme-script" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeScript }} />
         {children}
-        <Toaster />
+        <Toaster position="top-right" />
       </body>
     </html>
   );
