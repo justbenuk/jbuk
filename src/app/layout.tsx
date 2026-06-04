@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 const themeScript = `
   try {
-    const theme = localStorage.getItem("theme") || "dark";
+    const theme = localStorage.getItem("theme") || "light";
     const isDark = theme === "dark";
     document.documentElement.classList.toggle("dark", isDark);
     document.documentElement.style.colorScheme = isDark ? "dark" : "light";

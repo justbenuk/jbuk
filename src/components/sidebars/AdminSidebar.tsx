@@ -1,6 +1,6 @@
 import { fetchCurrentUser } from "@/actions/AuthActions";
 import UserMenu from "../shared/UserMenu";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenuItem } from "../ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,6 +25,13 @@ export default async function AdminSidebar() {
         </SidebarMenuItem>
       </SidebarHeader>
       <SidebarContent>
+        <SidebarGroup>
+          <SidebarMenu>
+            <SidebarMenuButton asChild>
+              <Link href={'/dashboard'}>Dashboard</Link>
+            </SidebarMenuButton>
+          </SidebarMenu>
+        </SidebarGroup>
         <AdminSiteMenu />
       </SidebarContent>
       <SidebarFooter>

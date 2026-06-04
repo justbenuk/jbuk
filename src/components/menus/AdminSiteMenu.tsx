@@ -12,6 +12,11 @@ export default function AdminSiteMenu() {
               <Link href={'/dashboard/messages'}>Messages</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href={'/dashboard/users'}>Users</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
