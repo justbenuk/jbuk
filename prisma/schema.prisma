@@ -73,3 +73,16 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
+
+model Contact {
+  id          String  @id @default(cuid())
+  name        String
+  email       String
+  phoneNumber String?
+  domain      String?
+  message     String
+
+  createdAt DateTime @default(now())
+
+  @@map("contact")
+}

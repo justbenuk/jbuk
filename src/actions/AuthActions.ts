@@ -2,6 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { LoginUserSchema, RegisterUserSchema } from "@/validaters/AuthValidationSchemas";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import z from "zod";
@@ -66,4 +67,21 @@ export async function isAdmin() {
   if (session.user.role !== 'admin') redirect('/unauthorised')
 
   return true
+}
+
+export async function fetchCurrentUser() {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
+
+  if (!session) return null
+
+  return session.user
+}
+
+export async function userSignOut() {
+  await auth.api.signOut({
+    headers: await headers()
+  })
+  revalidatePath('/client')
 }
