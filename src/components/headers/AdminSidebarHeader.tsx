@@ -1,4 +1,3 @@
-import ThemeSwitcher from "../shared/ThemeSwitcher";
 import { SidebarTrigger } from "../ui/sidebar";
 
 export default function AdminSidebarHeader() {
@@ -8,7 +7,6 @@ export default function AdminSidebarHeader() {
         <SidebarTrigger className="-ml-1" />
         <h1 className="text-base font-medium">Admin Dashboard</h1>
         <div className="ml-auto flex items-center gap-2">
-          <ThemeSwitcher />
         </div>
       </div>
     </header>)

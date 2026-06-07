@@ -4,13 +4,15 @@ import { AllCommunityModule, ColDef, ICellRendererParams, themeQuartz } from "ag
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import { CheckIcon, XIcon } from "lucide-react";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
+import TableSearch from "@/components/shared/TableSearch";
 
 export default function UsersTable({ users }: { users: UserProps[] }) {
 
   const modules = [AllCommunityModule]
+  const [search, setSearch] = useState("");
   const columnDefs = useMemo<ColDef<UserProps>[]>(() => [
     {
       field: 'image',
@@ -54,6 +56,11 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
     }
   ], [])
 
+  const defaultColDef = {
+  sortable: true,
+  filter: true,
+};
+
   const myTheme = themeQuartz.withParams({
     backgroundColor: "var(--background)",
     foregroundColor: "var(--foreground)",
@@ -63,8 +70,13 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
 
   return (
     <AgGridProvider modules={modules}>
-      <div>
+      <div className="grid gap-6">
+        <div className="flex flex-row items-end-end md:w-1/2">
+        <TableSearch title="Search users..." search={search} setSearch={setSearch} />
+        </div>
         <AgGridReact
+        quickFilterText={search}
+        defaultColDef={defaultColDef}
           domLayout="autoHeight"
           theme={myTheme}
           rowData={users}

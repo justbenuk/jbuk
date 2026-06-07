@@ -3,5 +3,5 @@
 import { db } from "@/lib/db"
 
 export async function fetchAllUsers() {
-  return await db.user.findMany()
+  return db.user.findMany();
 }

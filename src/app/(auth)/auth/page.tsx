@@ -22,7 +22,7 @@ export default function AuthPage() {
           <LinerText text='Register' size="text-2xl lg:text-4xl" />
           <p className="text-center">All accounts not associated with a client will be removed</p>
           <Button asChild>
-            <Link href={'/login'}>
+            <Link href={'/register'}>
               <LockIcon />
               <span>Register</span>
             </Link>

@@ -20,6 +20,7 @@ model User {
   banExpires    DateTime?
   sessions      Session[]
   accounts      Account[]
+  company       Company?
 
   @@unique([email])
   @@map("user")
@@ -85,4 +86,24 @@ model Contact {
   createdAt DateTime @default(now())
 
   @@map("contact")
+}
+
+model Company {
+  id               String  @id @default(cuid())
+  name             String
+  email            String
+  contactNumber    String
+  emergencyContact String
+  address          String?
+  domain           String?
+  long             String?
+  lat              String?
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("company")
 }

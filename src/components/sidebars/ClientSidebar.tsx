@@ -1,6 +1,14 @@
 import Link from "next/link";
 import UserMenu from "../shared/UserMenu";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenuItem } from "../ui/sidebar";
+import {
+    Sidebar,
+    SidebarContent,
+    SidebarFooter, SidebarGroup,
+    SidebarHeader,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem
+} from "../ui/sidebar";
 import { fetchCurrentUser } from "@/actions/AuthActions";
 import Image from "next/image";
 
@@ -23,7 +31,15 @@ export default async function ClientSidebar() {
           </Link>
         </SidebarMenuItem>
       </SidebarHeader>
-      <SidebarContent>hh</SidebarContent>
+      <SidebarContent>
+          <SidebarGroup>
+              <SidebarMenu>
+                  <SidebarMenuButton asChild>
+                      <Link href={'/client'}>Dashboard</Link>
+                  </SidebarMenuButton>
+              </SidebarMenu>
+          </SidebarGroup>
+      </SidebarContent>
       <SidebarFooter>
         <UserMenu user={user} />
       </SidebarFooter>

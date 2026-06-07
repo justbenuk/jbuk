@@ -1,6 +1,7 @@
 'use server'
 
 import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { LoginUserSchema, RegisterUserSchema } from "@/validaters/AuthValidationSchemas";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
@@ -76,7 +77,15 @@ export async function fetchCurrentUser() {
 
   if (!session) return null
 
-  return session.user
+  const user = await db.user.findUnique({
+    where: {
+      id: session.user.id
+    },
+    include: {
+      company: true
+    }
+  })
+  return user
 }
 
 export async function userSignOut() {
