@@ -11,6 +11,7 @@ export default function AdminSidebarHeader() {
           <ThemeToggle />
         </div>
       </div>
-    </header>)
+    </header>
+  )
 }
 
