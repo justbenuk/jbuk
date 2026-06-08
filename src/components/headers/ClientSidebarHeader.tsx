@@ -11,6 +11,7 @@ export default function ClientSidebarHeader() {
           <ThemeToggle />
         </div>
       </div>
-    </header>)
+    </header>
+  )
 }
 
