@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
 
 
 export default async function DashboardPage() {
-  const { messages } = await getDashboardStats()
 
   return (
     <div className="grid gap-6">
@@ -23,7 +22,6 @@ export default async function DashboardPage() {
               </Link>
             </CardTitle>
             <CardContent className="grid gap-3 p-0">
-              <h1 className="text-5xl font-bold">{messages}</h1>
               <span>All Projects</span>
             </CardContent>
           </CardHeader>
@@ -37,7 +35,6 @@ export default async function DashboardPage() {
               </Link>
             </CardTitle>
             <CardContent className="grid gap-3 p-0">
-              <h1 className="text-5xl font-bold">{messages}</h1>
               <span>All Servers</span>
             </CardContent>
           </CardHeader>
@@ -51,7 +48,6 @@ export default async function DashboardPage() {
               </Link>
             </CardTitle>
             <CardContent className="grid gap-3 p-0">
-              <h1 className="text-5xl font-bold">{messages}</h1>
               <span>All Messages</span>
             </CardContent>
           </CardHeader>

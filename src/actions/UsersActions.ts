@@ -8,7 +8,15 @@ import { headers } from "next/headers";
 import z from "zod";
 
 export async function fetchAllUsers() {
-  return db.user.findMany();
+  try {
+    const data = await db.user.findMany()
+
+    return { success: true, data }
+  } catch (error) {
+    console.error(`Users Error: ${error}`)
+
+    return { success: false, message: 'Failed to fetch users' }
+  }
 }
 
 export async function changeUserPassword(values: z.infer<typeof ChangePasswordSchema>) {

@@ -21,7 +21,15 @@ export async function createMessageAction(values: z.infer<typeof MainContactForm
 }
 
 export async function fetchAllMessages() {
-  return await db.contact.findMany()
+  try {
+    const data = await db.contact.findMany()
+
+    return { success: true, data }
+
+  } catch (error) {
+    console.error(`Message Fetch Error: ${error}`)
+    return { success: false, message: 'Failed to fetch messages' }
+  }
 }
 
 export async function deleteMessageById(id: string) {
