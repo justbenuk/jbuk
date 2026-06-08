@@ -117,7 +117,7 @@ export default function EditCompanyForm({ company }: { company: CompanyProps | n
           )} />
         </div>
       </div>
-      <div className="flex flex-row justify-end">
+      <div className="flex flex-row justify-end gap-4">
         <Button
           type="button"
           variant={'secondary'}

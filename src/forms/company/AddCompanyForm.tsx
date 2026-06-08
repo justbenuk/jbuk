@@ -35,13 +35,13 @@ export default function AddCompanyForm() {
   }
 
   return (
-    <form onSubmit={form.handleSubmit(handleAddForm)}>
+    <form onSubmit={form.handleSubmit(handleAddForm)} className="grid gap-3">
       <Controller name="name" control={form.control} render={({ field, fieldState }) => (
         <Field>
           <FieldLabel>Name</FieldLabel>
           <FieldContent>
             <Input {...field} />
-            {fieldState.error && <FieldError errors={[fieldState.error]} />};
+            {fieldState.error && <FieldError errors={[fieldState.error]} />}
           </FieldContent>
         </Field>
       )} />
@@ -50,7 +50,7 @@ export default function AddCompanyForm() {
           <FieldLabel>Email</FieldLabel>
           <FieldContent>
             <Input {...field} />
-            {fieldState.error && <FieldError errors={[fieldState.error]} />};
+            {fieldState.error && <FieldError errors={[fieldState.error]} />}
           </FieldContent>
         </Field>
       )} />
@@ -59,7 +59,7 @@ export default function AddCompanyForm() {
           <FieldLabel>Contact Number</FieldLabel>
           <FieldContent>
             <Input {...field} />
-            {fieldState.error && <FieldError errors={[fieldState.error]} />};
+            {fieldState.error && <FieldError errors={[fieldState.error]} />}
           </FieldContent>
         </Field>
       )} />
@@ -68,7 +68,7 @@ export default function AddCompanyForm() {
           <FieldLabel>Emergency Contact</FieldLabel>
           <FieldContent>
             <Input {...field} />
-            {fieldState.error && <FieldError errors={[fieldState.error]} />};
+            {fieldState.error && <FieldError errors={[fieldState.error]} />}
           </FieldContent>
         </Field>
       )} />
@@ -77,7 +77,7 @@ export default function AddCompanyForm() {
           <FieldLabel>Address</FieldLabel>
           <FieldContent>
             <Input {...field} />
-            {fieldState.error && <FieldError errors={[fieldState.error]} />};
+            {fieldState.error && <FieldError errors={[fieldState.error]} />}
           </FieldContent>
         </Field>
       )} />
@@ -86,7 +86,7 @@ export default function AddCompanyForm() {
           <FieldLabel>Domain</FieldLabel>
           <FieldContent>
             <Input {...field} />
-            {fieldState.error && <FieldError errors={[fieldState.error]} />};
+            {fieldState.error && <FieldError errors={[fieldState.error]} />}
           </FieldContent>
         </Field>
       )} />
@@ -96,7 +96,7 @@ export default function AddCompanyForm() {
             <FieldLabel>Longitude</FieldLabel>
             <FieldContent>
               <Input {...field} />
-              {fieldState.error && <FieldError errors={[fieldState.error]} />};
+              {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </FieldContent>
           </Field>
         )} />
@@ -105,7 +105,7 @@ export default function AddCompanyForm() {
             <FieldLabel>Latitude</FieldLabel>
             <FieldContent>
               <Input {...field} />
-              {fieldState.error && <FieldError errors={[fieldState.error]} />};
+              {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </FieldContent>
           </Field>
         )} />

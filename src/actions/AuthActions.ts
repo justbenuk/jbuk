@@ -92,5 +92,5 @@ export async function userSignOut() {
   await auth.api.signOut({
     headers: await headers()
   })
-  revalidatePath('/client')
+  return redirect('/')
 }

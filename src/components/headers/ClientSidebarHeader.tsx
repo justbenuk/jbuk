@@ -1,3 +1,4 @@
+import ThemeToggle from "../shared/ThemeToggle";
 import { SidebarTrigger } from "../ui/sidebar";
 
 export default function ClientSidebarHeader() {
@@ -7,6 +8,7 @@ export default function ClientSidebarHeader() {
         <SidebarTrigger className="-ml-1" />
         <h1 className="text-base font-medium">Client Dashboard</h1>
         <div className="ml-auto flex items-center gap-2">
+          <ThemeToggle />
         </div>
       </div>
     </header>)

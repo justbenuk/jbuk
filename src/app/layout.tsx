@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -21,10 +22,12 @@ export default function RootLayout({ children }: GlobalProps) {
   return (
     <html lang="en" className={cn(inter.variable)} suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
-        <TooltipProvider>
-          {children}
-        </TooltipProvider>
-        <Toaster position="top-right" />
+        <ThemeProvider attribute={'class'} defaultTheme="dark" disableTransitionOnChange>
+          <TooltipProvider>
+            {children}
+          </TooltipProvider>
+          <Toaster position="top-right" />
+        </ThemeProvider>
       </body>
     </html>
   );

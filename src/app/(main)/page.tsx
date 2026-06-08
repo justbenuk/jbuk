@@ -6,6 +6,7 @@ import HomeProjectsSection from "@/components/pages/home/HomeProjectsSection";
 import MainContainer from "@/components/shared/MainContainer";
 
 export default function Home() {
+
   return (
     <>
       <HomeHeroSection />

@@ -9,7 +9,7 @@ export default function layout({ children }: GlobalProps) {
       <ClientSidebar />
       <SidebarInset>
         <ClientSidebarHeader />
-        <div className="container mx-auto p-6">{children}</div>
+        {children}
       </SidebarInset>
     </SidebarProvider>
   )

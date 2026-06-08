@@ -1,13 +1,13 @@
 import Link from "next/link";
 import UserMenu from "../shared/UserMenu";
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter, SidebarGroup,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem
+  Sidebar,
+  SidebarContent,
+  SidebarFooter, SidebarGroup,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem
 } from "../ui/sidebar";
 import { fetchCurrentUser } from "@/actions/AuthActions";
 import Image from "next/image";
@@ -32,13 +32,28 @@ export default async function ClientSidebar() {
         </SidebarMenuItem>
       </SidebarHeader>
       <SidebarContent>
-          <SidebarGroup>
-              <SidebarMenu>
-                  <SidebarMenuButton asChild>
-                      <Link href={'/client'}>Dashboard</Link>
-                  </SidebarMenuButton>
-              </SidebarMenu>
-          </SidebarGroup>
+        <SidebarGroup>
+          <SidebarMenu>
+            <SidebarMenuButton asChild>
+              <Link href={'/client'}>Dashboard</Link>
+            </SidebarMenuButton>
+          </SidebarMenu>
+          <SidebarMenu>
+            <SidebarMenuButton asChild>
+              <Link href={'/client/projects'}>Projects</Link>
+            </SidebarMenuButton>
+          </SidebarMenu>
+          <SidebarMenu>
+            <SidebarMenuButton asChild>
+              <Link href={'/client/servers'}>Servers</Link>
+            </SidebarMenuButton>
+          </SidebarMenu>
+          <SidebarMenu>
+            <SidebarMenuButton asChild>
+              <Link href={'/client/faqs'}>FAQ's</Link>
+            </SidebarMenuButton>
+          </SidebarMenu>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
         <UserMenu user={user} />
