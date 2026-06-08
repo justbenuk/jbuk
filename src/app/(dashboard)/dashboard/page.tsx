@@ -6,6 +6,8 @@ import Link from "next/link";
 
 export default async function DashboardPage() {
   const { messages } = await getDashboardStats()
+
+  const messageCount = 0 | messages
   return (
     <div className="grid gap-6">
       <DashTitle title="Dashboard" />
@@ -19,7 +21,7 @@ export default async function DashboardPage() {
               </Link>
             </CardTitle>
             <CardContent className="grid gap-3 p-0">
-              <h1 className="text-5xl font-bold">{messages}</h1>
+              <h1 className="text-5xl font-bold">{messageCount}</h1>
               <span>All Projects</span>
             </CardContent>
           </CardHeader>
@@ -33,7 +35,7 @@ export default async function DashboardPage() {
               </Link>
             </CardTitle>
             <CardContent className="grid gap-3 p-0">
-              <h1 className="text-5xl font-bold">{messages}</h1>
+              <h1 className="text-5xl font-bold">{messageCount}</h1>
               <span>All Servers</span>
             </CardContent>
           </CardHeader>
@@ -47,7 +49,7 @@ export default async function DashboardPage() {
               </Link>
             </CardTitle>
             <CardContent className="grid gap-3 p-0">
-              <h1 className="text-5xl font-bold">{messages}</h1>
+              <h1 className="text-5xl font-bold">{messageCount}</h1>
               <span>All Messages</span>
             </CardContent>
           </CardHeader>
