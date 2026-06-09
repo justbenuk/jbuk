@@ -1,5 +1,5 @@
-import ThemeToggle from "../shared/ThemeToggle";
-import { SidebarTrigger } from "../ui/sidebar";
+import ThemeToggle from "@/components/shared/ThemeToggle";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function ClientSidebarHeader() {
   return (

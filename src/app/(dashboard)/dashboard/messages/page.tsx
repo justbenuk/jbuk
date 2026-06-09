@@ -3,7 +3,7 @@ import { fetchAllMessages } from "@/actions/MessageActions";
 import ClientContainer from "@/components/shared/ClientContainer";
 import DashTitle from "@/components/shared/DashTitle";
 import ErrorCard from "@/components/shared/ErrorCard";
-import TableSkeleton from "@/components/skeletons/TableSkeleton";
+import TableSkeleton from "@/components/skeletons/BoxSkeleton";
 import MessageTable from "@/tables/MessageTable";
 import { MessageProps } from "@/types/message-types";
 import { useEffect, useState } from "react";

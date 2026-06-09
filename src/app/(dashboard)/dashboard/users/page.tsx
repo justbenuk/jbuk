@@ -3,7 +3,7 @@ import { fetchAllUsers } from "@/actions/UsersActions";
 import ClientContainer from "@/components/shared/ClientContainer";
 import DashTitle from "@/components/shared/DashTitle";
 import ErrorCard from "@/components/shared/ErrorCard";
-import TableSkeleton from "@/components/skeletons/TableSkeleton";
+import TableSkeleton from "@/components/skeletons/BoxSkeleton";
 import { Button } from "@/components/ui/button";
 import UsersTable from "@/tables/UsersTable";
 import { UserProps } from "@/types/user-types";

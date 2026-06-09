@@ -71,21 +71,27 @@ export async function isAdmin() {
 }
 
 export async function fetchCurrentUser() {
-  const session = await auth.api.getSession({
-    headers: await headers()
-  })
 
-  if (!session) return null
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers()
+    })
 
-  const user = await db.user.findUnique({
-    where: {
-      id: session.user.id
-    },
-    include: {
-      company: true
-    }
-  })
-  return user
+    const data = await db.user.findUnique({
+      where: {
+        id: session?.user.id
+      },
+      include: {
+        company: true
+      }
+    })
+    return { success: true, data }
+  } catch (error) {
+    console.error(`Fetch User: ${error}`)
+    return { success: false, message: 'Failed to fetch user' }
+  }
+
+
 }
 
 export async function userSignOut() {

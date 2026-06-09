@@ -1,9 +1,9 @@
 'use client'
 import { fetchDashboardStats } from "@/actions/StatsActions";
 import ErrorCard from "@/components/shared/ErrorCard";
-import TripleBocSkeleton from "@/components/skeletons/TripleBocSkeleton";
+import BoxSkeleton from "@/components/skeletons/TripleBocSkeleton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CircleArrowOutUpRightIcon } from "lucide-react";
+import { CircleArrowOutUpRightIcon, ImagesIcon, MessageCircleMore, ServerIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -28,18 +28,18 @@ export default function StatsSection() {
     loadData()
   }, [])
 
-  if (loading) return <TripleBocSkeleton />
+  if (loading) return <BoxSkeleton length={4} />
   if (error) return <ErrorCard message={error} />
 
   return (
     <div className="grid gap-6">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="ring-primary">
           <CardHeader className="grid gap-3">
             <CardTitle className="flex flex-row items-center justify-between">
-              <h1 className="text-xl">Total Users</h1>
+              <h1 className="text-xl text-primary">Total Users</h1>
               <Link href={'/dashboard/projects'}>
-                <CircleArrowOutUpRightIcon />
+                <UsersIcon />
               </Link>
             </CardTitle>
             <CardContent className="grid gap-3 p-0">
@@ -48,12 +48,12 @@ export default function StatsSection() {
             </CardContent>
           </CardHeader>
         </Card>
-        <Card>
+        <Card className="ring-secondary">
           <CardHeader className="grid gap-3">
             <CardTitle className="flex flex-row items-center justify-between">
-              <h1 className="text-xl">Total Messages</h1>
+              <h1 className="text-xl text-secondary">Total Messages</h1>
               <Link href={'/dashboard/servers'}>
-                <CircleArrowOutUpRightIcon />
+                <MessageCircleMore />
               </Link>
             </CardTitle>
             <CardContent className="grid gap-3 p-0">
@@ -62,16 +62,31 @@ export default function StatsSection() {
             </CardContent>
           </CardHeader>
         </Card>
-        <Card>
+        <Card className="ring-orange-300">
           <CardHeader className="grid gap-3">
             <CardTitle className="flex flex-row items-center justify-between">
-              <h1 className="text-xl">Total Messages</h1>
-              <Link href={'/dashboard/messages'}>
-                <CircleArrowOutUpRightIcon />
+              <h1 className="text-xl text-orange-300">Total Projects</h1>
+              <Link href={'/dashboard/projects'}>
+                <ImagesIcon />
               </Link>
             </CardTitle>
             <CardContent className="grid gap-3 p-0">
-              <span>All Messages</span>
+              <h1 className="text-4xl">{stats?.messages}</h1>
+              <span>All Projects</span>
+            </CardContent>
+          </CardHeader>
+        </Card>
+        <Card className="ring-blue-300">
+          <CardHeader className="grid gap-3">
+            <CardTitle className="flex flex-row items-center justify-between">
+              <h1 className="text-xl text-blue-300">Total Servers</h1>
+              <Link href={'/dashboard/servers'}>
+                <ServerIcon />
+              </Link>
+            </CardTitle>
+            <CardContent className="grid gap-3 p-0">
+              <h1 className="text-4xl">{stats?.messages}</h1>
+              <span>All Servers</span>
             </CardContent>
           </CardHeader>
         </Card>

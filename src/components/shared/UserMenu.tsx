@@ -2,18 +2,40 @@
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { UserProps } from "@/types/user-types";
 import { LineDotRightHorizontal } from "lucide-react";
 import UserSignOutForm from "@/forms/auth/UserSignOutForm";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { UserProps } from "@/types/user-types";
+import { fetchCurrentUser } from "@/actions/AuthActions";
+import ErrorCard from "./ErrorCard";
+import UserMenuSkeleton from "./UserMenuSkeleton";
 
-export default function UserMenu({ user }: { user: UserProps }) {
-
+export default function UserMenu() {
+  const [user, setUser] = useState<UserProps>()
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>()
   const { isMobile } = useSidebar()
 
 
-  const initials = user.name.trim().split(/\s+/).slice(0, 2).map((word) => word[0]).join("").toUpperCase()
-  const isAdmin = user.role?.split(',').map((role) => role.trim()).includes('admin')
+  useEffect(() => {
+    async function loadData() {
+      setLoading(true)
+      const response = await fetchCurrentUser()
+
+      if (response.success && response.data) {
+        setLoading(false)
+        setUser(response.data)
+      } else {
+        setError(response.message)
+      }
+      setLoading(false)
+    }
+    loadData()
+  }, [])
+
+  if (loading) return <UserMenuSkeleton />
+  if (error) return <ErrorCard message={error} />
 
   return (
     <SidebarMenu>
@@ -25,13 +47,13 @@ export default function UserMenu({ user }: { user: UserProps }) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg dark:grayscale">
-                <AvatarImage src={user.image || '/assets/profile.png'} alt={user.name} />
-                <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
+                <AvatarImage src={user?.image || '/assets/profile.png'} alt={user?.name} />
+                <AvatarFallback className="rounded-lg">BA</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
+                <span className="truncate font-medium">{user?.name}</span>
                 <span className="truncate text-xs text-muted-foreground">
-                  {user.email}
+                  {user?.email}
                 </span>
               </div>
               <LineDotRightHorizontal />
@@ -46,13 +68,13 @@ export default function UserMenu({ user }: { user: UserProps }) {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.image || '/assets/profile.png'} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
+                  <AvatarImage src={user?.image || '/assets/profile.png'} alt={user?.name} />
+                  <AvatarFallback className="rounded-lg">BA</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
+                  <span className="truncate font-medium">{user?.name}</span>
                   <span className="truncate text-xs text-muted-foreground">
-                    {user.email}
+                    {user?.email}
                   </span>
                 </div>
               </div>
@@ -62,7 +84,7 @@ export default function UserMenu({ user }: { user: UserProps }) {
               <DropdownMenuItem asChild>
                 <Link href={'/client'}>Client</Link>
               </DropdownMenuItem>
-              {isAdmin && (
+              {user?.role === 'admin' && (
                 <DropdownMenuItem asChild>
                   <Link href={'/dashboard'}>Dashboard</Link>
                 </DropdownMenuItem>

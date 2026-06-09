@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function TableSkeleton() {
+export default function BoxSkeleton() {
   return (
     <div className="w-full space-y-4">
       {/* Search Bar / Actions Row Placeholder */}

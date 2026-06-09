@@ -66,7 +66,7 @@ export default function ChangePasswordForm() {
         />
       </div>
       <div className="flex flex-row items-center justify-end">
-        <Button form="change-password">Change Password</Button>
+        <Button form="change-password">Change</Button>
       </div>
     </form>
   )

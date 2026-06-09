@@ -1,9 +1,9 @@
 import { Skeleton } from "../ui/skeleton";
 
-export default function TripleBocSkeleton() {
+export default function TripleBocSkeleton({ length }: { length: number }) {
   return (
-    <div className="grid gap-4 md:grid-cols-3 w-full">
-      {Array.from({ length: 3 }).map((_, index) => (
+    <div className={`grid gap-4 md:grid-cols-${length} w-full`}>
+      {Array.from({ length: length }).map((_, index) => (
         <div
           key={index}
           className="rounded-xl border border-muted bg-card p-6 shadow-sm space-y-3"

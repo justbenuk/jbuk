@@ -1,23 +1,9 @@
 import Link from "next/link";
-import UserMenu from "../shared/UserMenu";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter, SidebarGroup,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem
-} from "../ui/sidebar";
-import { fetchCurrentUser } from "@/actions/AuthActions";
 import Image from "next/image";
+import { Sidebar, SidebarHeader, SidebarMenuItem, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarFooter } from "@/components/ui/sidebar";
+import UserMenu from "@/components/shared/UserMenu";
 
 export default async function ClientSidebar() {
-
-  const user = await fetchCurrentUser()
-
-  if (!user) return null
-
   return (
     <Sidebar collapsible="offcanvas">
       <SidebarHeader>
@@ -56,7 +42,7 @@ export default async function ClientSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <UserMenu user={user} />
+        <UserMenu />
       </SidebarFooter>
     </Sidebar>
   )
