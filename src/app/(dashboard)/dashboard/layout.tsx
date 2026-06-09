@@ -1,7 +1,12 @@
+import type { Metadata } from 'next';
 import AdminSidebarHeader from "@/components/headers/AdminSidebarHeader";
 import AdminSidebar from "@/components/sidebars/AdminSidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { GlobalProps } from "@/types/global-types";
+
+export const metadata: Metadata = {
+  title: 'Dashboard'
+};
 
 export default function layout({ children }: GlobalProps) {
   return (

@@ -44,7 +44,7 @@ export default function DashboardUsersPage() {
   if (error) return <ErrorCard message={error} />
 
   return (
-    <div className="grid gap-6">
+    <ClientContainer className="grid gap-6">
       <div className="flex flex-row items-center justify-between">
         <DashTitle title="Users" description="All registered users" />
         <Button>
@@ -53,7 +53,7 @@ export default function DashboardUsersPage() {
         </Button>
       </div>
       <UsersTable users={users} />
-    </div>
+    </ClientContainer>
   )
 }
 
