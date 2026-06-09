@@ -1,15 +1,8 @@
-import { fetchCurrentUser } from "@/actions/AuthActions";
-import UserMenu from "../shared/UserMenu";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
-import { redirect } from "next/navigation";
+import UserMenu from "@/components/shared/UserMenu";
+import { SidebarHeader, Sidebar, SidebarMenuItem, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarFooter } from "@/components/ui/sidebar";
 import Image from "next/image";
 import Link from "next/link";
-import AdminSiteMenu from "../menus/AdminSiteMenu";
-
-export default async function AdminSidebar() {
-  const user = await fetchCurrentUser()
-
-  if (!user) redirect('/unauthrised')
+export default function DashboardSidebar() {
 
   return (
     <Sidebar collapsible="offcanvas">
@@ -32,10 +25,9 @@ export default async function AdminSidebar() {
             </SidebarMenuButton>
           </SidebarMenu>
         </SidebarGroup>
-        <AdminSiteMenu />
       </SidebarContent>
       <SidebarFooter>
-        <UserMenu user={user} />
+        <UserMenu />
       </SidebarFooter>
     </Sidebar>
   )

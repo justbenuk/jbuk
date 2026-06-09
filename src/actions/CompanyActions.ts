@@ -2,15 +2,19 @@
 
 import { CompanySchema } from "@/validaters/CompanyValidationSchemas";
 import z from "zod";
-import { fetchCurrentUser } from "./AuthActions";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export async function AddCompanyInformationAction(values: z.infer<typeof CompanySchema>) {
-  const user = await fetchCurrentUser()
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
 
-  if (!user) redirect('/unathorised')
+  if (!session) redirect('/unathorised')
+
   try {
     const validated = CompanySchema.parse(values)
 
@@ -24,7 +28,7 @@ export async function AddCompanyInformationAction(values: z.infer<typeof Company
         domain: validated.domain,
         long: validated.long,
         lat: validated.lat,
-        userId: user.id
+        userId: session.user.id
       }
     })
     revalidatePath('client')
@@ -37,9 +41,12 @@ export async function AddCompanyInformationAction(values: z.infer<typeof Company
 
 export async function EditCompanyInformationAction(values: z.infer<typeof CompanySchema>, companyId: string) {
 
-  const user = await fetchCurrentUser()
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
 
-  if (!user) redirect('/unathorised')
+  if (!session) redirect('/unathorised')
+
   try {
     const validated = CompanySchema.parse(values)
 
@@ -56,7 +63,7 @@ export async function EditCompanyInformationAction(values: z.infer<typeof Compan
         domain: validated.domain,
         long: validated.long,
         lat: validated.lat,
-        userId: user.id
+        userId: session.user.id
       }
     })
     revalidatePath('client')
