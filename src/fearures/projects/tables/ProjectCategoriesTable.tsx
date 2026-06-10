@@ -2,7 +2,7 @@
 
 import type { Project, ProjectCategory } from "@prisma/client"
 import { useMemo, useState } from "react"
-import { AllCommunityModule, ColDef, ICellRendererParams } from "ag-grid-community";
+import { AllCommunityModule, ColDef, ICellRendererParams, themeQuartz } from "ag-grid-community";
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import TableSearch from "@/components/shared/TableSearch";
 import { Button } from "@/components/ui/button";
@@ -63,6 +63,15 @@ export default function ProjectCategoriesTable({ categories }: { categories: Pro
     filter: true,
   };
 
+  const myTheme = themeQuartz.withParams({
+    backgroundColor: "var(--background)",
+    foregroundColor: "var(--foreground)",
+    borderColor: "var(--border)",
+    headerBackgroundColor: "var(--muted)",
+  });
+
+
+
   return (
     <AgGridProvider modules={modules}>
       <div className="grid gap-6">
@@ -72,6 +81,7 @@ export default function ProjectCategoriesTable({ categories }: { categories: Pro
         <AgGridReact
           quickFilterText={search}
           defaultColDef={defaultColDef}
+          theme={myTheme}
           domLayout="autoHeight"
           rowData={categories}
           columnDefs={columnDefs}

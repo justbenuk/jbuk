@@ -1,15 +1,15 @@
 'use client'
-import { fetchDashboardStats } from "@/actions/StatsActions";
 import ErrorCard from "@/components/shared/ErrorCard";
 import BoxSkeleton from "@/components/skeletons/TripleBocSkeleton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CircleArrowOutUpRightIcon, ImagesIcon, MessageCircleMore, ServerIcon, UsersIcon } from "lucide-react";
+import { fetchDashboardStats } from "@/fearures/dashboard/actions/DashboardActions";
+import { ImagesIcon, MessageCircleMore, ServerIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function StatsSection() {
 
-  const [stats, setStats] = useState<{ messages: number, users: number }>()
+  const [stats, setStats] = useState<{ messages: number, users: number, projects: number }>()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>()
 
@@ -71,7 +71,7 @@ export default function StatsSection() {
               </Link>
             </CardTitle>
             <CardContent className="grid gap-3 p-0">
-              <h1 className="text-4xl">{stats?.messages}</h1>
+              <h1 className="text-4xl">{stats?.projects}</h1>
               <span>All Projects</span>
             </CardContent>
           </CardHeader>

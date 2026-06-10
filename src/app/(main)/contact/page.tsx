@@ -4,7 +4,7 @@ import MainContainer from "@/components/shared/MainContainer";
 import { Card, CardContent } from "@/components/ui/card";
 import { MailIcon, PhoneIcon } from "lucide-react";
 import Link from "next/link";
-import ContactForm from '@/fearures/main/forms/ContactForm';
+import ContactForm from '@/fearures/messages/forms/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Contact Me',

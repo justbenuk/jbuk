@@ -1,30 +1,17 @@
 'use client'
-import { deleteMessageById } from "@/actions/MessageActions";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { MessageProps } from "@/types/message-types"
 import { AllCommunityModule, ColDef, ICellRendererParams, themeQuartz } from "ag-grid-community";
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
-import { EyeIcon, Trash2Icon } from "lucide-react";
+import { EyeIcon } from "lucide-react";
+import DeleteMessageForm from "../forms/DeleteMessageForm";
 
-import { useMemo } from "react";
-import { toast } from "sonner";
+export default function MessageTable({ messages, }: { messages: MessageProps[] }) {
 
-export default function MessageTable({ messages }: { messages: MessageProps[] }) {
-
-
-  async function handleDeleteMessage(id: string) {
-    const { success, message } = await deleteMessageById(id)
-
-    if (!success) {
-      toast.error(message)
-    } else {
-      toast.success(message)
-    }
-  }
 
   const modules = [AllCommunityModule]
-  const columnDefs = useMemo<ColDef<MessageProps>[]>(() => [
+  const columnDefs: ColDef<MessageProps>[] = [
     {
       field: 'name',
       headerName: 'Name',
@@ -59,7 +46,7 @@ export default function MessageTable({ messages }: { messages: MessageProps[] })
       cellRenderer: ({ data }: ICellRendererParams<MessageProps>) => {
         if (!data) return null
         return (
-          <div className=" items-center space-x-1">
+          <div className="flex flex-row items-center space-x-1">
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant={'ghost'} className="text-yellow-500 bg-yellow-500/10" size={'icon-xs'}>
@@ -75,14 +62,12 @@ export default function MessageTable({ messages }: { messages: MessageProps[] })
                 <div>{data.message}</div>
               </DialogContent>
             </Dialog>
-            <Button variant={'destructive'} size={'icon-xs'} onClick={() => handleDeleteMessage(data.id)}>
-              <Trash2Icon />
-            </Button>
+            <DeleteMessageForm messageId={data.id} />
           </div>
         )
       }
     }
-  ], [])
+  ]
 
   const myTheme = themeQuartz.withParams({
     backgroundColor: "var(--background)",

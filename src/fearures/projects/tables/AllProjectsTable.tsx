@@ -1,6 +1,6 @@
 import TableSearch from "@/components/shared/TableSearch";
 import { ProjectProps } from "@/types/project-types";
-import { AllCommunityModule, ColDef, ICellRendererParams } from "ag-grid-community";
+import { AllCommunityModule, ColDef, ICellRendererParams, themeQuartz } from "ag-grid-community";
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
@@ -43,6 +43,13 @@ export default function AllProjectsTable({ projects }: { projects: ProjectProps[
     }
   ], [])
 
+  const myTheme = themeQuartz.withParams({
+    backgroundColor: "var(--background)",
+    foregroundColor: "var(--foreground)",
+    borderColor: "var(--border)",
+    headerBackgroundColor: "var(--muted)",
+  });
+
 
   return (
     <AgGridProvider modules={modules}>
@@ -53,6 +60,7 @@ export default function AllProjectsTable({ projects }: { projects: ProjectProps[
         <AgGridReact
           quickFilterText={search}
           domLayout="autoHeight"
+          theme={myTheme}
           rowData={projects}
           columnDefs={columnDefs}
           getRowId={(row) => row.data.id}

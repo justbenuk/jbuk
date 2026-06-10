@@ -1,19 +1,20 @@
 'use client'
-import { createMessageAction } from "@/actions/MessageActions"
 import { Button } from "@/components/ui/button"
 import { Field, FieldContent, FieldError, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { MainContactFormSchema } from "@/validaters/ContactFormSchemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SendIcon } from "lucide-react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import z from "zod"
+import { ContactFormSchema } from "../MessageValidationSchemas"
+import { createMessage } from "../MessageActions"
 
 export default function ContactForm() {
+
   const form = useForm({
-    resolver: zodResolver(MainContactFormSchema),
+    resolver: zodResolver(ContactFormSchema),
     defaultValues: {
       name: '',
       email: '',
@@ -23,8 +24,8 @@ export default function ContactForm() {
     }
   })
 
-  async function handleSendContactForm(values: z.infer<typeof MainContactFormSchema>) {
-    const { success, message } = await createMessageAction(values)
+  async function handleSendContactForm(values: z.infer<typeof ContactFormSchema>) {
+    const { success, message } = await createMessage(values)
 
     if (!success) {
       toast.error(message)
