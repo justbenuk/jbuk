@@ -21,6 +21,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
   company       Company?
+  medias        Media[]
+  projects      Project[]
 
   @@unique([email])
   @@map("user")
@@ -102,8 +104,76 @@ model Company {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
 
   @@map("company")
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+}
+
+model Media {
+  id String @id @default(cuid())
+
+  key     String  @unique
+  url     String
+  name    String?
+  alt     String?
+  caption String?
+
+  type     MediaType @default(IMAGE)
+  mimeType String?
+  size     Int?
+  width    Int?
+  height   Int?
+
+  uploadedById String?
+  uploadedBy   User?   @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?
+
+  @@index([uploadedById])
+  @@index([type])
+}
+
+model Project {
+  id                String          @id @default(cuid())
+  title             String
+  slug              String          @unique
+  excerpt           String
+  image             String
+  content           String
+  author            User            @relation(fields: [userId], references: [id])
+  company           Company?        @relation(fields: [companyId], references: [id])
+  category          ProjectCategory @relation(fields: [projectCategoryId], references: [id])
+  media             Media[]
+  published         Boolean
+  featured          Boolean
+  userId            String
+  projectCategoryId String
+  companyId         String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@map("project")
+}
+
+model ProjectCategory {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  projects    Project[]
+
+  @@map("project-category")
 }

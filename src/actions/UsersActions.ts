@@ -9,7 +9,16 @@ import z from "zod";
 
 export async function fetchAllUsers() {
   try {
-    const data = await db.user.findMany()
+    const users = await db.user.findMany({
+      include: {
+        medias: true,
+      }
+    })
+
+    const data = users.map((user) => ({
+      ...user,
+      image: user.medias.find((media) => media.id === user.image)?.url ?? user.image,
+    }))
 
     return { success: true, data }
   } catch (error) {
@@ -40,4 +49,3 @@ export async function changeUserPassword(values: z.infer<typeof ChangePasswordSc
     return { success: false, message: 'Failed to change password' }
   }
 }
-

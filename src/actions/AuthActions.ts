@@ -3,7 +3,6 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { LoginUserSchema, RegisterUserSchema } from "@/validaters/AuthValidationSchemas";
-import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import z from "zod";
@@ -17,7 +16,6 @@ export async function RegisterUserAction(values: z.infer<typeof RegisterUserSche
         name: validated.name,
         email: validated.email,
         password: validated.password,
-        image: '/assets/profile.png',
       },
       headers: await headers()
     })
@@ -82,10 +80,14 @@ export async function fetchCurrentUser() {
         id: session?.user.id
       },
       include: {
-        company: true
+        company: true,
+        medias: true,
       }
     })
-    return { success: true, data }
+
+    const image = data?.medias.find((media) => media.id === data.image)?.url ?? data?.image
+
+    return { success: true, data: data ? { ...data, image } : data }
   } catch (error) {
     console.error(`Fetch User: ${error}`)
     return { success: false, message: 'Failed to fetch user' }

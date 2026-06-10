@@ -2,6 +2,10 @@ import UserMenu from "@/components/shared/UserMenu";
 import { SidebarHeader, Sidebar, SidebarMenuItem, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarFooter } from "@/components/ui/sidebar";
 import Image from "next/image";
 import Link from "next/link";
+import DashboardSiteMenu from "./DashboardSiteMenu";
+import DashboardProjectsMenu from "./DashboardProjectsMenu";
+import DashboardServersMenu from "./DashboardServersMenu";
+import DashboardPostsMenu from "./DashboardPostsMenu";
 export default function DashboardSidebar() {
 
   return (
@@ -25,6 +29,10 @@ export default function DashboardSidebar() {
             </SidebarMenuButton>
           </SidebarMenu>
         </SidebarGroup>
+        <DashboardPostsMenu />
+        <DashboardProjectsMenu />
+        <DashboardServersMenu />
+        <DashboardSiteMenu />
       </SidebarContent>
       <SidebarFooter>
         <UserMenu />

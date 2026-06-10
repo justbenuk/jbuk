@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import ChangePasswordForm from "@/forms/user/ChangePasswordForm";
+import ChangePasswordForm from "../forms/ChangePasswordForm";
 
 export default function ChangePasswordCard() {
   return (

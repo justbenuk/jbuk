@@ -1,12 +1,8 @@
-import type { Metadata } from 'next';
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { GlobalProps } from "@/types/global-types";
 import DashboardSidebar from '@/fearures/dashboard/components/DashboardSidebar';
 import DashboardSidebarHeader from '@/fearures/dashboard/components/DashbordSidebarHeader';
 
-export const metadata: Metadata = {
-  title: 'Dashboard'
-};
 
 export default function layout({ children }: GlobalProps) {
   return (

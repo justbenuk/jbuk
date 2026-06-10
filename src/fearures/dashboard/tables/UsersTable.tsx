@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
 import TableSearch from "@/components/shared/TableSearch";
+import { imageSrc } from "@/lib/utils";
 
 export default function UsersTable({ users }: { users: UserProps[] }) {
 
@@ -19,7 +20,7 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
       headerName: 'Image',
       cellRenderer: (row: ICellRendererParams<UserProps>) => (
         <div className="flex h-full items-center">
-          <Image src={row.value || '/assets/profile.png'} alt="profile pic" width={30} height={30} className="rounded-full" />
+          <Image src={imageSrc(row.value)} alt="profile pic" width={30} height={30} className="rounded-full h-8" />
         </div>
       )
     },
@@ -57,9 +58,9 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
   ], [])
 
   const defaultColDef = {
-  sortable: true,
-  filter: true,
-};
+    sortable: true,
+    filter: true,
+  };
 
   const myTheme = themeQuartz.withParams({
     backgroundColor: "var(--background)",
@@ -72,11 +73,11 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
     <AgGridProvider modules={modules}>
       <div className="grid gap-6">
         <div className="flex flex-row items-end-end md:w-1/2">
-        <TableSearch title="Search users..." search={search} setSearch={setSearch} />
+          <TableSearch title="Search users..." search={search} setSearch={setSearch} />
         </div>
         <AgGridReact
-        quickFilterText={search}
-        defaultColDef={defaultColDef}
+          quickFilterText={search}
+          defaultColDef={defaultColDef}
           domLayout="autoHeight"
           theme={myTheme}
           rowData={users}

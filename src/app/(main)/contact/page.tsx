@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import LinerText from "@/components/shared/LinerText";
 import MainContainer from "@/components/shared/MainContainer";
 import { Card, CardContent } from "@/components/ui/card";
-import ContactForm from "@/forms/contact/ContactForm";
 import { MailIcon, PhoneIcon } from "lucide-react";
 import Link from "next/link";
+import ContactForm from '@/fearures/main/forms/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Contact Me',

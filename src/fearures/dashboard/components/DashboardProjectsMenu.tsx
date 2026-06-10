@@ -1,20 +1,20 @@
+import { SidebarGroup, SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 
-export default function AdminSiteMenu() {
+export default function DashboardProjectsMenu() {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Site</SidebarGroupLabel>
+      <SidebarGroupLabel>Projects</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link href={'/dashboard/messages'}>Messages</Link>
+              <Link href={'/dashboard/projects'}>All Projects</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link href={'/dashboard/users'}>Users</Link>
+              <Link href={'/dashboard/projects/categories'}>Categories</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

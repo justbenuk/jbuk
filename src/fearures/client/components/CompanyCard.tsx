@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import EditCompanyForm from "@/forms/company/EditCompanyForm"
 import { CompanyProps } from "@/types/company-types"
+import EditCompanyForm from "../forms/EditCompanyForm"
 
 export default function CompanyCard({ company }: { company: CompanyProps }) {
   return (

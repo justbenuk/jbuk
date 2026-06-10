@@ -33,7 +33,7 @@ export default function ChangePasswordForm() {
 
   return (
     <form onSubmit={form.handleSubmit(handleChangePasswordForm)} id="change-password" className="grid gap-6">
-      <div className="flex flex-row items-center justify-between gap-10">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
         <Controller name="currentPassword" control={form.control} render={({ field, fieldState }) => (
           <Field>
             <FieldLabel>Current Password</FieldLabel>
