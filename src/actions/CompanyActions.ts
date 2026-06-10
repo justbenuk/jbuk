@@ -73,3 +73,14 @@ export async function EditCompanyInformationAction(values: z.infer<typeof Compan
     return { success: false, message: 'Failed to update company' }
   }
 }
+
+export async function fetchAllCompanies() {
+  try {
+    const data = await db.company.findMany()
+
+    return { success: true, data }
+  } catch (error) {
+    console.error(`Failed to fetch company list: ${error}`)
+    return { success: false, message: 'Failed to fetch company list' }
+  }
+}

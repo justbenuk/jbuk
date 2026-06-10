@@ -40,7 +40,15 @@ export default function CategoriesPage() {
     loadData()
   }, [])
 
-  if (loading) return <TableSkeleton />
+  if (loading) return (
+    < ClientContainer >
+      <Card>
+        <CardContent>
+          <TableSkeleton />
+        </CardContent>
+      </Card>
+    </ClientContainer >
+  )
   if (error) return <ErrorCard message={error} />
 
 

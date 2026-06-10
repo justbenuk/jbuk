@@ -2,9 +2,13 @@
 
 import type { Project, ProjectCategory } from "@prisma/client"
 import { useMemo, useState } from "react"
-import { AllCommunityModule, ColDef, themeQuartz } from "ag-grid-community";
+import { AllCommunityModule, ColDef, ICellRendererParams } from "ag-grid-community";
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import TableSearch from "@/components/shared/TableSearch";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { EyeIcon } from "lucide-react";
+import DeleteProjectForm from "../forms/DeleteProjectForm";
 
 type ProjectCategoryRow = ProjectCategory & {
   projects: Project[]
@@ -36,7 +40,21 @@ export default function ProjectCategoriesTable({ categories }: { categories: Pro
       valueGetter: (row) => row.data?.projects.length ?? 0,
     },
     {
-      headerName: 'Actions'
+      headerName: 'Actions',
+      cellRenderer: (row: ICellRendererParams) => {
+        const id = row.data?.id
+
+        return (
+          <div className="flex items-center gap-2">
+            <Button variant={'outline'} size={'icon-xs'} asChild className="text-yellow-500">
+              <Link href={`/dashboard/projects/categories/edit/${id}`}>
+                <EyeIcon />
+              </Link>
+            </Button>
+            <DeleteProjectForm categoryId={id} />
+          </div>
+        )
+      }
     }
   ], [])
 
@@ -44,14 +62,6 @@ export default function ProjectCategoriesTable({ categories }: { categories: Pro
     sortable: true,
     filter: true,
   };
-
-  const myTheme = themeQuartz.withParams({
-    backgroundColor: "var(--background)",
-    foregroundColor: "var(--foreground)",
-    borderColor: "var(--border)",
-    headerBackgroundColor: "var(--muted)",
-  });
-
 
   return (
     <AgGridProvider modules={modules}>
@@ -63,7 +73,6 @@ export default function ProjectCategoriesTable({ categories }: { categories: Pro
           quickFilterText={search}
           defaultColDef={defaultColDef}
           domLayout="autoHeight"
-          theme={myTheme}
           rowData={categories}
           columnDefs={columnDefs}
           getRowId={(row) => row.data.id}

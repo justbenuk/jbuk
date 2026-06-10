@@ -9,8 +9,6 @@ export interface ProjectCategoryProps {
   description: string | null | undefined
   createdAt: Date
   updatedAt: Date
-  projects: ProjectProps[]
-
 }
 
 export interface ProjectProps {
@@ -21,7 +19,7 @@ export interface ProjectProps {
   image: string
   content: string
   author: UserProps
-  company?: CompanyProps | null | undefined
+  company?: CompanyProps
   category: ProjectCategoryProps
   media: MediaProps[]
   published: Boolean

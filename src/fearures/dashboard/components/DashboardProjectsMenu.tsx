@@ -9,6 +9,11 @@ export default function DashboardProjectsMenu() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
+              <Link href={'/dashboard/projects/new'}>New Project</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
               <Link href={'/dashboard/projects'}>All Projects</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -1,5 +1,4 @@
 import { ProjectProps } from "./project-types"
-import { UserProps } from "./user-types"
 
 export interface MediaProps {
   id: string
@@ -9,14 +8,12 @@ export interface MediaProps {
   alt?: string | null | undefined
   caption?: string | null | undefined
   type: string
-  mimeType?: string
-  size?: Number
-  width?: Number
-  height?: Number
+  mimeType?: string | null | undefined
+  size?: Number | null | undefined
+  width?: Number | null | undefined
+  height?: Number | null | undefined
   uploadedById?: string | null | undefined
-  uploadedBy?: UserProps | null | undefined
   createdAt: Date
   updatedAt: Date
-  project?: ProjectProps[]
-  projectId?: string
+  projectId?: string | null | undefined
 }
