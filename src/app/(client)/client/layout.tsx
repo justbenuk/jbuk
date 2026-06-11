@@ -1,6 +1,6 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import ClientSidebar from "@/fearures/client/components/ClientSidebar";
-import ClientSidebarHeader from "@/fearures/client/components/ClientSidebarHeader";
+import ClientSidebar from "@/features/client/components/ClientSidebar";
+import ClientSidebarHeader from "@/features/client/components/ClientSidebarHeader";
 import { GlobalProps } from "@/types/global-types";
 
 export default function layout({ children }: GlobalProps) {
@@ -14,4 +14,3 @@ export default function layout({ children }: GlobalProps) {
     </SidebarProvider>
   )
 }
-

@@ -2,15 +2,14 @@
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { imageSrc } from "@/lib/utils";
 import { LineDotRightHorizontal } from "lucide-react";
-import UserSignOutForm from "@/forms/auth/UserSignOutForm";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { UserProps } from "@/types/user-types";
 import { fetchCurrentUser } from "@/actions/AuthActions";
 import ErrorCard from "./ErrorCard";
 import UserMenuSkeleton from "./UserMenuSkeleton";
+import { UserProps } from "@/features/Authentication/AuthenticationTypes";
+import UserSignOutForm from "@/features/Authentication/forms/UserSignOutForm";
 
 export default function UserMenu() {
   const [user, setUser] = useState<UserProps>()
@@ -48,7 +47,7 @@ export default function UserMenu() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg dark:grayscale">
-                <AvatarImage src={imageSrc(user?.image)} alt={user?.name} />
+                <AvatarImage src={user?.image as string} alt={user?.name} />
                 <AvatarFallback className="rounded-lg">BA</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -69,7 +68,7 @@ export default function UserMenu() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={imageSrc(user?.image)} alt={user?.name} />
+                  <AvatarImage src={user?.image as string} alt={user?.name} />
                   <AvatarFallback className="rounded-lg">BA</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import ClientContainer from "@/components/shared/ClientContainer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import MessageList from "@/fearures/messages/components/MessageList";
+import MessageList from "@/features/messages/components/MessageList";
 
 export const metadata: Metadata = {
   title: 'Messages'
@@ -22,4 +22,3 @@ export default function DashboardMessagePage() {
     </ClientContainer>
   )
 }
-

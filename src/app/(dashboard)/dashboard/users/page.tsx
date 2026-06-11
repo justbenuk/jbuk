@@ -1,58 +1,24 @@
-'use client'
-import { fetchAllUsers } from "@/actions/UsersActions";
+import type { Metadata } from 'next';
 import ClientContainer from "@/components/shared/ClientContainer";
-import DashTitle from "@/components/shared/DashTitle";
-import ErrorCard from "@/components/shared/ErrorCard";
-import TableSkeleton from "@/components/skeletons/TableSkeleton";
-import { Button } from "@/components/ui/button";
-import UsersTable from "@/fearures/dashboard/tables/UsersTable";
-import { UserProps } from "@/types/user-types";
-import { PlusIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import UserList from "@/features/dashboard/components/UserList";
 
+export const metadata: Metadata = {
+  title: 'Users'
+};
 
-export default function DashboardUsersPage() {
-
-  const [users, setUsers] = useState<UserProps[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>()
-
-  useEffect(() => {
-
-    async function loadData() {
-      setLoading(true)
-      const response = await fetchAllUsers()
-
-      if (response.success && response.data) {
-        setUsers(response.data)
-      } else {
-        setError('Failed to load users')
-      }
-      setLoading(false)
-    }
-    loadData()
-
-  }, [])
-
-  if (loading) {
-    return (
-      <ClientContainer>
-        <TableSkeleton />
-      </ClientContainer>
-    )
-  }
-  if (error) return <ErrorCard message={error} />
-
+export default function UsersPage() {
   return (
-    <ClientContainer className="grid gap-6">
-      <div className="flex flex-row items-center justify-between">
-        <DashTitle title="Users" description="All registered users" />
-        <Button>
-          <PlusIcon />
-          <span>Add User</span>
-        </Button>
-      </div>
-      <UsersTable users={users} />
+    <ClientContainer>
+      <Card>
+        <CardHeader>
+          <CardTitle>Users</CardTitle>
+          <CardDescription>List of all users</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <UserList />
+        </CardContent>
+      </Card>
     </ClientContainer>
   )
 }

@@ -1,7 +1,7 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { GlobalProps } from "@/types/global-types";
-import DashboardSidebar from '@/fearures/dashboard/components/DashboardSidebar';
-import DashboardSidebarHeader from '@/fearures/dashboard/components/DashbordSidebarHeader';
+import DashboardSidebar from '@/features/dashboard/components/DashboardSidebar';
+import DashboardSidebarHeader from '@/features/dashboard/components/DashbordSidebarHeader';
 
 
 export default function layout({ children }: GlobalProps) {
@@ -15,4 +15,3 @@ export default function layout({ children }: GlobalProps) {
     </SidebarProvider>
   )
 }
-

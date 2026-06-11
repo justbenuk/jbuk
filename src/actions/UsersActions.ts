@@ -1,8 +1,8 @@
 'use server'
 
+import { ChangePasswordSchema } from "@/features/client/ClientValidationSchema";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db"
-import { ChangePasswordSchema } from "@/validaters/UserValidationSchemas";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import z from "zod";

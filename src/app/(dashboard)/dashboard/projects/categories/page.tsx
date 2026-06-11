@@ -1,15 +1,15 @@
 'use client'
-import { fetchAllCategories } from "@/actions/ProjectActions";
 import ClientContainer from "@/components/shared/ClientContainer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import ProjectCategoriesTable from "@/fearures/projects/tables/ProjectCategoriesTable";
+import ProjectCategoriesTable from "@/features/projects/tables/ProjectCategoriesTable";
 import { PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Project, ProjectCategory } from "@prisma/client"
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import ErrorCard from "@/components/shared/ErrorCard";
 import Link from "next/link";
+import { fetchAllCategories } from "@/features/projects/ProjectActions";
 
 
 type ProjectCategoryRow = ProjectCategory & {

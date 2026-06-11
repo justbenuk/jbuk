@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { FieldDescription } from "@/components/ui/field";
-import RegisterUserForm from "@/forms/auth/RegisterUserForm";
+import RegisterUserForm from "@/features/Authentication/forms/RegisterUserForm";
 import Image from "next/image";
 
 export default function RegisterPage() {

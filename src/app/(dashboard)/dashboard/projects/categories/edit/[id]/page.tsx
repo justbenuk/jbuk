@@ -1,13 +1,13 @@
 'use client'
 
-import { fetchCategoryById } from "@/actions/ProjectActions"
 import BackButton from "@/components/shared/BackButton"
 import ClientContainer from "@/components/shared/ClientContainer"
 import ErrorCard from "@/components/shared/ErrorCard"
+import CategorySkeleton from "@/components/skeletons/CategorySkeleton"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import EditProjectCategoryForm from "@/fearures/projects/forms/EditprojectCategoryForm"
-import { CategoryProps } from "@/types/CategoryProps"
+import { CategoryProps } from "@/features/GlobalTypes"
+import EditProjectCategoryForm from "@/features/projects/forms/EditprojectCategoryForm"
+import { fetchCategoryById } from "@/features/projects/ProjectActions"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -31,24 +31,11 @@ export default function EditCategoryPage() {
     loadData()
   }, [])
 
-  if (loading) return (<ClientContainer >
-    <Card>
-      <CardContent className="grid gap-6">
-        <div className="grid gap-2">
-          <Skeleton className="h-5 w-30" />
-          <Skeleton className="h-5 w-1/2" />
-        </div>
-        <div className="grid gap-2">
-          <Skeleton className="h-5 w-30" />
-          <Skeleton className="h-48 w-1/2" />
-        </div>
-      </CardContent>
-    </Card>
-  </ClientContainer>)
-
-
+  if (loading) return (<CategorySkeleton />)
   if (error) return <ErrorCard message={error} />
   if (!category) return <ErrorCard message="Category not found" />
+
+
   return (
     <ClientContainer>
       <BackButton link={'/dashboard/projects/categories'} />

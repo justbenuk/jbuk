@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import StatsSection from "@/components/pages/Dashboard/StatsSection";
 import ClientContainer from "@/components/shared/ClientContainer";
+import StatsSection from '@/features/dashboard/components/StatsSection';
 
 export const metadata: Metadata = {
   title: 'Dashboard'

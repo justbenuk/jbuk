@@ -1,11 +1,11 @@
 'use server'
 
-import { LoginUserSchema, RegisterUserSchema } from "@/features/Authentication/AuthenticationValidationSchema";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import z from "zod";
+import { LoginUserSchema, RegisterUserSchema } from "./AuthenticationValidationSchema";
 
 export async function RegisterUserAction(values: z.infer<typeof RegisterUserSchema>) {
   try {
@@ -81,10 +81,13 @@ export async function fetchCurrentUser() {
       },
       include: {
         company: true,
+        medias: true,
       }
     })
 
-    return { success: true, data }
+    const image = data?.medias.find((media) => media.id === data.image)?.url ?? data?.image
+
+    return { success: true, data: data ? { ...data, image } : data }
   } catch (error) {
     console.error(`Fetch User: ${error}`)
     return { success: false, message: 'Failed to fetch user' }

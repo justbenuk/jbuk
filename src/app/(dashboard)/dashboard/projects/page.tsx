@@ -1,11 +1,11 @@
 'use client'
-import { fetchAllProjects } from "@/actions/ProjectActions";
 import ClientContainer from "@/components/shared/ClientContainer";
 import ErrorCard from "@/components/shared/ErrorCard";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import AllProjectsTable from '@/fearures/projects/tables/AllProjectsTable';
-import { ProjectProps } from "@/types/project-types";
+import { fetchAllProjects } from "@/features/projects/ProjectActions";
+import { ProjectProps } from "@/features/projects/ProjectTypes";
+import AllProjectsTable from '@/features/projects/tables/AllProjectsTable';
 import { useEffect, useState } from "react";
 
 

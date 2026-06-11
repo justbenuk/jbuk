@@ -1,5 +1,5 @@
 import ClientContainer from "@/components/shared/ClientContainer";
-import AddProjectForm from "@/fearures/projects/forms/AddProjectForm";
+import AddProjectForm from "@/features/projects/forms/AddProjectForm";
 
 export default function NewProjectPage() {
   return (
@@ -8,4 +8,3 @@ export default function NewProjectPage() {
     </ClientContainer>
   )
 }
-

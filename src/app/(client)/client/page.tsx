@@ -4,12 +4,13 @@ import { fetchCurrentUser } from "@/actions/AuthActions";
 import ClientContainer from "@/components/shared/ClientContainer";
 import ClientMap from "@/components/maps/ClientMap";
 import { useEffect, useState } from "react";
-import UserCard from "@/fearures/client/components/UserCard";
+import UserCard from "@/features/client/components/UserCard";
 import ErrorCard from "@/components/shared/ErrorCard";
-import ProfileSkeleton from "@/fearures/client/components/ProfileSkeleton";
-import CompanyCard from "@/fearures/client/components/CompanyCard";
-import { Card, CardContent } from "@/components/ui/card";
-import ChangePasswordCard from "@/fearures/client/components/ChangePasswordCard";
+import ProfileSkeleton from "@/features/client/components/ProfileSkeleton";
+import CompanyCard from "@/features/client/components/CompanyCard";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import ChangePasswordCard from "@/features/client/components/ChangePasswordCard";
+import AddCompanyForm from "@/features/client/forms/AddCompanyForm";
 
 export default function ClientPage() {
 
@@ -41,8 +42,6 @@ export default function ClientPage() {
   }
   if (error) return <ErrorCard message={error} />
 
-  console.log(user)
-
   return (
     <ClientContainer className="grid gap-6">
       <Card className="p-0">
@@ -56,7 +55,19 @@ export default function ClientPage() {
         </CardContent>
 
       </Card>
-      <CompanyCard company={user.company} />
+      {!user.company ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>Company Information</CardTitle>
+            <CardDescription>Add your company information</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <AddCompanyForm />
+          </CardContent>
+        </Card>
+      ) : (
+        <CompanyCard company={user.company} />
+      )}
       <ChangePasswordCard />
     </ClientContainer>
   )

@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { FieldDescription } from '@/components/ui/field';
-import LoginUserForm from '@/forms/auth/LoginUserForm';
+import LoginUserForm from '@/features/Authentication/forms/LoginUserForm';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
