@@ -10,6 +10,22 @@ const f = createUploadthing();
 export const utapi = new UTApi()
 
 export const ourFileRouter = {
+  CompanyPictureUploader: f({
+    image: {
+      maxFileSize: "4MB",
+      maxFileCount: 1,
+    },
+  })
+    .middleware(async () => {
+      const session = await auth.api.getSession({
+        headers: await headers()
+      })
+      if (!session) throw new UploadThingError("Unauthorized");
+      return { userId: session.user.id };
+    })
+    .onUploadComplete(async ({ metadata, file }) => {
+
+    }),
   ProfilePictureUploader: f({
     image: {
       maxFileSize: "4MB",

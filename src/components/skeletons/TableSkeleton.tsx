@@ -1,8 +1,9 @@
 import { Skeleton } from "@/components/ui/skeleton"
+import ClientContainer from "../shared/ClientContainer"
 
 export default function TableSkeleton() {
   return (
-    <div className="w-full space-y-4">
+    <ClientContainer className="w-full space-y-4">
       {/* Search Bar / Actions Row Placeholder */}
       <div className="flex items-center justify-between py-4">
         <Skeleton className="h-10 w-62.5" /> {/* Search Input */}
@@ -53,7 +54,7 @@ export default function TableSkeleton() {
           <Skeleton className="h-8 w-12.5" />  {/* Next button */}
         </div>
       </div>
-    </div>
+    </ClientContainer>
   )
 }
 

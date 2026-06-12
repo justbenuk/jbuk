@@ -2,10 +2,10 @@
 import ClientContainer from "@/components/shared/ClientContainer";
 import ErrorCard from "@/components/shared/ErrorCard";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
-import UsersTable from "@/features/dashboard/tables/UsersTable";
 import { useEffect, useState } from "react";
-import { fetchAllUsers } from "../DashboardActions";
 import { UserProps } from "@/features/Authentication/AuthenticationTypes";
+import { fetchAllUsers } from "../AuthenticationActions";
+import UsersTable from "../tables/UsersTable";
 
 
 export default function UserList() {

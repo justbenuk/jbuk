@@ -46,11 +46,13 @@ export default function ProjectCategoriesTable({ categories }: { categories: Pro
 
         return (
           <div className="flex items-center gap-2">
-            <Button variant={'outline'} size={'icon-xs'} asChild className="text-yellow-500">
-              <Link href={`/dashboard/categories/edit/${id}`}>
-                <EyeIcon />
-              </Link>
-            </Button>
+            <div>
+              <Button variant={'outline'} size={'icon-xs'} asChild className="text-yellow-500">
+                <Link href={`/dashboard/categories/edit/${id}`}>
+                  <EyeIcon />
+                </Link>
+              </Button>
+            </div>
             <DeleteProjectCategoryForm categoryId={row.data.id} />
           </div>
         )

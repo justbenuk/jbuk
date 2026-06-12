@@ -3,17 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldContent, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { CompanySchema } from "../ClientValidationSchema";
-import { EditCompanyInformationAction } from "../ClientActions";
-import { CompanyProps } from "../ClientTypes";
+import { CompanyProps } from "../CompanyTypes";
+import { CompanySchema } from "../CompanyValidationSchema";
+import { EditCompanyInformation } from "../CompanyActions";
 
 
-export default function EditCompanyForm({ company }: { company: CompanyProps | null | undefined }) {
-  const [edit, setEdit] = useState(true)
+export default function EditCompanyForm({ company }: { company: CompanyProps }) {
   const form = useForm({
     resolver: zodResolver(CompanySchema),
     defaultValues: {
@@ -29,13 +27,12 @@ export default function EditCompanyForm({ company }: { company: CompanyProps | n
   })
 
   async function handleAddForm(values: z.infer<typeof CompanySchema>) {
-    const { success, message } = await EditCompanyInformationAction(values, company?.id as string)
+    const response = await EditCompanyInformation(values, company.id)
 
-    if (!success) {
-      toast.error(message)
+    if (response.success) {
+      toast.success('Company Updated')
     } else {
-      toast.success(message)
-      setEdit(true)
+      toast.error('Failed to update company')
     }
   }
 
@@ -46,7 +43,7 @@ export default function EditCompanyForm({ company }: { company: CompanyProps | n
           <Field>
             <FieldLabel>Name</FieldLabel>
             <FieldContent>
-              <Input {...field} disabled={edit} />
+              <Input {...field} />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </FieldContent>
           </Field>
@@ -55,7 +52,7 @@ export default function EditCompanyForm({ company }: { company: CompanyProps | n
           <Field>
             <FieldLabel>Email</FieldLabel>
             <FieldContent>
-              <Input {...field} disabled={edit} />
+              <Input {...field} />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </FieldContent>
           </Field>
@@ -64,7 +61,7 @@ export default function EditCompanyForm({ company }: { company: CompanyProps | n
           <Field>
             <FieldLabel>Contact Number</FieldLabel>
             <FieldContent>
-              <Input {...field} disabled={edit} />
+              <Input {...field} />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </FieldContent>
           </Field>
@@ -73,7 +70,7 @@ export default function EditCompanyForm({ company }: { company: CompanyProps | n
           <Field>
             <FieldLabel>Emergency Contact</FieldLabel>
             <FieldContent>
-              <Input {...field} disabled={edit} />
+              <Input {...field} />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </FieldContent>
           </Field>
@@ -82,7 +79,7 @@ export default function EditCompanyForm({ company }: { company: CompanyProps | n
           <Field>
             <FieldLabel>Address</FieldLabel>
             <FieldContent>
-              <Input {...field} disabled={edit} />
+              <Input {...field} />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </FieldContent>
           </Field>
@@ -91,7 +88,7 @@ export default function EditCompanyForm({ company }: { company: CompanyProps | n
           <Field>
             <FieldLabel>Domain</FieldLabel>
             <FieldContent>
-              <Input {...field} disabled={edit} />
+              <Input {...field} />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </FieldContent>
           </Field>
@@ -101,7 +98,7 @@ export default function EditCompanyForm({ company }: { company: CompanyProps | n
             <Field>
               <FieldLabel>Longitude</FieldLabel>
               <FieldContent>
-                <Input {...field} disabled={edit} />
+                <Input {...field} />
                 {fieldState.error && <FieldError errors={[fieldState.error]} />}
               </FieldContent>
             </Field>
@@ -110,7 +107,7 @@ export default function EditCompanyForm({ company }: { company: CompanyProps | n
             <Field>
               <FieldLabel>Latitude</FieldLabel>
               <FieldContent>
-                <Input {...field} disabled={edit} />
+                <Input {...field} />
                 {fieldState.error && <FieldError errors={[fieldState.error]} />}
               </FieldContent>
             </Field>
@@ -118,25 +115,8 @@ export default function EditCompanyForm({ company }: { company: CompanyProps | n
         </div>
       </div>
       <div className="flex flex-row justify-end gap-4">
-        <Button
-          type="button"
-          variant={'secondary'}
-          onClick={() => setEdit(true)}
-          disabled={edit}
-        >
-          Cancel
-        </Button>
-
-        <Button
-          type={edit ? 'button' : 'submit'}
-          onClick={(event) => {
-            if (edit) {
-              event.preventDefault()
-              setEdit(false)
-            }
-          }}
-        >
-          {edit ? 'Edit' : 'Save'}
+        <Button>
+          Save
         </Button>
       </div>
     </form >

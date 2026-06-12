@@ -9,6 +9,7 @@ import { enGB } from 'date-fns/locale'
 import TableSearch from "@/components/shared/TableSearch";
 import { imageSrc } from "@/lib/utils";
 import { UserProps } from "@/features/Authentication/AuthenticationTypes";
+import DeleteUserForm from "../forms/DeleteUserForm";
 
 export default function UsersTable({ users }: { users: UserProps[] }) {
 
@@ -20,7 +21,7 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
       headerName: 'Image',
       cellRenderer: (row: ICellRendererParams<UserProps>) => (
         <div className="flex h-full items-center">
-          <Image src={imageSrc(row.value)} alt="profile pic" width={30} height={30} className="rounded-full h-8" />
+          <Image src={imageSrc(row.value)} alt="profile pic" width={30} height={30} className="rounded-full h-6 w-6" />
         </div>
       )
     },
@@ -40,14 +41,6 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
         </div>
       )
     }, {
-      field: 'companies',
-      headerName: 'Companies',
-      cellRenderer: (row: ICellRendererParams<UserProps>) => (
-        <div className="flex h-full items-center">
-          {row.data?.companies?.length ? <CheckIcon className="size-5" /> : <XIcon className="size-5" />}
-        </div>
-      )
-    }, {
       field: 'role',
       headerName: 'Role',
       cellRenderer: (row: ICellRendererParams<UserProps>) => (
@@ -61,7 +54,12 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
         <span>{row.value ? format(row.value, 'Pp', { locale: enGB }) : ''}</span>
       )
     }, {
-      headerName: 'Actions'
+      headerName: 'Actions',
+      cellRenderer: (row: ICellRendererParams<UserProps>) => (
+        <div>
+          <DeleteUserForm userId={row.data?.id} />
+        </div>
+      )
     }
   ], [])
 
@@ -76,8 +74,6 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
     borderColor: "var(--border)",
     headerBackgroundColor: "var(--muted)",
   });
-
-  console.log(users)
 
   return (
     <AgGridProvider modules={modules}>

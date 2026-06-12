@@ -1,15 +1,15 @@
 'use client'
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { LineDotRightHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchCurrentUser } from "@/actions/AuthActions";
-import ErrorCard from "./ErrorCard";
-import UserMenuSkeleton from "./UserMenuSkeleton";
 import { UserProps } from "@/features/Authentication/AuthenticationTypes";
 import UserSignOutForm from "@/features/Authentication/forms/UserSignOutForm";
+import ErrorCard from "@/components/shared/ErrorCard";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import UserMenuSkeleton from "@/components/skeletons/UserMenuSkeleton";
 
 export default function UserMenu() {
   const [user, setUser] = useState<UserProps>()

@@ -1,6 +1,5 @@
 'use client'
 
-import { fetchCurrentUser } from "@/actions/AuthActions";
 import ClientContainer from "@/components/shared/ClientContainer";
 import ClientMap from "@/components/maps/ClientMap";
 import { useEffect, useState } from "react";
@@ -12,6 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import ChangePasswordCard from "@/features/client/components/ChangePasswordCard";
 import AddCompanyForm from "@/features/client/forms/AddCompanyForm";
 import { UserProps } from "@/features/Authentication/AuthenticationTypes";
+import { fetchCurrentUser } from "@/actions/AuthActions";
 
 export default function ClientPage() {
 

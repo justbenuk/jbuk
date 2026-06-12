@@ -18,24 +18,4 @@ export async function fetchDashboardStats() {
 
 }
 
-export async function fetchAllUsers() {
-  try {
-    const users = await db.user.findMany({
-      include: {
-        medias: true,
-        companies: true,
-      }
-    })
 
-    const data = users.map((user) => ({
-      ...user,
-      image: user.medias.find((media) => media.id === user.image)?.url ?? user.image,
-    }))
-
-    return { success: true, data }
-  } catch (error) {
-    console.error(`Users Error: ${error}`)
-
-    return { success: false, message: 'Failed to fetch users' }
-  }
-}

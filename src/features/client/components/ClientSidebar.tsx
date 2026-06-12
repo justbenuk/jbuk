@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Sidebar, SidebarHeader, SidebarMenuItem, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarFooter } from "@/components/ui/sidebar";
-import UserMenu from "@/components/shared/UserMenu";
+import UserMenu from "@/features/Authentication/companents/UserMenu";
 
 export default function ClientSidebar() {
   return (

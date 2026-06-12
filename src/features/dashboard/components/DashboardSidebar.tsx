@@ -1,9 +1,9 @@
 "use client"
 
-import UserMenu from "@/components/shared/UserMenu";
 import { SidebarHeader, Sidebar, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarFooter, SidebarMenuItem } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { ClipboardPenIcon, FactoryIcon, FolderIcon, HomeIcon, LayoutDashboardIcon, MessageCirclePlusIcon, ProjectorIcon, ServerIcon } from "lucide-react";
+import { ClipboardPenIcon, FactoryIcon, FolderIcon, HomeIcon, LayoutDashboardIcon, MessageCirclePlusIcon, ProjectorIcon, ServerIcon, UsersIcon } from "lucide-react";
+import UserMenu from "@/features/Authentication/companents/UserMenu";
 
 export default function DashboardSidebar() {
 
@@ -77,6 +77,14 @@ export default function DashboardSidebar() {
                 <Link href={'/dashboard/messages'}>
                   <MessageCirclePlusIcon />
                   <span>Messages</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href={'/dashboard/users'}>
+                  <UsersIcon />
+                  <span>Users</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

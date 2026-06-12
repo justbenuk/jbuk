@@ -94,12 +94,15 @@ model Company {
   id               String  @id @default(cuid())
   name             String
   email            String
+  image            String?
   contactNumber    String
   emergencyContact String
   address          String?
   domain           String?
   long             String?
   lat              String?
+
+  media Media[]
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -140,6 +143,8 @@ model Media {
   updatedAt DateTime @updatedAt
   project   Project? @relation(fields: [projectId], references: [id])
   projectId String?
+  company   Company? @relation(fields: [companyId], references: [id])
+  companyId String?
 
   @@index([uploadedById])
   @@index([type])
