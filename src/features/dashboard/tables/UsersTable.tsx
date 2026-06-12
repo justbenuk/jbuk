@@ -40,11 +40,11 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
         </div>
       )
     }, {
-      field: 'company',
-      headerName: 'Company',
+      field: 'companies',
+      headerName: 'Companies',
       cellRenderer: (row: ICellRendererParams<UserProps>) => (
         <div className="flex h-full items-center">
-          {row.data?.company ? <CheckIcon className="size-5" /> : <XIcon className="size-5" />}
+          {row.data?.companies?.length ? <CheckIcon className="size-5" /> : <XIcon className="size-5" />}
         </div>
       )
     }, {

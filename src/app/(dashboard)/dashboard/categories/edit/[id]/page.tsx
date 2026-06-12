@@ -5,9 +5,9 @@ import ClientContainer from "@/components/shared/ClientContainer"
 import ErrorCard from "@/components/shared/ErrorCard"
 import CategorySkeleton from "@/components/skeletons/CategorySkeleton"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { CategoryProps } from "@/features/GlobalTypes"
+import { fetchProjectCategoryById } from "@/features/categories/CategoryActions"
+import { CategoryProps } from "@/features/categories/CategoryValidationSchema"
 import EditProjectCategoryForm from "@/features/projects/forms/EditprojectCategoryForm"
-import { fetchCategoryById } from "@/features/projects/ProjectActions"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -19,7 +19,7 @@ export default function EditCategoryPage() {
 
   useEffect(() => {
     async function loadData() {
-      const response = await fetchCategoryById(id)
+      const response = await fetchProjectCategoryById(id)
 
       if (response.success && response.data) {
         setCategory(response.data)

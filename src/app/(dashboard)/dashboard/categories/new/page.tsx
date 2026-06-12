@@ -1,6 +1,6 @@
 import ClientContainer from "@/components/shared/ClientContainer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import AddProjectCategoryForm from "@/features/projects/forms/AddProjectCategoryForm";
+import AddProjectCategoryForm from "@/features/categories/forms/AddProjectCategoryForm";
 
 export default function page() {
   return (

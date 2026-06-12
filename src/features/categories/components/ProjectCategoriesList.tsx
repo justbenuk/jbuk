@@ -2,14 +2,14 @@
 import ClientContainer from "@/components/shared/ClientContainer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import ProjectCategoriesTable from "@/features/projects/tables/ProjectCategoriesTable";
 import { PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Project, ProjectCategory } from "@prisma/client"
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import ErrorCard from "@/components/shared/ErrorCard";
 import Link from "next/link";
-import { fetchAllCategories } from "@/features/projects/ProjectActions";
+import ProjectCategoriesTable from "../tables/ProjectCategoriesTable";
+import { fetchAllProjectCategories } from "../CategoryActions";
 
 
 type ProjectCategoryRow = ProjectCategory & {
@@ -17,7 +17,7 @@ type ProjectCategoryRow = ProjectCategory & {
 }
 
 
-export default function CategoriesPage() {
+export default function ProjectCategoriesList() {
 
   const [categories, setCategories] = useState<ProjectCategoryRow[]>([])
   const [loading, setLoading] = useState(true)
@@ -28,7 +28,7 @@ export default function CategoriesPage() {
   useEffect(() => {
     async function loadData() {
       setLoading(true)
-      const response = await fetchAllCategories()
+      const response = await fetchAllProjectCategories()
 
       if (response.success && response.data) {
         setCategories(response.data)
@@ -53,26 +53,24 @@ export default function CategoriesPage() {
 
 
   return (
-    <ClientContainer>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-          <div>
-            <CardTitle>Categories</CardTitle>
-            <CardDescription>All categories</CardDescription>
-          </div>
-          <Button asChild>
-            <Link href={'/dashboard/projects/categories/new'}>
-              <PlusIcon />
-              <span>Category</span>
-            </Link>
-          </Button>
-        </CardHeader>
-        <CardContent>
-          <ProjectCategoriesTable
-            categories={categories}
-          />
-        </CardContent>
-      </Card>
-    </ClientContainer>
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div>
+          <CardTitle>Project Categories</CardTitle>
+          <CardDescription>Add or make changes to Project Categories</CardDescription>
+        </div>
+        <Button asChild>
+          <Link href={'/dashboard/categories/new'}>
+            <PlusIcon />
+            <span>Category</span>
+          </Link>
+        </Button>
+      </CardHeader>
+      <CardContent>
+        <ProjectCategoriesTable
+          categories={categories}
+        />
+      </CardContent>
+    </Card>
   )
 }

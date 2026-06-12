@@ -45,7 +45,7 @@ export default function AllProjectsTable({ projects }: { projects: ProjectProps[
     {
       headerName: 'Actions',
       cellRenderer: (row: ICellRendererParams) => (
-        <div className="flex flex-row items-center space-y-2">
+        <div className="flex flex-row items-center space-x-2">
           <Button asChild variant={'outline'} size={'icon-xs'}>
             <Link href={`/dashboard/projects/edit/${row.data.id}`} className="text-yellow-500">
               <EditIcon />

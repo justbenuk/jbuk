@@ -11,10 +11,11 @@ import CompanyCard from "@/features/client/components/CompanyCard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import ChangePasswordCard from "@/features/client/components/ChangePasswordCard";
 import AddCompanyForm from "@/features/client/forms/AddCompanyForm";
+import { UserProps } from "@/features/Authentication/AuthenticationTypes";
 
 export default function ClientPage() {
 
-  const [user, setUser] = useState<any>()
+  const [user, setUser] = useState<UserProps>()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>()
 
@@ -41,6 +42,10 @@ export default function ClientPage() {
     )
   }
   if (error) return <ErrorCard message={error} />
+  if (!user) return <ErrorCard message="Failed to load user data" />
+
+  const companies = user?.companies ?? []
+  const mapCompany = companies.find((company) => company.long && company.lat) ?? companies[0]
 
   return (
     <ClientContainer className="grid gap-6">
@@ -50,12 +55,12 @@ export default function ClientPage() {
             <UserCard user={user} />
           </div>
           <div className="col-span-1 md:col-span-2 lg:col-span-4">
-            <ClientMap long={user?.company?.long} lat={user?.company?.lat} />
+            <ClientMap long={mapCompany?.long} lat={mapCompany?.lat} />
           </div>
         </CardContent>
 
       </Card>
-      {!user.company ? (
+      {!companies.length ? (
         <Card>
           <CardHeader>
             <CardTitle>Company Information</CardTitle>
@@ -66,7 +71,11 @@ export default function ClientPage() {
           </CardContent>
         </Card>
       ) : (
-        <CompanyCard company={user.company} />
+        <div className="grid gap-6">
+          {companies.map((company) => (
+            <CompanyCard key={company.id} company={company} />
+          ))}
+        </div>
       )}
       <ChangePasswordCard />
     </ClientContainer>

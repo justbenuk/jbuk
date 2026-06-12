@@ -14,11 +14,12 @@ import z from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { AddProjectSchema } from "../ProjectValidationSchema";
-import { AddProject, fetchAllCategories } from "../ProjectActions";
-import { CategoryProps } from "@/features/GlobalTypes";
 import { CompanyProps } from "@/features/client/ClientTypes";
 import { fetchAllCompanies } from "@/features/client/ClientActions";
 import AddProjectSkeleton from "@/components/skeletons/AddProjectSkeleton";
+import { CategoryProps } from "@/features/categories/CategoryValidationSchema";
+import { AddProject } from "../ProjectActions";
+import { fetchAllProjectCategories } from "@/features/categories/CategoryActions";
 
 
 export default function AddProjectForm() {
@@ -57,7 +58,7 @@ export default function AddProjectForm() {
     async function loadData() {
       setLoading(true)
       const [categories, companies] = await Promise.all([
-        fetchAllCategories(),
+        fetchAllProjectCategories(),
         fetchAllCompanies()
       ])
 

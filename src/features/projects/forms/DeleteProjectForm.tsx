@@ -15,7 +15,7 @@ export default function DeleteProjectForm({ projectId }: { projectId: string }) 
     }
   }
   return (
-    <form onSubmit={handleDeleteProject}>
+    <form onSubmit={handleDeleteProject} className="p-0 m-0">
       <Button variant={'outline'} size={'icon-xs'} className="text-red-500">
         <TrashIcon />
       </Button>

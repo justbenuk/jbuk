@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button"
 import { TrashIcon } from "lucide-react"
 import { toast } from "sonner"
-import { deleteCategoryById } from "../ProjectActions"
+import { deleteCategoryById } from "../CategoryActions"
 
-export default function DeleteCategoryForm({ categoryId }: { categoryId: string }) {
+export default function DeleteprojectCategoryForm({ categoryId }: { categoryId: string }) {
 
   async function handleDeleteCategoryById() {
     const { success, message } = await deleteCategoryById(categoryId)

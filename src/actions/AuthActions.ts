@@ -80,7 +80,7 @@ export async function fetchCurrentUser() {
         id: session?.user.id
       },
       include: {
-        company: true,
+        companies: true,
       }
     })
 

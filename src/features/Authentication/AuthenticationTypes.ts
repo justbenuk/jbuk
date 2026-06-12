@@ -8,7 +8,7 @@ export interface UserProps {
   email: string
   emailVerified: boolean
   image?: string | null | undefined
-  company?: CompanyProps | null | undefined
+  companies?: CompanyProps[] | null | undefined
   projects?: ProjectProps[] | null | undefined
   medias?: MediaProps[] | null | undefined
   createdAt: Date

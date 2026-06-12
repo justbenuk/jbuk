@@ -9,22 +9,22 @@ import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import z from "zod"
-import { AddProjectCategorySchema } from "../ProjectValidationSchema"
-import { AddprojectCategoryAction } from "../ProjectActions"
+import { CategoryProps } from "../CategoryValidationSchema"
+import { AddProjectCategorySchema } from "@/features/projects/ProjectValidationSchema"
+import { EditProjectCategoryById } from "../CategoryActions"
 
-
-export default function AddProjectCategoryForm() {
+export default function EditProjectCategoryForm({ category }: { category: CategoryProps }) {
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(AddProjectCategorySchema),
     defaultValues: {
-      name: '',
-      description: ''
+      name: category.name,
+      description: category.description || null || ''
     }
   })
 
-  async function handleAddProjectCategory(values: z.infer<typeof AddProjectCategorySchema>) {
-    const { success, message } = await AddprojectCategoryAction(values)
+  async function handleUpdateProjectCategory(values: z.infer<typeof AddProjectCategorySchema>) {
+    const { success, message } = await EditProjectCategoryById(category.id, values)
 
     if (!success) {
       toast.error(message)
@@ -33,8 +33,9 @@ export default function AddProjectCategoryForm() {
       router.push('/dashboard/projects/categories')
     }
   }
+
   return (
-    <form onSubmit={form.handleSubmit(handleAddProjectCategory)} className="grid gap-6">
+    <form onSubmit={form.handleSubmit(handleUpdateProjectCategory)} className="grid gap-6">
       <Controller name="name" control={form.control} render={({ field, fieldState }) => (
         <Field>
           <FieldLabel>Category Name</FieldLabel>
@@ -54,7 +55,7 @@ export default function AddProjectCategoryForm() {
         </Field>
       )} />
       <div className="flex flex-row items-center justify-end">
-        <Button>Add</Button>
+        <Button>Save</Button>
       </div>
     </form>
   )

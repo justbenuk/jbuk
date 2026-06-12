@@ -20,7 +20,7 @@ model User {
   banExpires    DateTime?
   sessions      Session[]
   accounts      Account[]
-  company       Company?
+  companies     Company[]
   medias        Media[]
   projects      Project[]
 
@@ -101,13 +101,14 @@ model Company {
   long             String?
   lat              String?
 
-  userId String @unique
+  userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   projects  Project[]
 
+  @@index([userId])
   @@map("company")
 }
 

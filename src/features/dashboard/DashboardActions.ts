@@ -23,7 +23,7 @@ export async function fetchAllUsers() {
     const users = await db.user.findMany({
       include: {
         medias: true,
-        company: true,
+        companies: true,
       }
     })
 

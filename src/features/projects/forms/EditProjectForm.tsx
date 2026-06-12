@@ -12,11 +12,11 @@ import { Button } from "@/components/ui/button";
 import z from "zod";
 import { useRouter } from "next/navigation";
 import { AddProjectSchema } from "../ProjectValidationSchema";
-import { fetchAllCategories } from "../ProjectActions";
-import { CategoryProps } from "@/features/GlobalTypes";
 import { CompanyProps } from "@/features/client/ClientTypes";
 import { ProjectProps } from "../ProjectTypes";
 import { fetchAllCompanies } from "@/features/client/ClientActions";
+import { CategoryProps } from "@/features/categories/CategoryValidationSchema";
+import { fetchAllProjectCategories } from "@/features/categories/CategoryActions";
 
 
 export default function EditProjectForm({ project }: { project: ProjectProps }) {
@@ -46,7 +46,7 @@ export default function EditProjectForm({ project }: { project: ProjectProps }) 
   useEffect(() => {
     async function loadData() {
       const [categories, companies] = await Promise.all([
-        fetchAllCategories(),
+        fetchAllProjectCategories(),
         fetchAllCompanies()
       ])
 

@@ -8,8 +8,7 @@ import TableSearch from "@/components/shared/TableSearch";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { EyeIcon } from "lucide-react";
-import DeleteProjectForm from "../forms/DeleteCategoryForm";
-import DeleteCategoryForm from "../forms/DeleteCategoryForm";
+import DeleteProjectCategoryForm from "../forms/DeleteProjectCategoryForm";
 
 type ProjectCategoryRow = ProjectCategory & {
   projects: Project[]
@@ -48,11 +47,11 @@ export default function ProjectCategoriesTable({ categories }: { categories: Pro
         return (
           <div className="flex items-center gap-2">
             <Button variant={'outline'} size={'icon-xs'} asChild className="text-yellow-500">
-              <Link href={`/dashboard/projects/categories/edit/${id}`}>
+              <Link href={`/dashboard/categories/edit/${id}`}>
                 <EyeIcon />
               </Link>
             </Button>
-            <DeleteCategoryForm categoryId={row.data.id} />
+            <DeleteProjectCategoryForm categoryId={row.data.id} />
           </div>
         )
       }
