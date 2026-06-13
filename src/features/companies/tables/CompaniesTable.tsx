@@ -30,7 +30,7 @@ export default function CompaniesTable({
         <Image
           src={row.data.image}
           alt="company image"
-          width={75}
+          width={50}
           height={50}
           className="rounded h-full"
         />

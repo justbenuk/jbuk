@@ -9,7 +9,7 @@ import { revalidatePath } from "next/cache";
 import z from "zod";
 import { isAdmin } from "../Authentication/AuthenticationActions";
 
-export async function FetchAllCompanyies() {
+export async function FetchAllCompanies() {
   await isAdmin();
   try {
     const data = await db.company.findMany();
@@ -47,7 +47,7 @@ export async function AddCompanyInformationAction(
   try {
     const validated = CompanySchema.parse(values);
 
-    await db.company.create({
+    const company = await db.company.create({
       data: {
         name: validated.name,
         email: validated.email,
@@ -61,6 +61,20 @@ export async function AddCompanyInformationAction(
         userId: session.user.id,
       },
     });
+
+    if (validated.image) {
+      await db.media.updateMany({
+        where: {
+          url: validated.image,
+          uploadedById: session.user.id,
+          companyId: null,
+        },
+        data: {
+          companyId: company.id,
+        },
+      });
+    }
+
     revalidatePath("/client");
     return { success: true, message: "Company added" };
   } catch (error) {
@@ -134,4 +148,24 @@ export async function deleteCompanyById(id: string) {
       console.error(`Company Error: ${error}`);
       throw new Error(`Company Error: ${error}`);
     }
+}
+
+export async function fetchCompaniesByUserId() {
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!session) redirect("/login");
+
+    const data = await db.company.findMany({
+      where: {
+        userId: session.user.id,
+      },
+    });
+
+    return { success: true, data };
+  } catch (error) {
+    throw new Error(`Fetch companies: ${error}`);
+  }
 }
