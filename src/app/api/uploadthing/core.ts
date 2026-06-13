@@ -4,10 +4,11 @@ import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError, UTApi } from "uploadthing/server";
+import z from "zod";
 
 const f = createUploadthing();
 
-export const utapi = new UTApi()
+export const utapi = new UTApi();
 
 export const ourFileRouter = {
   CompanyPictureUploader: f({
@@ -16,15 +17,81 @@ export const ourFileRouter = {
       maxFileCount: 1,
     },
   })
-    .middleware(async () => {
+    .input(z.object({ companyId: z.string().min(1) }))
+    .middleware(async ({ input }) => {
       const session = await auth.api.getSession({
-        headers: await headers()
-      })
+        headers: await headers(),
+      });
       if (!session) throw new UploadThingError("Unauthorized");
-      return { userId: session.user.id };
+
+      const company = await db.company.findUnique({
+        where: {
+          id: input.companyId,
+        },
+      });
+
+      if (!company) {
+        throw new UploadThingError("Company not found");
+      }
+
+      if (company.userId !== session.user.id && session.user.role !== "admin") {
+        throw new UploadThingError("Unauthorized");
+      }
+
+      return {
+        userId: session.user.id,
+        companyId: company.id,
+        oldImage: company.image,
+      };
     })
     .onUploadComplete(async ({ metadata, file }) => {
+      const newImage = await db.media.create({
+        data: {
+          key: file.key,
+          url: file.ufsUrl,
+          name: file.name,
+          size: file.size,
+          mimeType: file.type,
+          type: "IMAGE",
+          uploadedById: metadata.userId,
+          companyId: metadata.companyId,
+        },
+      });
 
+      await db.company.update({
+        where: {
+          id: metadata.companyId,
+        },
+        data: {
+          image: newImage.url,
+        },
+      });
+
+      if (metadata.oldImage) {
+        const oldMedia = await db.media.findFirst({
+          where: {
+            OR: [{ id: metadata.oldImage }, { url: metadata.oldImage }],
+          },
+        });
+
+        if (oldMedia) {
+          await utapi.deleteFiles(oldMedia.key);
+
+          await db.media.delete({
+            where: {
+              id: oldMedia.id,
+            },
+          });
+        }
+      }
+
+      revalidatePath("/client");
+      revalidatePath("/dashboard/companies");
+
+      return {
+        mediaId: newImage.id,
+        url: newImage.url,
+      };
     }),
   ProfilePictureUploader: f({
     image: {
@@ -34,24 +101,23 @@ export const ourFileRouter = {
   })
     .middleware(async () => {
       const session = await auth.api.getSession({
-        headers: await headers()
-      })
+        headers: await headers(),
+      });
       if (!session) throw new UploadThingError("Unauthorized");
       return { userId: session.user.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-
       const user = await db.user.findUnique({
         where: {
-          id: metadata.userId
-        }
-      })
+          id: metadata.userId,
+        },
+      });
 
       if (!user) {
-        throw new UploadThingError('User not found')
+        throw new UploadThingError("User not found");
       }
 
-      const oldImage = user.image
+      const oldImage = user.image;
 
       const newImage = await db.media.create({
         data: {
@@ -60,49 +126,46 @@ export const ourFileRouter = {
           name: file.name,
           size: file.size,
           mimeType: file.type,
-          type: 'IMAGE',
-          uploadedById: user.id
-        }
-      })
+          type: "IMAGE",
+          uploadedById: user.id,
+        },
+      });
 
       await db.user.update({
         where: {
-          id: user.id
+          id: user.id,
         },
         data: {
-          image: newImage.url
-        }
-      })
+          image: newImage.url,
+        },
+      });
 
       if (oldImage) {
         const oldMedia = await db.media.findFirst({
           where: {
-            OR: [
-              { id: oldImage },
-              { url: oldImage },
-            ]
-          }
-        })
+            OR: [{ id: oldImage }, { url: oldImage }],
+          },
+        });
 
         if (!oldMedia) {
           return {
             mediaId: newImage.id,
-            url: newImage.url
+            url: newImage.url,
           };
         }
 
-        await utapi.deleteFiles(oldMedia.key)
+        await utapi.deleteFiles(oldMedia.key);
 
         await db.media.delete({
           where: {
-            id: oldMedia.id
-          }
-        })
+            id: oldMedia.id,
+          },
+        });
       }
-      revalidatePath(('/client'))
+      revalidatePath("/client");
       return {
         mediaId: newImage.id,
-        url: newImage.url
+        url: newImage.url,
       };
     }),
 } satisfies FileRouter;
