@@ -27,7 +27,6 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import z from "zod";
-import { useRouter } from "next/navigation";
 import { AddProjectSchema } from "../ProjectValidationSchema";
 import { CompanyProps } from "@/features/client/ClientTypes";
 import { ProjectProps } from "../ProjectTypes";
@@ -36,6 +35,10 @@ import { fetchAllProjectCategories } from "@/features/categories/CategoryActions
 import { fetchAllCompanies } from "@/features/companies/CompanyActions";
 import ErrorCard from "@/components/shared/ErrorCard";
 import AddProjectSkeleton from "@/components/skeletons/AddProjectSkeleton";
+import Image from "next/image";
+import { UploadButton } from "@/lib/uploadthing";
+import { toast } from "sonner";
+import { EditProject } from "../ProjectActions";
 
 export default function EditProjectForm({
   project,
@@ -64,8 +67,14 @@ export default function EditProjectForm({
     },
   });
 
-  async function handleAddProject(values: z.output<typeof AddProjectSchema>) {
-    console.log(values);
+  async function handleEditProject(values: z.output<typeof AddProjectSchema>) {
+    const response = await EditProject(values, project.id);
+
+    if (response.success) {
+      toast.success("Project Updated");
+    } else {
+      toast.error("Failed to update project");
+    }
   }
 
   useEffect(() => {
@@ -97,7 +106,7 @@ export default function EditProjectForm({
   return (
     <form
       className="grid grid-cols-1 lg:grid-cols-8 gap-10"
-      onSubmit={form.handleSubmit(handleAddProject)}
+      onSubmit={form.handleSubmit(handleEditProject)}
     >
       <div className="col-span-1 lg:col-span-5 space-y-10">
         <Card>
@@ -171,8 +180,47 @@ export default function EditProjectForm({
                 <Field>
                   <FieldLabel>Image</FieldLabel>
                   <FieldContent>
-                    <Input {...field} />
-                    {fieldState.invalid && (
+                    {field.value ? (
+                      <Image
+                        src={field.value}
+                        alt="Company image"
+                        width={400}
+                        height={240}
+                        className="h-40 w-full rounded-md border object-cover"
+                      />
+                    ) : null}
+                    <UploadButton
+                      endpoint="AddProjectImage"
+                      appearance={{
+                        container: "w-full",
+                        button:
+                          "h-10 w-full rounded-md border bg-primary px-6 text-primary-foreground dark:bg-primary",
+                        allowedContent: "text-muted-foreground text-xs",
+                      }}
+                      content={{
+                        button({ ready, isUploading }) {
+                          if (!ready) return "Preparing...";
+                          if (isUploading) return "Uploading...";
+                          return field.value ? "Replace Image" : "Upload Image";
+                        },
+                      }}
+                      onClientUploadComplete={(res) => {
+                        const image = res[0]?.serverData?.url;
+
+                        if (!image) {
+                          toast.error("Failed to upload image");
+                          return;
+                        }
+
+                        field.onChange(image);
+                        toast.success("Company image updated");
+                      }}
+                      onUploadError={(error: Error) => {
+                        console.error(error);
+                        toast.error("Failed to upload image");
+                      }}
+                    />
+                    {fieldState.error && (
                       <FieldError errors={[fieldState.error]} />
                     )}
                   </FieldContent>

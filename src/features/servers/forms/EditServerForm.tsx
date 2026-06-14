@@ -12,13 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AddServerSchema } from "../ServerValadationSchema";
-import { useEffect, useState } from "react";
-import { CompanyProps } from "@/features/companies/CompanyTypes";
-import { ProjectProps } from "@/features/projects/ProjectTypes";
-import { fetchAllCompanies } from "@/features/companies/CompanyActions";
-import { fetchAllProjects } from "@/features/projects/ProjectActions";
-import AddProjectSkeleton from "@/components/skeletons/AddProjectSkeleton";
-import ErrorCard from "@/components/shared/ErrorCard";
+
 import {
   Select,
   SelectContent,
@@ -27,23 +21,31 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import z from "zod";
-import { AddServer } from "../ServerActions";
+import { useEffect, useState } from "react";
+import { CompanyProps } from "@/features/companies/CompanyTypes";
+import { ProjectProps } from "@/features/projects/ProjectTypes";
+import { fetchAllCompanies } from "@/features/companies/CompanyActions";
+import { fetchAllProjects } from "@/features/projects/ProjectActions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { ServerProps } from "../ServerTypes";
+import ErrorCard from "@/components/shared/ErrorCard";
+import { EditServer } from "../ServerActions";
 
-export function AddServerForm() {
+export function EditServerForm({ server }: { server: ServerProps }) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [companies, setCompanies] = useState<CompanyProps[]>([]);
   const [projects, setProjects] = useState<ProjectProps[]>([]);
   const [error, setError] = useState<string | null>();
-
   const form = useForm({
     resolver: zodResolver(AddServerSchema),
     defaultValues: {
-      provider: "",
-      providerUrl: "",
-      ipAddress: "",
+      provider: server.provider,
+      providerUrl: server.providerUrl,
+      ipAddress: server.ipAddress,
+      companyId: server.company.id,
+      projectId: server.project.id,
     },
   });
 
@@ -72,18 +74,15 @@ export function AddServerForm() {
   }, []);
 
   async function handleAddServer(values: z.infer<typeof AddServerSchema>) {
-    const response = await AddServer(values);
+    const response = await EditServer(values, server.id);
 
     if (response.success) {
-      toast.success("Server Added");
+      toast.success("Updated Server");
       router.push("/dashboard/servers");
     } else {
-      toast.error("Failed to add server");
+      toast.error("Failed to update");
     }
   }
-  console.log(projects);
-  if (loading) return <AddProjectSkeleton />;
-  if (error) return <ErrorCard message="Failed to fetch data" />;
 
   return (
     <form className="grid gap-6" onSubmit={form.handleSubmit(handleAddServer)}>
@@ -135,7 +134,7 @@ export function AddServerForm() {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field>
-            <FieldLabel>Company Id</FieldLabel>
+            <FieldLabel>Company</FieldLabel>
             <FieldContent>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>
@@ -159,7 +158,7 @@ export function AddServerForm() {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field>
-            <FieldLabel>projectId</FieldLabel>
+            <FieldLabel>Project</FieldLabel>
             <FieldContent>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>

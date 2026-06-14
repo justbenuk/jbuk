@@ -2,12 +2,17 @@ import TableSearch from "@/components/shared/TableSearch";
 import {
   AllCommunityModule,
   ColDef,
+  ICellRendererParams,
   ValueGetterParams,
   themeQuartz,
 } from "ag-grid-community";
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import { useMemo, useState } from "react";
 import { ServerProps } from "../ServerTypes";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { EyeIcon } from "lucide-react";
+import { DeleteServerForm } from "../forms/DeleteServerForm";
 
 export default function AllServersTable({
   servers,
@@ -39,6 +44,26 @@ export default function AllServersTable({
       {
         field: "ipAddress",
         headerName: "Featured",
+      },
+      {
+        headerName: "Actions",
+        cellRenderer: (row: ICellRendererParams) => (
+          <div className="flex flex-row items-center gap-2">
+            <div>
+              <Button
+                variant={"outline"}
+                size={"icon-xs"}
+                className="text-yellow-500"
+                asChild
+              >
+                <Link href={`/dashboard/servers/edit/${row.data.id}`}>
+                  <EyeIcon />
+                </Link>
+              </Button>
+            </div>
+            <DeleteServerForm id={row.data.id} />
+          </div>
+        ),
       },
     ],
     [],

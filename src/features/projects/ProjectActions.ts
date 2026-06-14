@@ -1,4 +1,4 @@
-'use server'
+"use server";
 
 import z from "zod";
 import { db } from "@/lib/db";
@@ -9,59 +9,80 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { isAdmin } from "@/actions/AuthActions";
 import { AddProjectSchema } from "./ProjectValidationSchema";
-
-
-
+import { utapi } from "@/app/api/uploadthing/core";
 
 export async function AddProject(values: z.infer<typeof AddProjectSchema>) {
-  await isAdmin()
+  await isAdmin();
 
   const session = await auth.api.getSession({
-    headers: await headers()
-  })
+    headers: await headers(),
+  });
 
-  if (!session) redirect('/unathorised')
+  if (!session) redirect("/unathorised");
   try {
-    const validated = AddProjectSchema.parse(values)
+    const validated = AddProjectSchema.parse(values);
+    const companyId = validated.companyId || null;
 
-    await db.project.create({
+    if (companyId) {
+      const company = await db.company.findUnique({
+        where: { id: companyId },
+        select: { id: true },
+      });
+
+      if (!company) {
+        return { success: false, message: "Selected company does not exist" };
+      }
+    }
+
+    const project = await db.project.create({
       data: {
         title: validated.title,
         slug: slugify(validated.title, {
-          lower: true
+          lower: true,
         }),
         excerpt: validated.excerpt,
         content: validated.content,
         image: validated.image,
         userId: session?.user.id,
         projectCategoryId: validated.categoryId,
-        companyId: validated.companyId,
+        companyId,
         featured: validated.featured,
-        published: validated.published
-      }
-    })
+        published: validated.published,
+      },
+    });
 
-    revalidatePath('/projects')
-    revalidatePath('/dashboard/projects')
-    revalidatePath('/client/projects')
-    return { success: true, message: 'Project created' }
+    await db.media.updateMany({
+      where: {
+        url: validated.image,
+        uploadedById: session.user.id,
+        projectId: null,
+      },
+      data: {
+        projectId: project.id,
+      },
+    });
+
+    revalidatePath("/projects");
+    revalidatePath("/dashboard/projects");
+    revalidatePath("/client/projects");
+    return { success: true, message: "Project created" };
   } catch (error) {
-    console.error(`Failed to create project: ${error}`)
-    return { success: false, message: 'Failed to create project' }
+    console.error(`Failed to create project: ${error}`);
+    return { success: false, message: "Failed to create project" };
   }
 }
 
 export async function deleteProjectById(projectId: string) {
-  await isAdmin()
+  await isAdmin();
   try {
     await db.project.delete({
-      where: { id: projectId }
-    })
-    revalidatePath('dashboard/projects')
-    return { success: true, message: 'Project Deleted' }
+      where: { id: projectId },
+    });
+    revalidatePath("dashboard/projects");
+    return { success: true, message: "Project Deleted" };
   } catch (error) {
-    console.error(`Failed to delete project: ${error}`)
-    return { success: false, message: 'Failed to delete project' }
+    console.error(`Failed to delete project: ${error}`);
+    return { success: false, message: "Failed to delete project" };
   }
 }
 
@@ -69,18 +90,18 @@ export async function fetchAllProjects() {
   try {
     const projects = await db.project.findMany({
       orderBy: {
-        createdAt: 'desc'
+        createdAt: "desc",
       },
       include: {
         author: true,
         category: true,
-        media: true
-      }
-    })
-    return { success: true, projects }
+        media: true,
+      },
+    });
+    return { success: true, projects };
   } catch (error) {
-    console.error(`Failed to load projects: ${error}`)
-    return { success: false, message: 'Failed to load projects' }
+    console.error(`Failed to load projects: ${error}`);
+    return { success: false, message: "Failed to load projects" };
   }
 }
 
@@ -88,51 +109,139 @@ export async function fetchProjectById(projectId: string) {
   try {
     const data = await db.project.findUnique({
       where: { id: projectId },
-      include: { category: true, company: true, author: true, media: true }
-    })
+      include: { category: true, company: true, author: true, media: true },
+    });
 
     if (!data) {
-      throw new Error('Failed to fetch project')
+      throw new Error("Failed to fetch project");
     }
-    return { success: true, data }
+    return { success: true, data };
   } catch (error) {
-    console.error(`Fetch project Error: ${error}`)
-    return { success: false, message: 'Failed to fetch project' }
+    console.error(`Fetch project Error: ${error}`);
+    return { success: false, message: "Failed to fetch project" };
   }
 }
 
 export async function fetchAllProjectsByCompanyId() {
   const session = await auth.api.getSession({
-    headers: await headers()
-  })
+    headers: await headers(),
+  });
 
-  if (!session) redirect('/login')
+  if (!session) redirect("/login");
 
-  if (!session.user) redirect('/unauthorised')
+  if (!session.user) redirect("/unauthorised");
 
   const user = await db.user.findUnique({
     where: { id: session.user.id },
-    include: { companies: true }
-  })
+    include: { companies: true },
+  });
 
-
-  if (!user) redirect('/unauthorised')
-  if (!user.companies.length) return { success: false, message: 'No company added' }
+  if (!user) redirect("/unauthorised");
+  if (!user.companies.length)
+    return { success: false, message: "No company added" };
 
   try {
     const data = await db.project.findMany({
       where: { companyId: { in: user.companies.map((company) => company.id) } },
-      include: { category: true, company: true, author: true, media: true }
-    })
+      include: { category: true, company: true, author: true, media: true },
+    });
 
     if (!data) {
-      throw new Error('Failed to fetch project')
+      throw new Error("Failed to fetch project");
     }
-    console.log(data)
-    return { success: true, data }
+    console.log(data);
+    return { success: true, data };
   } catch (error) {
-    console.error(`Fetch project Error: ${error}`)
-    return { success: false, message: 'Failed to fetch project' }
+    console.error(`Fetch project Error: ${error}`);
+    return { success: false, message: "Failed to fetch project" };
   }
 }
 
+export async function EditProject(
+  values: z.infer<typeof AddProjectSchema>,
+  id: string,
+) {
+  await isAdmin();
+
+  try {
+    const validated = AddProjectSchema.parse(values);
+    const companyId = validated.companyId || null;
+
+    if (companyId) {
+      const company = await db.company.findUnique({
+        where: { id: companyId },
+        select: { id: true },
+      });
+
+      if (!company) {
+        return { success: false, message: "Selected company does not exist" };
+      }
+    }
+
+    const existingProject = await db.project.findUnique({
+      where: { id },
+      select: {
+        image: true,
+      },
+    });
+
+    if (!existingProject) {
+      return { success: false, message: "Project not found" };
+    }
+
+    const imageChanged = existingProject.image !== validated.image;
+
+    await db.project.update({
+      where: { id },
+      data: {
+        title: validated.title,
+        slug: slugify(validated.title, {
+          lower: true,
+        }),
+        excerpt: validated.excerpt,
+        content: validated.content,
+        image: validated.image,
+        projectCategoryId: validated.categoryId,
+        companyId,
+        featured: validated.featured,
+        published: validated.published,
+      },
+    });
+
+    if (imageChanged) {
+      await db.media.updateMany({
+        where: {
+          url: validated.image,
+          projectId: null,
+        },
+        data: {
+          projectId: id,
+        },
+      });
+    }
+
+    const oldImage = imageChanged
+      ? await db.media.findFirst({
+          where: {
+            url: existingProject.image,
+          },
+        })
+      : null;
+
+    if (oldImage) {
+      await utapi.deleteFiles(oldImage.key);
+
+      await db.media.delete({
+        where: { id: oldImage.id },
+      });
+    }
+
+    revalidatePath("/projects");
+    revalidatePath("/dashboard/projects");
+    revalidatePath("/client/projects");
+    return { success: true, message: "Project updated" };
+  } catch (error) {
+    console.error(`Edit Project: ${error}`);
+    return { success: false, message: "Failed to update project" };
+  }
+}

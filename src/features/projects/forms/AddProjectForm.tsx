@@ -37,6 +37,8 @@ import { CategoryProps } from "@/features/categories/CategoryValidationSchema";
 import { AddProject } from "../ProjectActions";
 import { fetchAllProjectCategories } from "@/features/categories/CategoryActions";
 import { fetchAllCompanies } from "@/features/companies/CompanyActions";
+import { UploadButton } from "@/lib/uploadthing";
+import Image from "next/image";
 
 export default function AddProjectForm() {
   const [loading, setLoading] = useState(true);
@@ -173,8 +175,48 @@ export default function AddProjectForm() {
                 <Field>
                   <FieldLabel>Image</FieldLabel>
                   <FieldContent>
-                    <Input {...field} />
-                    {fieldState.invalid && (
+                    {field.value ? (
+                      <Image
+                        src={field.value}
+                        alt="Company image"
+                        width={400}
+                        height={240}
+                        className="h-40 w-full rounded-md border object-cover"
+                      />
+                    ) : null}
+                    <Input type="hidden" {...field} />
+                    <UploadButton
+                      endpoint="NewCompanyPictureUploader"
+                      appearance={{
+                        container: "w-full",
+                        button:
+                          "h-10 w-full rounded-md border bg-primary px-6 text-primary-foreground dark:bg-primary",
+                        allowedContent: "text-muted-foreground text-xs",
+                      }}
+                      content={{
+                        button({ ready, isUploading }) {
+                          if (!ready) return "Preparing...";
+                          if (isUploading) return "Uploading...";
+                          return field.value ? "Replace Image" : "Upload Image";
+                        },
+                      }}
+                      onClientUploadComplete={(res) => {
+                        const image = res[0]?.serverData?.url;
+
+                        if (!image) {
+                          toast.error("Failed to upload image");
+                          return;
+                        }
+
+                        field.onChange(image);
+                        toast.success("Company image updated");
+                      }}
+                      onUploadError={(error: Error) => {
+                        console.error(error);
+                        toast.error("Failed to upload image");
+                      }}
+                    />
+                    {fieldState.error && (
                       <FieldError errors={[fieldState.error]} />
                     )}
                   </FieldContent>

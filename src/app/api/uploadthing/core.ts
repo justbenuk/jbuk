@@ -11,6 +11,37 @@ const f = createUploadthing();
 export const utapi = new UTApi();
 
 export const ourFileRouter = {
+  AddProjectImage: f({
+    image: {
+      maxFileSize: "32MB",
+      maxFileCount: 1,
+    },
+  })
+    .middleware(async () => {
+      const session = await auth.api.getSession({
+        headers: await headers(),
+      });
+      if (!session) throw new Error("Unauthorised");
+      return { userId: session.user.id };
+    })
+    .onUploadComplete(async ({ metadata, file }) => {
+      const image = await db.media.create({
+        data: {
+          key: file.key,
+          url: file.ufsUrl,
+          name: file.name,
+          size: file.size,
+          mimeType: file.type,
+          type: "IMAGE",
+          uploadedById: metadata.userId,
+        },
+      });
+
+      return {
+        mediaId: image.id,
+        url: image.url,
+      };
+    }),
   NewCompanyPictureUploader: f({
     image: {
       maxFileSize: "4MB",
