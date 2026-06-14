@@ -9,7 +9,7 @@ import { revalidatePath } from "next/cache";
 import z from "zod";
 import { isAdmin } from "../Authentication/AuthenticationActions";
 
-export async function FetchAllCompanies() {
+export async function fetchAllCompanies() {
   await isAdmin();
   try {
     const data = await db.company.findMany();

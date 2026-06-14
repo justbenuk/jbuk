@@ -110,6 +110,8 @@ model Company {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   projects  Project[]
+  server    Server?   @relation(fields: [serverId], references: [id])
+  serverId  String?
 
   @@index([userId])
   @@map("company")
@@ -168,6 +170,8 @@ model Project {
   companyId         String?
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
+  server            Server?         @relation(fields: [serverId], references: [id])
+  serverId          String?
 
   @@map("project")
 }
@@ -182,4 +186,16 @@ model ProjectCategory {
   projects    Project[]
 
   @@map("project-category")
+}
+
+model Server {
+  id          String    @id @default(cuid())
+  provider    String
+  providerUrl String
+  ipAddress   String
+  project     Project[]
+  company     Company[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
