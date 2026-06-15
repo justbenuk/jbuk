@@ -7,9 +7,9 @@ import { revalidatePath } from "next/cache";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { isAdmin } from "@/actions/AuthActions";
 import { AddProjectSchema } from "./ProjectValidationSchema";
 import { utapi } from "@/app/api/uploadthing/core";
+import { isAdmin } from "../Authentication/AuthenticationActions";
 
 export async function AddProject(values: z.infer<typeof AddProjectSchema>) {
   await isAdmin();

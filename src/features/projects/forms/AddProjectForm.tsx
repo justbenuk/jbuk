@@ -39,6 +39,9 @@ import { fetchAllProjectCategories } from "@/features/categories/CategoryActions
 import { fetchAllCompanies } from "@/features/companies/CompanyActions";
 import { UploadButton } from "@/lib/uploadthing";
 import Image from "next/image";
+import Editor from "@/components/Editor/Editor";
+import { PlusIcon } from "lucide-react";
+import Link from "next/link";
 
 export default function AddProjectForm() {
   const [loading, setLoading] = useState(true);
@@ -147,7 +150,11 @@ export default function AddProjectForm() {
                 <Field>
                   <FieldLabel>Content</FieldLabel>
                   <FieldContent>
-                    <Textarea {...field} className="h-60" />
+                    <Editor
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                    />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
                     )}

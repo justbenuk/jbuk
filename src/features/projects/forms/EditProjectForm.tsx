@@ -39,6 +39,7 @@ import Image from "next/image";
 import { UploadButton } from "@/lib/uploadthing";
 import { toast } from "sonner";
 import { EditProject } from "../ProjectActions";
+import Editor from "@/components/Editor/Editor";
 
 export default function EditProjectForm({
   project,
@@ -152,7 +153,11 @@ export default function EditProjectForm({
                 <Field>
                   <FieldLabel>Content</FieldLabel>
                   <FieldContent>
-                    <Textarea {...field} className="h-60" />
+                    <Editor
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                    />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
                     )}

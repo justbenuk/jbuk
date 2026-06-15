@@ -136,3 +136,48 @@
     @apply hidden!;
     }
 }
+
+@layer components {
+  .prose-editor {
+    overflow-wrap: anywhere;
+    }
+  .prose-editor h1 {
+    @apply mt-6 mb-3 text-3xl font-semibold;
+    }
+  .prose-editor h2 {
+    @apply mt-5 mb-2 text-2xl font-semibold;
+    }
+  .prose-editor h3 {
+    @apply mt-4 mb-2 text-xl font-semibold;
+    }
+  .prose-editor p {
+    @apply my-3;
+    }
+  .prose-editor ul {
+    @apply my-3 list-disc pl-6;
+    }
+  .prose-editor ol {
+    @apply my-3 list-decimal pl-6;
+    }
+  .prose-editor blockquote {
+    @apply my-4 border-l-4 border-primary/60 pl-4 text-muted-foreground;
+    }
+  .prose-editor pre {
+    @apply my-4 overflow-x-auto rounded-md bg-muted p-4 text-sm;
+    }
+  .prose-editor code {
+    @apply rounded bg-muted px-1 py-0.5 text-sm;
+    }
+  .prose-editor pre code {
+    @apply bg-transparent p-0;
+    }
+  .prose-editor a {
+    @apply text-primary underline underline-offset-4;
+    }
+  .prose-editor :first-child {
+    @apply mt-0;
+    }
+  .prose-editor :last-child {
+    @apply mb-0;
+    }
+}

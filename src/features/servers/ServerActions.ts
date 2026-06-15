@@ -7,6 +7,7 @@ import { isAdmin } from "../Authentication/AuthenticationActions";
 import { revalidatePath } from "next/cache";
 
 export async function AddServer(values: z.infer<typeof AddServerSchema>) {
+  await isAdmin();
   try {
     const validated = AddServerSchema.parse(values);
 
