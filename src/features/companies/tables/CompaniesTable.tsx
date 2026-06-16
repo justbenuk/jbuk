@@ -102,7 +102,9 @@ export default function CompaniesTable({
             rowData={companies}
             columnDefs={columnDefs}
             getRowId={(row) => row.data.id}
-            paginationPageSize={20}
+            pagination={true}
+            paginationPageSizeSelector={[10, 20, 50, 100]}
+            paginationPageSize={10}
             autoSizeStrategy={{
               type: "fitGridWidth",
             }}

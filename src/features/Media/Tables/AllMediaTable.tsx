@@ -8,27 +8,19 @@ import {
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { ProjectProps } from "../ProjectTypes";
-import DeleteProjectForm from "../forms/DeleteProjectForm";
-import Link from "next/link";
-import { EditIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { MediaProps } from "../MediaTypes";
 
-export default function AllProjectsTable({
-  projects,
-}: {
-  projects: ProjectProps[];
-}) {
+export default function AllMediaTable({ medias }: { medias: MediaProps[] }) {
   const modules = [AllCommunityModule];
   const [search, setSearch] = useState("");
-  const columnDefs = useMemo<ColDef<ProjectProps>[]>(
+  const columnDefs = useMemo<ColDef<MediaProps>[]>(
     () => [
       {
-        field: "image",
-        headerName: "Featured Image",
+        field: "url",
+        headerName: "Image",
         cellRenderer: (row: ICellRendererParams) => (
           <Image
-            src={row.data.image}
+            src={row.data.url}
             alt="featured-image"
             width={100}
             height={100}
@@ -37,46 +29,20 @@ export default function AllProjectsTable({
         ),
       },
       {
-        field: "title",
-        headerName: "Title",
+        field: "name",
+        headerName: "Name",
       },
       {
-        field: "slug",
-        headerName: "Slug",
+        field: "size",
+        headerName: "Size",
       },
       {
-        field: "featured",
-        headerName: "Featured",
-      },
-      {
-        field: "published",
-        headerName: "Published",
+        field: "type",
+        headerName: "File Type",
       },
       {
         field: "createdAt",
         headerName: "Created",
-      },
-      {
-        field: "updatedAt",
-        headerName: "Updated",
-      },
-      {
-        headerName: "Actions",
-        cellRenderer: (row: ICellRendererParams) => (
-          <div className="flex flex-row items-center gap-2">
-            <div>
-              <Button asChild variant={"outline"} size={"icon-xs"}>
-                <Link
-                  href={`/dashboard/projects/edit/${row.data.id}`}
-                  className="text-yellow-500"
-                >
-                  <EditIcon />
-                </Link>
-              </Button>
-            </div>
-            <DeleteProjectForm projectId={row.data.id} />
-          </div>
-        ),
       },
     ],
     [],
@@ -94,7 +60,7 @@ export default function AllProjectsTable({
       <div className="grid gap-6">
         <div className="flex flex-row items-end-end md:w-1/2">
           <TableSearch
-            title="Search projects..."
+            title="Search media..."
             search={search}
             setSearch={setSearch}
           />
@@ -103,7 +69,7 @@ export default function AllProjectsTable({
           quickFilterText={search}
           domLayout="autoHeight"
           theme={myTheme}
-          rowData={projects}
+          rowData={medias}
           columnDefs={columnDefs}
           getRowId={(row) => row.data.id}
           pagination={true}

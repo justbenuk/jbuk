@@ -233,7 +233,7 @@ export default function Editor({
     editorProps: {
       attributes: {
         class:
-          "min-h-72 w-full px-3 py-2 text-sm outline-none prose-editor focus-visible:ring-0",
+          "tiptap-content prose-editor min-h-72 w-full px-3 py-2 text-sm outline-none focus-visible:ring-0",
       },
     },
     immediatelyRender: false,

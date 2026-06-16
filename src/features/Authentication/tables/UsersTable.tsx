@@ -1,67 +1,89 @@
-'use client'
-import { AllCommunityModule, ColDef, ICellRendererParams, themeQuartz } from "ag-grid-community";
+"use client";
+import {
+  AllCommunityModule,
+  ColDef,
+  ICellRendererParams,
+  themeQuartz,
+} from "ag-grid-community";
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import { CheckIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { format } from 'date-fns'
-import { enGB } from 'date-fns/locale'
+import { format } from "date-fns";
+import { enGB } from "date-fns/locale";
 import TableSearch from "@/components/shared/TableSearch";
 import { imageSrc } from "@/lib/utils";
 import { UserProps } from "@/features/Authentication/AuthenticationTypes";
 import DeleteUserForm from "../forms/DeleteUserForm";
 
 export default function UsersTable({ users }: { users: UserProps[] }) {
-
-  const modules = [AllCommunityModule]
+  const modules = [AllCommunityModule];
   const [search, setSearch] = useState("");
-  const columnDefs = useMemo<ColDef<UserProps>[]>(() => [
-    {
-      field: 'image',
-      headerName: 'Image',
-      cellRenderer: (row: ICellRendererParams<UserProps>) => (
-        <div className="flex h-full items-center">
-          <Image src={imageSrc(row.value)} alt="profile pic" width={30} height={30} className="rounded-full h-6 w-6" />
-        </div>
-      )
-    },
-    {
-      field: 'name',
-      headerName: 'Name'
-    }, {
-      field: 'email',
-      headerName: 'Email'
-    },
-    {
-      field: 'emailVerified',
-      headerName: 'Email Verified',
-      cellRenderer: (row: ICellRendererParams<UserProps>) => (
-        <div className="flex h-full items-center">
-          {row.value ? <CheckIcon className="size-5" /> : <XIcon className="size-5" />}
-        </div>
-      )
-    }, {
-      field: 'role',
-      headerName: 'Role',
-      cellRenderer: (row: ICellRendererParams<UserProps>) => (
-        <span className="capitalize">{row.value}</span>
-      )
-    },
-    {
-      field: 'createdAt',
-      headerName: 'Registered',
-      cellRenderer: (row: ICellRendererParams<UserProps>) => (
-        <span>{row.value ? format(row.value, 'Pp', { locale: enGB }) : ''}</span>
-      )
-    }, {
-      headerName: 'Actions',
-      cellRenderer: (row: ICellRendererParams<UserProps>) => (
-        <div>
-          <DeleteUserForm userId={row.data?.id} />
-        </div>
-      )
-    }
-  ], [])
+  const columnDefs = useMemo<ColDef<UserProps>[]>(
+    () => [
+      {
+        field: "image",
+        headerName: "Image",
+        cellRenderer: (row: ICellRendererParams<UserProps>) => (
+          <div className="flex h-full items-center">
+            <Image
+              src={imageSrc(row.value)}
+              alt="profile pic"
+              width={30}
+              height={30}
+              className="rounded-full h-6 w-6"
+            />
+          </div>
+        ),
+      },
+      {
+        field: "name",
+        headerName: "Name",
+      },
+      {
+        field: "email",
+        headerName: "Email",
+      },
+      {
+        field: "emailVerified",
+        headerName: "Email Verified",
+        cellRenderer: (row: ICellRendererParams<UserProps>) => (
+          <div className="flex h-full items-center">
+            {row.value ? (
+              <CheckIcon className="size-5" />
+            ) : (
+              <XIcon className="size-5" />
+            )}
+          </div>
+        ),
+      },
+      {
+        field: "role",
+        headerName: "Role",
+        cellRenderer: (row: ICellRendererParams<UserProps>) => (
+          <span className="capitalize">{row.value}</span>
+        ),
+      },
+      {
+        field: "createdAt",
+        headerName: "Registered",
+        cellRenderer: (row: ICellRendererParams<UserProps>) => (
+          <span>
+            {row.value ? format(row.value, "Pp", { locale: enGB }) : ""}
+          </span>
+        ),
+      },
+      {
+        headerName: "Actions",
+        cellRenderer: (row: ICellRendererParams<UserProps>) => (
+          <div>
+            <DeleteUserForm userId={row.data?.id} />
+          </div>
+        ),
+      },
+    ],
+    [],
+  );
 
   const defaultColDef = {
     sortable: true,
@@ -79,7 +101,11 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
     <AgGridProvider modules={modules}>
       <div className="grid gap-6">
         <div className="flex flex-row items-end-end md:w-1/2">
-          <TableSearch title="Search users..." search={search} setSearch={setSearch} />
+          <TableSearch
+            title="Search users..."
+            search={search}
+            setSearch={setSearch}
+          />
         </div>
         <AgGridReact
           quickFilterText={search}
@@ -89,12 +115,14 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
           rowData={users}
           columnDefs={columnDefs}
           getRowId={(row) => row.data.id}
-          paginationPageSize={20}
+          pagination={true}
+          paginationPageSizeSelector={[10, 20, 50, 100]}
+          paginationPageSize={10}
           autoSizeStrategy={{
             type: "fitGridWidth",
           }}
         />
       </div>
     </AgGridProvider>
-  )
+  );
 }

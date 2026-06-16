@@ -1,8 +1,13 @@
-'use client'
+"use client";
 
-import type { Project, ProjectCategory } from "@prisma/client"
-import { useMemo, useState } from "react"
-import { AllCommunityModule, ColDef, ICellRendererParams, themeQuartz } from "ag-grid-community";
+import type { Project, ProjectCategory } from "@prisma/client";
+import { useMemo, useState } from "react";
+import {
+  AllCommunityModule,
+  ColDef,
+  ICellRendererParams,
+  themeQuartz,
+} from "ag-grid-community";
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import TableSearch from "@/components/shared/TableSearch";
 import { Button } from "@/components/ui/button";
@@ -11,54 +16,62 @@ import { EyeIcon } from "lucide-react";
 import DeleteProjectCategoryForm from "../forms/DeleteProjectCategoryForm";
 
 type ProjectCategoryRow = ProjectCategory & {
-  projects: Project[]
-}
+  projects: Project[];
+};
 
+export default function ProjectCategoriesTable({
+  categories,
+}: {
+  categories: ProjectCategoryRow[];
+}) {
+  const [search, setSearch] = useState("");
+  const modules = [AllCommunityModule];
 
+  const columnDefs = useMemo<ColDef<ProjectCategoryRow>[]>(
+    () => [
+      {
+        field: "name",
+        headerName: "Name",
+      },
+      {
+        field: "slug",
+        headerName: "Slug",
+      },
+      {
+        field: "description",
+        headerName: "Description",
+      },
+      {
+        headerName: "No of projects",
+        valueGetter: (row) => row.data?.projects.length ?? 0,
+      },
+      {
+        headerName: "Actions",
+        cellRenderer: (row: ICellRendererParams) => {
+          const id = row.data?.id;
 
-export default function ProjectCategoriesTable({ categories }: { categories: ProjectCategoryRow[] }) {
-
-  const [search, setSearch] = useState('')
-  const modules = [AllCommunityModule]
-
-
-  const columnDefs = useMemo<ColDef<ProjectCategoryRow>[]>(() => [
-    {
-      field: 'name',
-      headerName: 'Name'
-    },
-    {
-      field: 'slug',
-      headerName: 'Slug'
-    },
-    {
-      field: 'description',
-      headerName: 'Description'
-    },
-    {
-      headerName: 'No of projects',
-      valueGetter: (row) => row.data?.projects.length ?? 0,
-    },
-    {
-      headerName: 'Actions',
-      cellRenderer: (row: ICellRendererParams) => {
-        const id = row.data?.id
-
-        return (
-          <div className="flex items-center gap-2">
-            <div>
-              <Button variant={'outline'} size={'icon-xs'} asChild className="text-yellow-500">
-                <Link href={`/dashboard/categories/edit/${id}`}>
-                  <EyeIcon />
-                </Link>
-              </Button>
+          return (
+            <div className="flex items-center gap-2">
+              <div>
+                <Button
+                  variant={"outline"}
+                  size={"icon-xs"}
+                  asChild
+                  className="text-yellow-500"
+                >
+                  <Link href={`/dashboard/categories/edit/${id}`}>
+                    <EyeIcon />
+                  </Link>
+                </Button>
+              </div>
+              <DeleteProjectCategoryForm categoryId={row.data.id} />
             </div>
-            <DeleteProjectCategoryForm categoryId={row.data.id} />
-          </div>
-        )
-      }
-    }
-  ], [])
+          );
+        },
+      },
+    ],
+    [],
+  );
 
   const defaultColDef = {
     sortable: true,
@@ -72,13 +85,15 @@ export default function ProjectCategoriesTable({ categories }: { categories: Pro
     headerBackgroundColor: "var(--muted)",
   });
 
-
-
   return (
     <AgGridProvider modules={modules}>
       <div className="grid gap-6">
         <div className="flex flex-row items-end-end md:w-1/2">
-          <TableSearch title="Search categories" search={search} setSearch={setSearch} />
+          <TableSearch
+            title="Search categories"
+            search={search}
+            setSearch={setSearch}
+          />
         </div>
         <AgGridReact
           quickFilterText={search}
@@ -88,12 +103,14 @@ export default function ProjectCategoriesTable({ categories }: { categories: Pro
           rowData={categories}
           columnDefs={columnDefs}
           getRowId={(row) => row.data.id}
-          paginationPageSize={20}
+          pagination={true}
+          paginationPageSizeSelector={[10, 20, 50, 100]}
+          paginationPageSize={10}
           autoSizeStrategy={{
             type: "fitGridWidth",
           }}
         />
       </div>
     </AgGridProvider>
-  )
+  );
 }

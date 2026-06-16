@@ -1,3 +1,4 @@
+"use client";
 import TableSearch from "@/components/shared/TableSearch";
 import {
   AllCommunityModule,
@@ -8,20 +9,17 @@ import {
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { ProjectProps } from "../ProjectTypes";
-import DeleteProjectForm from "../forms/DeleteProjectForm";
-import Link from "next/link";
-import { EditIcon } from "lucide-react";
+import { PostProps } from "../PostTypes";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { EyeIcon } from "lucide-react";
+import { DeletePostForm } from "../forms/DeletePostForm";
 
-export default function AllProjectsTable({
-  projects,
-}: {
-  projects: ProjectProps[];
-}) {
+export default function AllPostsTable({ posts }: { posts: PostProps[] }) {
   const modules = [AllCommunityModule];
   const [search, setSearch] = useState("");
-  const columnDefs = useMemo<ColDef<ProjectProps>[]>(
+
+  const columnDefs = useMemo<ColDef<PostProps>[]>(
     () => [
       {
         field: "image",
@@ -41,18 +39,6 @@ export default function AllProjectsTable({
         headerName: "Title",
       },
       {
-        field: "slug",
-        headerName: "Slug",
-      },
-      {
-        field: "featured",
-        headerName: "Featured",
-      },
-      {
-        field: "published",
-        headerName: "Published",
-      },
-      {
         field: "createdAt",
         headerName: "Created",
       },
@@ -65,16 +51,18 @@ export default function AllProjectsTable({
         cellRenderer: (row: ICellRendererParams) => (
           <div className="flex flex-row items-center gap-2">
             <div>
-              <Button asChild variant={"outline"} size={"icon-xs"}>
-                <Link
-                  href={`/dashboard/projects/edit/${row.data.id}`}
-                  className="text-yellow-500"
-                >
-                  <EditIcon />
+              <Button
+                asChild
+                variant={"outline"}
+                size={"icon-xs"}
+                className="text-yellow-500"
+              >
+                <Link href={`/dashboard/posts/edit/${row.data.id}`}>
+                  <EyeIcon />
                 </Link>
               </Button>
             </div>
-            <DeleteProjectForm projectId={row.data.id} />
+            <DeletePostForm id={row.data.id} />
           </div>
         ),
       },
@@ -103,12 +91,10 @@ export default function AllProjectsTable({
           quickFilterText={search}
           domLayout="autoHeight"
           theme={myTheme}
-          rowData={projects}
+          rowData={posts}
           columnDefs={columnDefs}
           getRowId={(row) => row.data.id}
-          pagination={true}
-          paginationPageSizeSelector={[10, 20, 50, 100]}
-          paginationPageSize={10}
+          paginationPageSize={20}
           autoSizeStrategy={{
             type: "fitGridWidth",
           }}

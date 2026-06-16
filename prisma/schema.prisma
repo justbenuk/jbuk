@@ -23,6 +23,7 @@ model User {
   companies     Company[]
   medias        Media[]
   projects      Project[]
+  posts         Post[]
 
   @@unique([email])
   @@map("user")
@@ -187,7 +188,7 @@ model ProjectCategory {
 }
 
 model Server {
-  id          String  @id @default(cuid())
+  id          String @id @default(cuid())
   provider    String
   providerUrl String
   ipAddress   String
@@ -202,4 +203,21 @@ model Server {
   updatedAt DateTime @updatedAt
 
   @@map("server")
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  excerpt   String
+  image     String
+  content   String
+  author    User     @relation(fields: [userId], references: [id])
+  published Boolean
+  featured  Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+
+  @@map("post")
 }

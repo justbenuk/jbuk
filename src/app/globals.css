@@ -138,46 +138,61 @@
 }
 
 @layer components {
-  .prose-editor {
+  .tiptap-content {
     overflow-wrap: anywhere;
     }
-  .prose-editor h1 {
-    @apply mt-6 mb-3 text-3xl font-semibold;
+  .tiptap-content h1 {
+    @apply mt-8 mb-4 text-4xl font-semibold leading-tight;
     }
-  .prose-editor h2 {
-    @apply mt-5 mb-2 text-2xl font-semibold;
+  .tiptap-content h2 {
+    @apply mt-7 mb-3 text-3xl font-semibold leading-tight;
     }
-  .prose-editor h3 {
-    @apply mt-4 mb-2 text-xl font-semibold;
+  .tiptap-content h3 {
+    @apply mt-6 mb-2 text-2xl font-semibold leading-snug;
     }
-  .prose-editor p {
-    @apply my-3;
+  .tiptap-content p {
+    @apply my-4 leading-7;
     }
-  .prose-editor ul {
-    @apply my-3 list-disc pl-6;
+  .tiptap-content ul {
+    @apply my-4 list-disc space-y-2 pl-6;
     }
-  .prose-editor ol {
-    @apply my-3 list-decimal pl-6;
+  .tiptap-content ol {
+    @apply my-4 list-decimal space-y-2 pl-6;
     }
-  .prose-editor blockquote {
-    @apply my-4 border-l-4 border-primary/60 pl-4 text-muted-foreground;
+  .tiptap-content li > p {
+    @apply my-1;
     }
-  .prose-editor pre {
+  .tiptap-content blockquote {
+    @apply my-6 border-l-4 border-primary/60 pl-4 text-muted-foreground italic;
+    }
+  .tiptap-content pre {
     @apply my-4 overflow-x-auto rounded-md bg-muted p-4 text-sm;
     }
-  .prose-editor code {
+  .tiptap-content code {
     @apply rounded bg-muted px-1 py-0.5 text-sm;
     }
-  .prose-editor pre code {
+  .tiptap-content pre code {
     @apply bg-transparent p-0;
     }
-  .prose-editor a {
+  .tiptap-content a {
     @apply text-primary underline underline-offset-4;
     }
-  .prose-editor :first-child {
+  .tiptap-content hr {
+    @apply my-8 border-border;
+    }
+  .tiptap-content :first-child {
     @apply mt-0;
     }
-  .prose-editor :last-child {
+  .tiptap-content :last-child {
     @apply mb-0;
+    }
+  .prose-editor h1 {
+    @apply text-3xl;
+    }
+  .prose-editor h2 {
+    @apply text-2xl;
+    }
+  .prose-editor h3 {
+    @apply text-xl;
     }
 }
