@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import ClientContainer from "@/components/shared/ClientContainer";
 import StatsSection from '@/features/dashboard/components/StatsSection';
+import PageContainer from '@/components/shared/PageContainer';
 
 export const metadata: Metadata = {
   title: 'Dashboard'
@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 export default function DashboardPage() {
 
   return (
-    <ClientContainer>
+    <PageContainer size='dashboard'>
       <StatsSection />
-    </ClientContainer>
+    </PageContainer>
   )
 }
 

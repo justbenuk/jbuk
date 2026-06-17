@@ -1,13 +1,13 @@
-import ClientContainer from "../shared/ClientContainer";
+import PageContainer from "../shared/PageContainer";
 import TableSkeleton from "./TableSkeleton";
 import TripleBoxSkeleton from "./TripleBoxSkeleton";
 
 export default function DashboardSkeleton() {
   return (
-    <ClientContainer className="grid gap-6">
+    <PageContainer size="dashboard">
       <TripleBoxSkeleton length={4} />
       <TableSkeleton />
-    </ClientContainer>
+    </PageContainer>
   )
 }
 

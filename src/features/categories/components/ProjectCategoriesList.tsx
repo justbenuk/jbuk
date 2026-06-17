@@ -1,5 +1,4 @@
 'use client'
-import ClientContainer from "@/components/shared/ClientContainer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PlusIcon } from "lucide-react";
@@ -40,15 +39,7 @@ export default function ProjectCategoriesList() {
     loadData()
   }, [])
 
-  if (loading) return (
-    < ClientContainer >
-      <Card>
-        <CardContent>
-          <TableSkeleton />
-        </CardContent>
-      </Card>
-    </ClientContainer >
-  )
+  if (loading) <TableSkeleton />
   if (error) return <ErrorCard message={error} />
 
 

@@ -1,10 +1,10 @@
-import ClientContainer from "../shared/ClientContainer";
+import PageContainer from "../shared/PageContainer";
 import { Card, CardContent } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
 
 export default function CategorySkeleton() {
   return (
-    <ClientContainer >
+    <PageContainer size="dashboard" >
       <Card>
         <CardContent className="grid gap-6">
           <div className="grid gap-2">
@@ -17,6 +17,6 @@ export default function CategorySkeleton() {
           </div>
         </CardContent>
       </Card>
-    </ClientContainer>)
+    </PageContainer>)
 }
 

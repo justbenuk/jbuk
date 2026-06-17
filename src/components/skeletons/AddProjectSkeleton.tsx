@@ -1,9 +1,9 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import ClientContainer from "../shared/ClientContainer";
+import PageContainer from "../shared/PageContainer";
 
 export default function AddProjectSkeleton() {
   return (
-    <ClientContainer>
+    <PageContainer size="dashboard">
       <div className="grid grid-cols-1 lg:grid-cols-8 gap-4">
         <div className="col-span-1 lg:col-span-5 space-y-10">
           <div className="space-y-6">
@@ -72,7 +72,7 @@ export default function AddProjectSkeleton() {
 
         </div>
       </div>
-    </ClientContainer>
+    </PageContainer>
   )
 }
 

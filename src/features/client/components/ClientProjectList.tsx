@@ -47,9 +47,9 @@ export default function ClientProjectList() {
               <Image
                 src={project.image}
                 alt={project.title}
-                width={150}
-                height={150}
-                className="rounded-full"
+                width={500}
+                height={500}
+                className="w-full h-75 rounded-2xl"
               />
               <h1 className="text-2xl font-semibold">{project.title}</h1>
               <p className="text-sm">

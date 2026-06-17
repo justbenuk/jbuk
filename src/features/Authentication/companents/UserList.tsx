@@ -1,5 +1,4 @@
 "use client";
-import ClientContainer from "@/components/shared/ClientContainer";
 import ErrorCard from "@/components/shared/ErrorCard";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import { useEffect, useState } from "react";
@@ -34,13 +33,7 @@ export default function UserList() {
     loadData();
   }, []);
 
-  if (loading) {
-    return (
-      <ClientContainer>
-        <TableSkeleton />
-      </ClientContainer>
-    );
-  }
+  if (loading) return <TableSkeleton />
   if (error) return <ErrorCard message={error} />;
 
   return (

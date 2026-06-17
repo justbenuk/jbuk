@@ -11,7 +11,7 @@ const containerSizes = {
   text: "max-w-3xl",
   form: "max-w-5xl",
   dashboard: "max-w-7xl",
-  full: "max-w-none",
+  full: "container",
 };
 
 export default function PageContainer({
@@ -22,7 +22,7 @@ export default function PageContainer({
   return (
     <div
       className={cn(
-        "w-full mx-auto px-6 2xl:px-0 mt-10",
+        "w-full mx-auto px-6 2xl:px-0 py-4",
         containerSizes[size],
         className,
       )}
