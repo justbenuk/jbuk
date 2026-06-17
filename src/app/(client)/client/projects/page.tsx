@@ -1,5 +1,4 @@
-import ClientContainer from '@/components/shared/ClientContainer';
-import DashTitle from '@/components/shared/DashTitle';
+import PageContainer from '@/components/shared/PageContainer';
 import ClientProjectList from '@/features/client/components/ClientProjectList';
 import type { Metadata } from 'next';
 
@@ -9,10 +8,9 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <ClientContainer className='grid gap-6'>
-      <DashTitle title='Your Projects' />
+    <PageContainer size='dashboard'>
       <ClientProjectList />
-    </ClientContainer>
+    </PageContainer>
   )
 }
 

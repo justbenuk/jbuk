@@ -1,23 +1,22 @@
 "use client"
 
 import Link from "next/link";
-import Image from "next/image";
 import { Sidebar, SidebarHeader, SidebarMenuItem, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarFooter } from "@/components/ui/sidebar";
 import UserMenu from "@/features/Authentication/companents/UserMenu";
+import { FileQuestionIcon, HomeIcon, LayoutDashboardIcon, LockIcon, ProjectorIcon } from "lucide-react";
 
 export default function ClientSidebar() {
   return (
-    <Sidebar collapsible="offcanvas">
+    <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuItem className="py-2">
-            <Link href={'/'} className="flex flex-row items-center gap-4">
-              <Image src={'/assets/me-nobg.png'} alt="profile" width={40} height={40} className="rounded-full border-2 border-primary" />
-              <div className="flex flex-col justify-center">
-                <span className="font-semibold">Just Ben UK</span>
-                <span className="text-xs">Client Dashboard</span>
-              </div>
-            </Link>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href={"/"}>
+                <HomeIcon />
+                <span>Back To Site</span>
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -26,22 +25,34 @@ export default function ClientSidebar() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link href={'/client'}>Dashboard</Link>
+                <Link href={'/client'}>
+                  <LayoutDashboardIcon />
+                  <span>Dashboard</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link href={'/client/projects'}>Projects</Link>
+                <Link href={'/client/change-password'}>
+                  <LockIcon />
+                  <span>Change Password</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link href={'/client/servers'}>Servers</Link>
+                <Link href={'/client/projects'}>
+                  <ProjectorIcon />
+                  <span>Projects</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link href={'/client/faqs'}>FAQ's</Link>
+                <Link href={'/client/faqs'}>
+                  <FileQuestionIcon />
+                  <span>FAQ's</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>

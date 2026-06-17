@@ -5,6 +5,8 @@ import { AddServerSchema } from "./ServerValadationSchema";
 import { db } from "@/lib/db";
 import { isAdmin } from "../Authentication/AuthenticationActions";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export async function AddServer(values: z.infer<typeof AddServerSchema>) {
   await isAdmin();

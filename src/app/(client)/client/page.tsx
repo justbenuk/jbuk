@@ -1,10 +1,10 @@
-import ClientContainer from "@/components/shared/ClientContainer";
+import PageContainer from "@/components/shared/PageContainer";
 import ClientCompanyList from "@/features/companies/components/ClientComapnyList";
 
 export default function ClientPage() {
   return (
-    <ClientContainer className="grid gap-6">
+    <PageContainer size="dashboard">
       <ClientCompanyList />
-    </ClientContainer>
+    </PageContainer>
   );
 }
