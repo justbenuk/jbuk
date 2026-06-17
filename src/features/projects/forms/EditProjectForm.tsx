@@ -28,9 +28,6 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import z from "zod";
 import { AddProjectSchema } from "../ProjectValidationSchema";
-import { CompanyProps } from "@/features/client/ClientTypes";
-import { ProjectProps } from "../ProjectTypes";
-import { CategoryProps } from "@/features/categories/CategoryValidationSchema";
 import { fetchAllProjectCategories } from "@/features/categories/CategoryActions";
 import { fetchAllCompanies } from "@/features/companies/CompanyActions";
 import ErrorCard from "@/components/shared/ErrorCard";
@@ -40,14 +37,11 @@ import { UploadButton } from "@/lib/uploadthing";
 import { toast } from "sonner";
 import { EditProject } from "../ProjectActions";
 import Editor from "@/components/Editor/Editor";
+import { Company, Project, ProjectCategory } from "@prisma/client";
 
-export default function EditProjectForm({
-  project,
-}: {
-  project: ProjectProps;
-}) {
-  const [categories, setCategorys] = useState<CategoryProps[]>();
-  const [companies, setCompanies] = useState<CompanyProps[]>();
+export default function EditProjectForm({ project }: { project: Project }) {
+  const [categories, setCategorys] = useState<ProjectCategory[]>();
+  const [companies, setCompanies] = useState<Company[]>();
   const [loading, isLoading] = useState(true);
   const [error, setError] = useState<string | null>();
   const form = useForm<

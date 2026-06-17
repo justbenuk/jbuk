@@ -12,10 +12,18 @@ import Link from "next/link";
 import { PlusIcon } from "lucide-react";
 import AllServersTable from "@/features/servers/tables/AllServersTable";
 import { useEffect, useState } from "react";
-import { ServerProps } from "@/features/servers/ServerTypes";
 import { FetchAllServers } from "@/features/servers/ServerActions";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import ErrorCard from "@/components/shared/ErrorCard";
+import { Prisma } from "@prisma/client";
+import PageContainer from "@/components/shared/PageContainer";
+
+type ServerProps = Prisma.ServerGetPayload<{
+  include: {
+    company: true;
+    project: true;
+  };
+}>;
 
 export default function ServerPage() {
   const [loading, setLoading] = useState(true);
@@ -40,7 +48,7 @@ export default function ServerPage() {
   if (loading) return <TableSkeleton />;
   if (error) return <ErrorCard message="Failed to load data" />;
   return (
-    <ClientContainer>
+    <PageContainer size="dashboard">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
@@ -58,6 +66,6 @@ export default function ServerPage() {
           <AllServersTable servers={servers} />
         </CardContent>
       </Card>
-    </ClientContainer>
+    </PageContainer>
   );
 }

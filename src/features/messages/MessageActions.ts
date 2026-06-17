@@ -13,10 +13,9 @@ export async function createMessage(values: z.infer<typeof ContactFormSchema>) {
       data: validated,
     });
     revalidatePath("/dashboard/messages");
-    return { success: true, message: "Message sent" };
+    return { success: true };
   } catch (error) {
-    console.log(`Main Contact Form: ${error}`);
-    return { success: false, message: "Failed to send message" };
+    throw new Error(`Send Message: ${error}`);
   }
 }
 
@@ -26,8 +25,7 @@ export async function fetchAllMessages() {
     const data = await db.contact.findMany();
     return { success: true, data };
   } catch (error) {
-    console.error(`Message Fetch Error: ${error}`);
-    return { success: false, message: "Failed to fetch messages" };
+    throw new Error(`Message fetch: ${error}`);
   }
 }
 
@@ -40,9 +38,8 @@ export async function deleteMessageById(id: string) {
       },
     });
     revalidatePath("/dashboard/messages");
-    return { success: true, message: "Messaged deleted" };
+    return { success: true };
   } catch (error) {
-    console.error(`Main Contact Form: ${error}`);
-    return { success: false, message: "Failed to delete message" };
+    throw new Error(`Message Delete: ${error}`);
   }
 }

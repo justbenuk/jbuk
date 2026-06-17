@@ -1,37 +1,52 @@
-'use client'
+"use client";
 import ErrorCard from "@/components/shared/ErrorCard";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import { useEffect, useState } from "react";
 import MessageTable from "../tables/MessageTable";
 import { fetchAllMessages } from "../MessageActions";
-import { MessageProps } from "../MessageTypes";
-
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Contact } from "@prisma/client";
 
 export default function MessageList() {
-  const [messages, setMessages] = useState<MessageProps[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>()
+  const [messages, setMessages] = useState<Contact[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>();
 
   useEffect(() => {
     async function loadData() {
-      setLoading(true)
-      const response = await fetchAllMessages()
+      setLoading(true);
+      const response = await fetchAllMessages();
 
       if (response.success && response.data) {
-        setMessages(response.data)
+        setMessages(response.data);
       } else {
-        setError('Failed to load messages')
+        setError("Failed to load messages");
       }
-      setLoading(false)
+      setLoading(false);
     }
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
-  if (loading) return <TableSkeleton />
-  if (error) return <ErrorCard message={error} />
-
+  if (loading) return <TableSkeleton />;
+  if (error) return <ErrorCard message={error} />;
 
   return (
-    <MessageTable messages={messages} />
-  )
+    <Card>
+      <CardHeader>
+        <CardTitle>Messages</CardTitle>
+        <CardDescription>
+          Messages received from main contact form
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <MessageTable messages={messages} />
+      </CardContent>
+    </Card>
+  );
 }

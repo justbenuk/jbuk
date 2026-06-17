@@ -1,6 +1,5 @@
 "use client";
 
-import ClientContainer from "@/components/shared/ClientContainer";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,13 +12,14 @@ import AllPostsTable from "@/features/posts/tables/AllPostsTable";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { PostProps } from "../PostTypes";
 import { FetchAllPosts } from "../PostActions";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import ErrorCard from "@/components/shared/ErrorCard";
+import { Post } from "@prisma/client";
+import PageContainer from "@/components/shared/PageContainer";
 export default function PostList() {
   const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState<PostProps[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function PostList() {
   if (loading) return <TableSkeleton />;
   if (error) return <ErrorCard message="Failed to fetch posts" />;
   return (
-    <ClientContainer>
+    <PageContainer size="dashboard">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
@@ -58,6 +58,6 @@ export default function PostList() {
           <AllPostsTable posts={posts} />
         </CardContent>
       </Card>
-    </ClientContainer>
+    </PageContainer>
   );
 }

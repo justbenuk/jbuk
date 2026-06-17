@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CompanyProps } from "../CompanyTypes";
 import { fetchCompaniesByUserId } from "../CompanyActions";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import ErrorCard from "@/components/shared/ErrorCard";
@@ -16,10 +15,11 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
+import { Company } from "@prisma/client";
 
 export default function ClientCompanyList() {
   const [loading, setLoading] = useState(true);
-  const [companies, setCompanies] = useState<CompanyProps[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
   const [error, setError] = useState<string | null>();
 
   useEffect(() => {

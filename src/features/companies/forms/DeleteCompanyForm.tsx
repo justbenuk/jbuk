@@ -7,8 +7,10 @@ export default function DeleteCompanyForm({ id }: { id: string }) {
   async function handleDelete() {
     const response = await deleteCompanyById(id);
 
-    if (response?.success) {
+    if (response) {
       toast.success("Company Deleted");
+    } else {
+      toast.error("Failed to delete company");
     }
   }
   return (

@@ -8,20 +8,20 @@ import {
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { ProjectProps } from "../ProjectTypes";
 import DeleteProjectForm from "../forms/DeleteProjectForm";
 import Link from "next/link";
 import { EditIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Project } from "@prisma/client";
 
 export default function AllProjectsTable({
   projects,
 }: {
-  projects: ProjectProps[];
+  projects: Project[];
 }) {
   const modules = [AllCommunityModule];
   const [search, setSearch] = useState("");
-  const columnDefs = useMemo<ColDef<ProjectProps>[]>(
+  const columnDefs = useMemo<ColDef<Project>[]>(
     () => [
       {
         field: "image",

@@ -1,5 +1,4 @@
 import TableSearch from "@/components/shared/TableSearch";
-import { CompanyProps } from "../CompanyTypes";
 import {
   AllCommunityModule,
   ColDef,
@@ -13,16 +12,17 @@ import Link from "next/link";
 import { PenIcon } from "lucide-react";
 import DeleteCompanyForm from "../forms/DeleteCompanyForm";
 import Image from "next/image";
+import { Company } from "@prisma/client";
 
 export default function CompaniesTable({
   companies,
 }: {
-  companies: CompanyProps[];
+  companies: Company[];
 }) {
   const [search, setSearch] = useState("");
 
   const modules = [AllCommunityModule];
-  const columnDefs: ColDef<CompanyProps>[] = [
+  const columnDefs: ColDef<Company>[] = [
     {
       field: "image",
       headerName: "Company Image",
@@ -46,7 +46,7 @@ export default function CompaniesTable({
     },
     {
       field: "emergencyContact",
-      headerName: "Emergency Cantact",
+      headerName: "Emergency Contact",
     },
     {
       field: "contactNumber",

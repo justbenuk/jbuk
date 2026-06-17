@@ -5,7 +5,6 @@ import { isAdmin } from "../Authentication/AuthenticationActions";
 
 export async function FetchAllMedia() {
   await isAdmin();
-
   try {
     const data = await db.media.findMany({
       orderBy: {
@@ -15,7 +14,6 @@ export async function FetchAllMedia() {
 
     return { success: true, data };
   } catch (error) {
-    console.error(`Fetch Media: ${error}`);
-    return { success: false, message: "Failed to fetch media" };
+    throw new Error(`Fetch media: ${error}`);
   }
 }

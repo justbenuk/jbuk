@@ -9,13 +9,13 @@ import {
 } from "@/components/ui/card";
 import CompaniesTable from "../tables/CompaniesTable";
 import { useEffect, useState } from "react";
-import { CompanyProps } from "../CompanyTypes";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import ErrorCard from "@/components/shared/ErrorCard";
 import { fetchAllCompanies } from "../CompanyActions";
+import { Company } from "@prisma/client";
 
 export default function CompanyList() {
-  const [companies, setCompanies] = useState<CompanyProps[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>();
 

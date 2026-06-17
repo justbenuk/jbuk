@@ -11,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { CompanyProps } from "../CompanyTypes";
 import { CompanySchema } from "../CompanyValidationSchema";
 import { EditCompanyInformation } from "../CompanyActions";
 import {
@@ -24,12 +23,9 @@ import {
 import { UploadButton } from "@/lib/uploadthing";
 import { imageSrc } from "@/lib/utils";
 import Image from "next/image";
+import { Company } from "@prisma/client";
 
-export default function EditCompanyForm({
-  company,
-}: {
-  company: CompanyProps;
-}) {
+export default function EditCompanyForm({ company }: { company: Company }) {
   const form = useForm({
     resolver: zodResolver(CompanySchema),
     defaultValues: {

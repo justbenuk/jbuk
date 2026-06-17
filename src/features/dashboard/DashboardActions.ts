@@ -13,7 +13,7 @@ export async function fetchDashboardStats() {
     ]);
     return { success: true, data: { messages, users, projects, servers } };
   } catch (error) {
-    console.log(`Error fetching stats: ${error}`);
+    console.error(`Error fetching stats: ${error}`);
     return { success: false };
   }
 }

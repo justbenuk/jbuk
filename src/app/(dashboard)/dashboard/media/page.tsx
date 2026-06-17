@@ -1,10 +1,10 @@
-import ClientContainer from "@/components/shared/ClientContainer";
+import PageContainer from "@/components/shared/PageContainer";
 import MediaList from "@/features/Media/components/MediaList";
 
 export default function MediaPage() {
   return (
-    <ClientContainer>
+    <PageContainer size="dashboard">
       <MediaList />
-    </ClientContainer>
+    </PageContainer>
   );
 }

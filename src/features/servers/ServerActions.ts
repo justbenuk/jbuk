@@ -23,8 +23,7 @@ export async function AddServer(values: z.infer<typeof AddServerSchema>) {
     revalidatePath("/dashboard/servers");
     return { success: true, message: "Server added" };
   } catch (error) {
-    console.error(`Server Error: ${error}`);
-    return { success: false, message: "Failed to add server" };
+    throw new Error(`Add Server: ${error}`);
   }
 }
 

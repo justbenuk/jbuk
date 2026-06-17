@@ -13,18 +13,18 @@ import { format } from "date-fns";
 import { enGB } from "date-fns/locale";
 import TableSearch from "@/components/shared/TableSearch";
 import { imageSrc } from "@/lib/utils";
-import { UserProps } from "@/features/Authentication/AuthenticationTypes";
 import DeleteUserForm from "../forms/DeleteUserForm";
+import { User } from "@prisma/client";
 
-export default function UsersTable({ users }: { users: UserProps[] }) {
+export default function UsersTable({ users }: { users: User[] }) {
   const modules = [AllCommunityModule];
   const [search, setSearch] = useState("");
-  const columnDefs = useMemo<ColDef<UserProps>[]>(
+  const columnDefs = useMemo<ColDef<User>[]>(
     () => [
       {
         field: "image",
         headerName: "Image",
-        cellRenderer: (row: ICellRendererParams<UserProps>) => (
+        cellRenderer: (row: ICellRendererParams<User>) => (
           <div className="flex h-full items-center">
             <Image
               src={imageSrc(row.value)}
@@ -47,7 +47,7 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
       {
         field: "emailVerified",
         headerName: "Email Verified",
-        cellRenderer: (row: ICellRendererParams<UserProps>) => (
+        cellRenderer: (row: ICellRendererParams<User>) => (
           <div className="flex h-full items-center">
             {row.value ? (
               <CheckIcon className="size-5" />
@@ -60,14 +60,14 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
       {
         field: "role",
         headerName: "Role",
-        cellRenderer: (row: ICellRendererParams<UserProps>) => (
+        cellRenderer: (row: ICellRendererParams<User>) => (
           <span className="capitalize">{row.value}</span>
         ),
       },
       {
         field: "createdAt",
         headerName: "Registered",
-        cellRenderer: (row: ICellRendererParams<UserProps>) => (
+        cellRenderer: (row: ICellRendererParams<User>) => (
           <span>
             {row.value ? format(row.value, "Pp", { locale: enGB }) : ""}
           </span>
@@ -75,7 +75,7 @@ export default function UsersTable({ users }: { users: UserProps[] }) {
       },
       {
         headerName: "Actions",
-        cellRenderer: (row: ICellRendererParams<UserProps>) => (
+        cellRenderer: (row: ICellRendererParams<User>) => (
           <div>
             <DeleteUserForm userId={row.data?.id} />
           </div>

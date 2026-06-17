@@ -149,7 +149,6 @@ export async function fetchAllProjectsByCompanyId() {
     if (!data) {
       throw new Error("Failed to fetch project");
     }
-    console.log(data);
     return { success: true, data };
   } catch (error) {
     console.error(`Fetch project Error: ${error}`);

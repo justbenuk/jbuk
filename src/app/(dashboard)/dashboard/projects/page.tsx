@@ -1,6 +1,6 @@
 "use client";
-import ClientContainer from "@/components/shared/ClientContainer";
 import ErrorCard from "@/components/shared/ErrorCard";
+import PageContainer from "@/components/shared/PageContainer";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,14 +11,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { fetchAllProjects } from "@/features/projects/ProjectActions";
-import { ProjectProps } from "@/features/projects/ProjectTypes";
 import AllProjectsTable from "@/features/projects/tables/AllProjectsTable";
+import { Project } from "@prisma/client";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function ProjectsPage() {
-  const [projects, setProjects] = useState<ProjectProps[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>();
 
@@ -37,15 +37,10 @@ export default function ProjectsPage() {
   }, []);
 
   if (error) return <ErrorCard message={error} />;
-  if (loading)
-    return (
-      <ClientContainer>
-        <TableSkeleton />
-      </ClientContainer>
-    );
+  if (loading) <TableSkeleton />;
 
   return (
-    <ClientContainer>
+    <PageContainer size="dashboard">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
@@ -63,6 +58,6 @@ export default function ProjectsPage() {
           <AllProjectsTable projects={projects} />
         </CardContent>
       </Card>
-    </ClientContainer>
+    </PageContainer>
   );
 }

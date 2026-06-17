@@ -8,12 +8,12 @@ import {
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { MediaProps } from "../MediaTypes";
+import { Media } from "@prisma/client";
 
-export default function AllMediaTable({ medias }: { medias: MediaProps[] }) {
+export default function AllMediaTable({ medias }: { medias: Media[] }) {
   const modules = [AllCommunityModule];
   const [search, setSearch] = useState("");
-  const columnDefs = useMemo<ColDef<MediaProps>[]>(
+  const columnDefs = useMemo<ColDef<Media>[]>(
     () => [
       {
         field: "url",
@@ -24,7 +24,6 @@ export default function AllMediaTable({ medias }: { medias: MediaProps[] }) {
             alt="featured-image"
             width={100}
             height={100}
-            className="size-8 rounded-full items-center"
           />
         ),
       },

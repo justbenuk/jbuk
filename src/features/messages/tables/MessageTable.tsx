@@ -17,15 +17,11 @@ import {
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import { EyeIcon } from "lucide-react";
 import DeleteMessageForm from "../forms/DeleteMessageForm";
-import { MessageProps } from "../MessageTypes";
+import { Contact } from "@prisma/client";
 
-export default function MessageTable({
-  messages,
-}: {
-  messages: MessageProps[];
-}) {
+export default function MessageTable({ messages }: { messages: Contact[] }) {
   const modules = [AllCommunityModule];
-  const columnDefs: ColDef<MessageProps>[] = [
+  const columnDefs: ColDef<Contact>[] = [
     {
       field: "name",
       headerName: "Name",
@@ -45,7 +41,7 @@ export default function MessageTable({
     {
       field: "message",
       headerName: "Message",
-      cellRenderer: ({ data }: ICellRendererParams<MessageProps>) => {
+      cellRenderer: ({ data }: ICellRendererParams<Contact>) => {
         return <span>{data?.message.slice(0, 20) + "..."}</span>;
       },
     },
@@ -57,7 +53,7 @@ export default function MessageTable({
     },
     {
       headerName: "Actions",
-      cellRenderer: ({ data }: ICellRendererParams<MessageProps>) => {
+      cellRenderer: ({ data }: ICellRendererParams<Contact>) => {
         if (!data) return null;
         return (
           <div className="flex flex-row items-center space-x-1">

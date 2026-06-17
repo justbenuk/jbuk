@@ -1,27 +1,17 @@
 "use client";
 
-import ClientContainer from "@/components/shared/ClientContainer";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import AllPostsTable from "@/features/posts/tables/AllPostsTable";
-import { PlusIcon } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { PostProps } from "../PostTypes";
 import { FetchAllPosts } from "../PostActions";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import ErrorCard from "@/components/shared/ErrorCard";
 import Image from "next/image";
+import { Post } from "@prisma/client";
 
 export default function FrontPostList() {
   const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState<PostProps[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>();
 
   useEffect(() => {

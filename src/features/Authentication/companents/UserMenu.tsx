@@ -1,41 +1,53 @@
-'use client'
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+"use client";
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from "@/components/ui/sidebar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { LineDotRightHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchCurrentUser } from "@/actions/AuthActions";
-import { UserProps } from "@/features/Authentication/AuthenticationTypes";
 import UserSignOutForm from "@/features/Authentication/forms/UserSignOutForm";
 import ErrorCard from "@/components/shared/ErrorCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import UserMenuSkeleton from "@/components/skeletons/UserMenuSkeleton";
+import { User } from "@prisma/client";
 
 export default function UserMenu() {
-  const [user, setUser] = useState<UserProps>()
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>()
-  const { isMobile } = useSidebar()
-
+  const [user, setUser] = useState<User>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>();
+  const { isMobile } = useSidebar();
 
   useEffect(() => {
     async function loadData() {
-      setLoading(true)
-      const response = await fetchCurrentUser()
+      setLoading(true);
+      const response = await fetchCurrentUser();
 
       if (response.success && response.data) {
-        setLoading(false)
-        setUser(response.data)
+        setLoading(false);
+        setUser(response.data);
       } else {
-        setError(response.message)
+        setError(response.message);
       }
-      setLoading(false)
+      setLoading(false);
     }
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
-  if (loading) return <UserMenuSkeleton />
-  if (error) return <ErrorCard message={error} />
+  if (loading) return <UserMenuSkeleton />;
+  if (error) return <ErrorCard message={error} />;
 
   return (
     <SidebarMenu>
@@ -82,11 +94,11 @@ export default function UserMenu() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <Link href={'/client'}>Client</Link>
+                <Link href={"/client"}>Client</Link>
               </DropdownMenuItem>
-              {user?.role === 'admin' && (
+              {user?.role === "admin" && (
                 <DropdownMenuItem asChild>
-                  <Link href={'/dashboard'}>Dashboard</Link>
+                  <Link href={"/dashboard"}>Dashboard</Link>
                 </DropdownMenuItem>
               )}
             </DropdownMenuGroup>
@@ -97,6 +109,6 @@ export default function UserMenu() {
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
-    </SidebarMenu >
-  )
+    </SidebarMenu>
+  );
 }

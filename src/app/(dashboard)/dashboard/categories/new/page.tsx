@@ -1,10 +1,20 @@
-import ClientContainer from "@/components/shared/ClientContainer";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import type { Metadata } from "next";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import AddProjectCategoryForm from "@/features/categories/forms/AddProjectCategoryForm";
+import PageContainer from "@/components/shared/PageContainer";
 
+export const metadata: Metadata = {
+  title: "Add Category",
+};
 export default function page() {
   return (
-    <ClientContainer>
+    <PageContainer size="dashboard">
       <Card>
         <CardHeader>
           <CardTitle>New Category</CardTitle>
@@ -14,6 +24,6 @@ export default function page() {
           <AddProjectCategoryForm />
         </CardContent>
       </Card>
-    </ClientContainer>
-  )
+    </PageContainer>
+  );
 }

@@ -22,21 +22,26 @@ import {
 } from "@/components/ui/select";
 import z from "zod";
 import { useEffect, useState } from "react";
-import { CompanyProps } from "@/features/companies/CompanyTypes";
-import { ProjectProps } from "@/features/projects/ProjectTypes";
 import { fetchAllCompanies } from "@/features/companies/CompanyActions";
 import { fetchAllProjects } from "@/features/projects/ProjectActions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { ServerProps } from "../ServerTypes";
 import ErrorCard from "@/components/shared/ErrorCard";
 import { EditServer } from "../ServerActions";
+import { Company, Prisma, Project } from "@prisma/client";
+
+type ServerProps = Prisma.ServerGetPayload<{
+  include: {
+    company: true;
+    project: true;
+  };
+}>;
 
 export function EditServerForm({ server }: { server: ServerProps }) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [companies, setCompanies] = useState<CompanyProps[]>([]);
-  const [projects, setProjects] = useState<ProjectProps[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [error, setError] = useState<string | null>();
   const form = useForm({
     resolver: zodResolver(AddServerSchema),

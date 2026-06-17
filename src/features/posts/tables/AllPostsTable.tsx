@@ -9,17 +9,17 @@ import {
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { PostProps } from "../PostTypes";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { EyeIcon } from "lucide-react";
 import { DeletePostForm } from "../forms/DeletePostForm";
+import { Post } from "@prisma/client";
 
-export default function AllPostsTable({ posts }: { posts: PostProps[] }) {
+export default function AllPostsTable({ posts }: { posts: Post[] }) {
   const modules = [AllCommunityModule];
   const [search, setSearch] = useState("");
 
-  const columnDefs = useMemo<ColDef<PostProps>[]>(
+  const columnDefs = useMemo<ColDef<Post>[]>(
     () => [
       {
         field: "image",

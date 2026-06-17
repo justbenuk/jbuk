@@ -1,10 +1,16 @@
-import ClientContainer from "@/components/shared/ClientContainer";
+import type { Metadata } from "next";
+
+import PageContainer from "@/components/shared/PageContainer";
 import AddProjectForm from "@/features/projects/forms/AddProjectForm";
+
+export const metadata: Metadata = {
+  title: "Add Project",
+};
 
 export default function NewProjectPage() {
   return (
-    <ClientContainer>
+    <PageContainer size="dashboard">
       <AddProjectForm />
-    </ClientContainer>
-  )
+    </PageContainer>
+  );
 }

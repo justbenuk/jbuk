@@ -43,14 +43,12 @@ export default function AddCompanyForm() {
   });
 
   async function handleAddForm(values: z.infer<typeof CompanySchema>) {
-    const { success, message } = await AddCompanyInformationAction(values);
+    const response = await AddCompanyInformationAction(values);
 
-    if (!success) {
-      toast.error(message);
-      return;
+    if (!response) {
+      toast.error("Failed to add company");
     }
-
-    toast.success(message);
+    toast.success("Company Added");
     router.push("/client");
     router.refresh();
   }

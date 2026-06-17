@@ -8,11 +8,18 @@ import {
 } from "ag-grid-community";
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 import { useMemo, useState } from "react";
-import { ServerProps } from "../ServerTypes";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { EyeIcon } from "lucide-react";
 import { DeleteServerForm } from "../forms/DeleteServerForm";
+import { Prisma } from "@prisma/client";
+
+type ServerProps = Prisma.ServerGetPayload<{
+  include: {
+    company: true;
+    project: true;
+  };
+}>;
 
 export default function AllServersTable({
   servers,

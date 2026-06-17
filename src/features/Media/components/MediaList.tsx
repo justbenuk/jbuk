@@ -7,15 +7,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { MediaProps } from "../MediaTypes";
 import { FetchAllMedia } from "../MediaActions";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import ErrorCard from "@/components/shared/ErrorCard";
 import AllMediaTable from "../Tables/AllMediaTable";
+import { Media } from "@prisma/client";
 
 export default function MediaList() {
   const [loading, setLoading] = useState(true);
-  const [media, setMedia] = useState<MediaProps[]>([]);
+  const [media, setMedia] = useState<Media[]>([]);
   const [error, setError] = useState<string | null>();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function MediaList() {
         if (response.success && response.data) {
           setMedia(response.data);
         } else {
-          setError(response.message ?? "Failed to fetch media");
+          setError("Failed to fetch Media");
         }
       } catch (error) {
         console.error(error);

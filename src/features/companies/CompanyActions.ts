@@ -76,10 +76,9 @@ export async function AddCompanyInformationAction(
     }
 
     revalidatePath("/client");
-    return { success: true, message: "Company added" };
+    return { success: true };
   } catch (error) {
-    console.error(`Company Error: ${error}`);
-    return { success: false, message: "Failed to add company" };
+    throw new Error(`Add Company: ${error}`);
   }
 }
 
@@ -116,7 +115,6 @@ export async function EditCompanyInformation(
     revalidatePath("/client");
     return { success: true };
   } catch (error) {
-    console.error(`Company Error: ${error}`);
     throw new Error(`Company Error: ${error}`);
   }
 }
@@ -145,7 +143,6 @@ export async function deleteCompanyById(id: string) {
       revalidatePath("/client/companies");
       return { success: true };
     } catch (error) {
-      console.error(`Company Error: ${error}`);
       throw new Error(`Company Error: ${error}`);
     }
 }

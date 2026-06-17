@@ -1,9 +1,9 @@
-import { Skeleton } from "@/components/ui/skeleton"
-import ClientContainer from "../shared/ClientContainer"
+import { Skeleton } from "@/components/ui/skeleton";
+import PageContainer from "../shared/PageContainer";
 
 export default function TableSkeleton() {
   return (
-    <ClientContainer className="w-full space-y-4">
+    <PageContainer size="dashboard" className="space-y-4">
       {/* Search Bar / Actions Row Placeholder */}
       <div className="flex items-center justify-between py-4">
         <Skeleton className="h-10 w-62.5" /> {/* Search Input */}
@@ -50,11 +50,10 @@ export default function TableSkeleton() {
       <div className="flex items-center justify-between px-2 py-4">
         <Skeleton className="h-4 w-37.5" /> {/* "Showing 0 of 00 rows" text */}
         <div className="flex items-center gap-2">
-          <Skeleton className="h-8 w-17.5" />  {/* Previous button */}
-          <Skeleton className="h-8 w-12.5" />  {/* Next button */}
+          <Skeleton className="h-8 w-17.5" /> {/* Previous button */}
+          <Skeleton className="h-8 w-12.5" /> {/* Next button */}
         </div>
       </div>
-    </ClientContainer>
-  )
+    </PageContainer>
+  );
 }
-

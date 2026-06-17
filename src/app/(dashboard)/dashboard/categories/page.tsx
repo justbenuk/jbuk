@@ -1,16 +1,15 @@
-import ClientContainer from '@/components/shared/ClientContainer';
-import ProjectCategoriesList from '@/features/categories/components/ProjectCategoriesList';
-import type { Metadata } from 'next';
+import PageContainer from "@/components/shared/PageContainer";
+import ProjectCategoriesList from "@/features/categories/components/ProjectCategoriesList";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Categories'
-}
+  title: "Categories",
+};
 
 export default function CategoriesPage() {
   return (
-    <ClientContainer>
+    <PageContainer size="dashboard">
       <ProjectCategoriesList />
-    </ClientContainer>
-  )
+    </PageContainer>
+  );
 }
-

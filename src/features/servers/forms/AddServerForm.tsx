@@ -13,8 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AddServerSchema } from "../ServerValadationSchema";
 import { useEffect, useState } from "react";
-import { CompanyProps } from "@/features/companies/CompanyTypes";
-import { ProjectProps } from "@/features/projects/ProjectTypes";
 import { fetchAllCompanies } from "@/features/companies/CompanyActions";
 import { fetchAllProjects } from "@/features/projects/ProjectActions";
 import AddProjectSkeleton from "@/components/skeletons/AddProjectSkeleton";
@@ -30,12 +28,13 @@ import z from "zod";
 import { AddServer } from "../ServerActions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Company, Project } from "@prisma/client";
 
 export function AddServerForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [companies, setCompanies] = useState<CompanyProps[]>([]);
-  const [projects, setProjects] = useState<ProjectProps[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [error, setError] = useState<string | null>();
 
   const form = useForm({
@@ -81,7 +80,6 @@ export function AddServerForm() {
       toast.error("Failed to add server");
     }
   }
-  console.log(projects);
   if (loading) return <AddProjectSkeleton />;
   if (error) return <ErrorCard message="Failed to fetch data" />;
 
@@ -135,7 +133,7 @@ export function AddServerForm() {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field>
-            <FieldLabel>Company Id</FieldLabel>
+            <FieldLabel>Company</FieldLabel>
             <FieldContent>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>
@@ -159,7 +157,7 @@ export function AddServerForm() {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field>
-            <FieldLabel>projectId</FieldLabel>
+            <FieldLabel>Project</FieldLabel>
             <FieldContent>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>

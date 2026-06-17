@@ -47,7 +47,7 @@ export async function LoginUserAction(values: z.infer<typeof LoginUserSchema>) {
 
     return { success: true, message: "User logged in" };
   } catch (error) {
-    console.log(`Login User: ${error}`);
+    console.error(`Login User: ${error}`);
     return { success: false, message: "Failed to login user" };
   }
 }

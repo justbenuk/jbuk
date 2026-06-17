@@ -31,22 +31,19 @@ import z from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { AddProjectSchema } from "../ProjectValidationSchema";
-import { CompanyProps } from "@/features/client/ClientTypes";
 import AddProjectSkeleton from "@/components/skeletons/AddProjectSkeleton";
-import { CategoryProps } from "@/features/categories/CategoryValidationSchema";
 import { AddProject } from "../ProjectActions";
 import { fetchAllProjectCategories } from "@/features/categories/CategoryActions";
 import { fetchAllCompanies } from "@/features/companies/CompanyActions";
 import { UploadButton } from "@/lib/uploadthing";
 import Image from "next/image";
 import Editor from "@/components/Editor/Editor";
-import { PlusIcon } from "lucide-react";
-import Link from "next/link";
+import { Company, ProjectCategory } from "@prisma/client";
 
 export default function AddProjectForm() {
   const [loading, setLoading] = useState(true);
-  const [categories, setCategorys] = useState<CategoryProps[]>();
-  const [companies, setCompanies] = useState<CompanyProps[]>();
+  const [categories, setCategorys] = useState<ProjectCategory[]>();
+  const [companies, setCompanies] = useState<Company[]>();
   const [error, setError] = useState<string | null>();
   const router = useRouter();
   const form = useForm({

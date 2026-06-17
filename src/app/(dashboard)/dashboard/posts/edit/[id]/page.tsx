@@ -1,17 +1,23 @@
 "use client";
-import ClientContainer from "@/components/shared/ClientContainer";
 import ErrorCard from "@/components/shared/ErrorCard";
+import PageContainer from "@/components/shared/PageContainer";
 import DashboardSkeleton from "@/components/skeletons/DashboardSkeleton";
 import EditPostForm from "@/features/posts/forms/EditPostForm";
 import { FetchPostById } from "@/features/posts/PostActions";
-import { PostProps } from "@/features/posts/PostTypes";
+import { Prisma } from "@prisma/client";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+
+type PostWithAuthor = Prisma.PostGetPayload<{
+  include: {
+    author: true;
+  };
+}>;
 
 export default function EditPostPage() {
   const { id } = useParams<{ id: string }>();
   const [loading, setLoading] = useState(true);
-  const [post, setPost] = useState<PostProps>();
+  const [post, setPost] = useState<PostWithAuthor>();
   const [error, setError] = useState<string | null>();
 
   useEffect(() => {
@@ -32,8 +38,8 @@ export default function EditPostPage() {
   if (error) return <ErrorCard message="Failed to load data" />;
   if (!post) return <ErrorCard message="Failed to load post" />;
   return (
-    <ClientContainer>
+    <PageContainer size="dashboard">
       <EditPostForm post={post} />
-    </ClientContainer>
+    </PageContainer>
   );
 }
