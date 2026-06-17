@@ -1,7 +1,7 @@
 "use client";
 
-import ClientContainer from "@/components/shared/ClientContainer";
 import ErrorCard from "@/components/shared/ErrorCard";
+import PageContainer from "@/components/shared/PageContainer";
 import { CompanyProps } from "@/features/client/ClientTypes";
 import { fetchCompanyById } from "@/features/companies/CompanyActions";
 import EditCompanyForm from "@/features/companies/forms/EditCompanyForm";
@@ -35,8 +35,8 @@ export default function EditCompanyPage() {
   if (!company) return <ErrorCard message="No Company found" />;
 
   return (
-    <ClientContainer>
+    <PageContainer size="dashboard">
       <EditCompanyForm company={company} />
-    </ClientContainer>
+    </PageContainer>
   );
 }

@@ -1,10 +1,10 @@
-import ClientContainer from "@/components/shared/ClientContainer";
+import PageContainer from "@/components/shared/PageContainer";
 import AddCompanyForm from "@/features/companies/forms/AddCompanyForm";
 
 export default function ClientCompaniesPage() {
   return (
-    <ClientContainer>
+    <PageContainer size="dashboard">
       <AddCompanyForm />
-    </ClientContainer>
+    </PageContainer>
   );
 }

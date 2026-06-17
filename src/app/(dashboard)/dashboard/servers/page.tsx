@@ -1,5 +1,4 @@
 "use client";
-import ClientContainer from "@/components/shared/ClientContainer";
 import {
   Card,
   CardContent,

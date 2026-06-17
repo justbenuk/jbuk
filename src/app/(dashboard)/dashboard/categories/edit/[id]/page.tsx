@@ -1,7 +1,6 @@
 "use client";
 
 import BackButton from "@/components/shared/BackButton";
-import ClientContainer from "@/components/shared/ClientContainer";
 import ErrorCard from "@/components/shared/ErrorCard";
 import PageContainer from "@/components/shared/PageContainer";
 import CategorySkeleton from "@/components/skeletons/CategorySkeleton";
