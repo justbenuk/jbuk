@@ -28,7 +28,7 @@ export default function EditProjectPage() {
       setLoading(false);
     }
     loadData();
-  }, []);
+  }, [id]);
 
   if (loading) return <AddProjectSkeleton />;
   if (error) return <ErrorCard message={error} />;

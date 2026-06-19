@@ -11,13 +11,12 @@ export default function FaqsPage() {
     <PageContainer size='dashboard'>
       <Card className='pt-0'>
         <CardHeader className='bg-primary text-muted py-4'>
-          <CardTitle>FAQ's</CardTitle>
+          <CardTitle>FAQs</CardTitle>
         </CardHeader>
         <CardContent>
-          Sometimes you may find you have a question that needs an answer now. I will add all the frequently asked questions here. If you don&apos;t fond what your looking for, drop me a message, email WhatsApp or call
+          Sometimes you may find you have a question that needs an answer now. I will add all the frequently asked questions here. If you don&apos;t find what you are looking for, drop me a message, email WhatsApp or call.
         </CardContent>
       </Card>
     </PageContainer>
   )
 }
-

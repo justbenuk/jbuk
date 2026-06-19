@@ -35,7 +35,7 @@ export default function EditCategoryPage() {
       setLoading(false);
     }
     loadData();
-  }, []);
+  }, [id]);
 
   if (loading) return <CategorySkeleton />;
   if (error) return <ErrorCard message={error} />;

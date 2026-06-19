@@ -28,7 +28,7 @@ export default function EditCompanyPage() {
       setLoading(false);
     }
     loadData();
-  }, []);
+  }, [id]);
 
   if (loading) return <p>loading</p>;
   if (error) return <ErrorCard message="Failed to load company" />;

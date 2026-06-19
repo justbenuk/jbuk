@@ -56,7 +56,7 @@ export async function isLoggedIn() {
     headers: await headers(),
   });
 
-  if (!session) redirect("/auth");
+  if (!session) redirect("/login");
 
   return true;
 }
@@ -66,7 +66,7 @@ export async function isAdmin() {
     headers: await headers(),
   });
 
-  if (!session) redirect("/auth");
+  if (!session) redirect("/login");
 
   if (session.user.role !== "admin") redirect("/unauthorised");
 

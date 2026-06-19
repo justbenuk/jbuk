@@ -161,17 +161,3 @@ export async function DeletePostById(id: string) {
     throw new Error(`Post Delete: ${error}`);
   }
 }
-
-export async function FetchPostBySlug(slug: string) {
-  try {
-    const data = await db.post.findFirst({
-      where: {
-        slug,
-      },
-    });
-
-    return { success: true, data };
-  } catch (error) {
-    throw new Error(`Fetch Post: ${error}`);
-  }
-}

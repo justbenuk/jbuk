@@ -51,7 +51,7 @@ export default function ClientSidebar() {
               <SidebarMenuButton asChild>
                 <Link href={'/client/faqs'}>
                   <FileQuestionIcon />
-                  <span>FAQ's</span>
+                  <span>FAQs</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

@@ -33,7 +33,7 @@ export default function EditPostPage() {
       setLoading(false);
     }
     loadData();
-  }, []);
+  }, [id]);
   if (loading) return <DashboardSkeleton />;
   if (error) return <ErrorCard message="Failed to load data" />;
   if (!post) return <ErrorCard message="Failed to load post" />;

@@ -26,7 +26,6 @@ import { fetchAllCompanies } from "@/features/companies/CompanyActions";
 import { fetchAllProjects } from "@/features/projects/ProjectActions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import ErrorCard from "@/components/shared/ErrorCard";
 import { EditServer } from "../ServerActions";
 import { Company, Prisma, Project } from "@prisma/client";
 
@@ -39,10 +38,8 @@ type ServerProps = Prisma.ServerGetPayload<{
 
 export function EditServerForm({ server }: { server: ServerProps }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
   const [companies, setCompanies] = useState<Company[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
-  const [error, setError] = useState<string | null>();
   const form = useForm({
     resolver: zodResolver(AddServerSchema),
     defaultValues: {
@@ -56,7 +53,6 @@ export function EditServerForm({ server }: { server: ServerProps }) {
 
   useEffect(() => {
     async function loadData() {
-      setLoading(true);
       const [companies, projects] = await Promise.all([
         fetchAllCompanies(),
         fetchAllProjects(),
@@ -70,10 +66,7 @@ export function EditServerForm({ server }: { server: ServerProps }) {
       ) {
         setCompanies(companies.data);
         setProjects(projects.projects);
-      } else {
-        setError("Failed to load data");
       }
-      setLoading(false);
     }
     loadData();
   }, []);
