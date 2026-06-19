@@ -9,6 +9,18 @@ import { headers } from "next/headers";
 import { utapi } from "@/app/api/uploadthing/core";
 import { revalidatePath } from "next/cache";
 
+export async function FetchPostBySlug(slug: string) {
+  try {
+    const data = await db.post.findFirst({
+      where: { slug },
+      include: { author: true },
+    });
+    return { success: true, data };
+  } catch (error) {
+    throw new Error(`Failed to fetch post: ${error}`);
+  }
+}
+
 export async function FetchAllPosts() {
   try {
     const data = await db.post.findMany({
@@ -159,5 +171,41 @@ export async function DeletePostById(id: string) {
     return { success: true };
   } catch (error) {
     throw new Error(`Post Delete: ${error}`);
+  }
+}
+
+export async function FetchAllPublishedPosts({
+  pageSize,
+  page,
+}: {
+  pageSize: number;
+  page: number;
+}) {
+  try {
+    const offset = (page - 1) * pageSize;
+
+    const [data, totel] = await Promise.all([
+      db.post.findMany({
+        where: {
+          published: true,
+        },
+        include: {
+          author: true,
+        },
+        skip: offset,
+        take: pageSize,
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+      db.post.count({
+        where: {
+          published: true,
+        },
+      }),
+    ]);
+    return { success: true, data, totalPages: Math.ceil(totel / pageSize) };
+  } catch (error) {
+    throw new Error(`Fetch Project: ${error}`);
   }
 }
