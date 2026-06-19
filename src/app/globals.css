@@ -120,79 +120,93 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+    body {
+        @apply bg-background text-foreground;
     }
-  html {
-    @apply font-sans;
+    html {
+        @apply font-sans;
     }
-  .maplibregl-popup-content {
-    @apply bg-transparent! shadow-none! p-0! rounded-none!;
+    .maplibregl-popup-content {
+        @apply bg-transparent! shadow-none! p-0! rounded-none!;
     }
-  .maplibregl-popup-tip {
-    @apply hidden!;
+    .maplibregl-popup-tip {
+        @apply hidden!;
     }
 }
 
 @layer components {
-  .tiptap-content {
-    overflow-wrap: anywhere;
+    .tiptap-content {
+        overflow-wrap: anywhere;
     }
-  .tiptap-content h1 {
-    @apply mt-8 mb-4 text-4xl font-semibold leading-tight;
+    .tiptap-content h1 {
+        @apply mt-8 mb-4 text-4xl font-semibold leading-tight;
     }
-  .tiptap-content h2 {
-    @apply mt-7 mb-3 text-3xl font-semibold leading-tight;
+    .tiptap-content h2 {
+        @apply mt-7 mb-3 text-3xl font-semibold leading-tight;
     }
-  .tiptap-content h3 {
-    @apply mt-6 mb-2 text-2xl font-semibold leading-snug;
+    .tiptap-content h3 {
+        @apply mt-6 mb-2 text-2xl font-semibold leading-snug;
     }
-  .tiptap-content p {
-    @apply my-4 leading-7;
+    .tiptap-content p {
+        @apply my-4 leading-7;
     }
-  .tiptap-content ul {
-    @apply my-4 list-disc space-y-2 pl-6;
+    .tiptap-content ul {
+        @apply my-4 list-disc space-y-2 pl-6;
     }
-  .tiptap-content ol {
-    @apply my-4 list-decimal space-y-2 pl-6;
+    .tiptap-content ol {
+        @apply my-4 list-decimal space-y-2 pl-6;
     }
-  .tiptap-content li > p {
-    @apply my-1;
+    .tiptap-content li > p {
+        @apply my-1;
     }
-  .tiptap-content blockquote {
-    @apply my-6 border-l-4 border-primary/60 pl-4 text-muted-foreground italic;
+    .tiptap-content blockquote {
+        @apply my-6 border-l-4 border-primary/60 pl-4 text-muted-foreground italic;
     }
-  .tiptap-content pre {
-    @apply my-4 overflow-x-auto rounded-md bg-muted p-4 text-sm;
+    .tiptap-content pre {
+        @apply my-4 overflow-x-auto rounded-md bg-muted p-4 text-sm;
     }
-  .tiptap-content code {
-    @apply rounded bg-muted px-1 py-0.5 text-sm;
+    .tiptap-content code {
+        @apply rounded bg-muted px-1 py-0.5 text-sm;
     }
-  .tiptap-content pre code {
-    @apply bg-transparent p-0;
+    .tiptap-content pre code {
+        @apply bg-transparent p-0;
     }
-  .tiptap-content a {
-    @apply text-primary underline underline-offset-4;
+    .tiptap-content a {
+        @apply text-primary underline underline-offset-4;
     }
-  .tiptap-content hr {
-    @apply my-8 border-border;
+    .tiptap-content hr {
+        @apply my-8 border-border;
     }
-  .tiptap-content :first-child {
-    @apply mt-0;
+    .tiptap-content :first-child {
+        @apply mt-0;
     }
-  .tiptap-content :last-child {
-    @apply mb-0;
+    .tiptap-content :last-child {
+        @apply mb-0;
     }
-  .prose-editor h1 {
-    @apply text-3xl;
+    .prose-editor h1 {
+        @apply text-3xl;
     }
-  .prose-editor h2 {
-    @apply text-2xl;
+    .prose-editor h2 {
+        @apply text-2xl;
     }
-  .prose-editor h3 {
-    @apply text-xl;
+    .prose-editor h3 {
+        @apply text-xl;
     }
+}
+
+.embla__viewport {
+    overflow: hidden;
+}
+
+.embla__container {
+    display: flex;
+    touch-action: pan-y pinch-zoom;
+}
+
+.embla__slide {
+    flex: 0 0 100%;
+    min-width: 0;
 }

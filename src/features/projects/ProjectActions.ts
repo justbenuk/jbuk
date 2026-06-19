@@ -244,3 +244,60 @@ export async function EditProject(
     return { success: false, message: "Failed to update project" };
   }
 }
+
+export async function FetchFeaturedProjects() {
+  try {
+    const data = await db.project.findMany({
+      where: {
+        published: true,
+        featured: true,
+      },
+      take: 6,
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        category: true,
+      },
+    });
+    return { success: true, data };
+  } catch (error) {
+    throw new Error(`Fetch featured Error: ${error}`);
+  }
+}
+
+export async function FetchAllPublishedProjects({
+  pageSize,
+  page,
+}: {
+  pageSize: number;
+  page: number;
+}) {
+  try {
+    const offset = (page - 1) * pageSize;
+
+    const [data, totel] = await Promise.all([
+      db.project.findMany({
+        where: {
+          published: true,
+        },
+        include: {
+          category: true,
+        },
+        skip: offset,
+        take: pageSize,
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+      db.project.count({
+        where: {
+          published: true,
+        },
+      }),
+    ]);
+    return { success: true, data, totalPages: Math.ceil(totel / pageSize) };
+  } catch (error) {
+    throw new Error(`Fetch Project: ${error}`);
+  }
+}
