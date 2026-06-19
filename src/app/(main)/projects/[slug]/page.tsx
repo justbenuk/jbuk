@@ -1,30 +1,27 @@
+import EditorContent from "@/components/Editor/EditorContent";
 import PageContainer from "@/components/shared/PageContainer";
-import { MOCKPROJECTPOSTS } from "@/data/MockProjectPosts";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  FetchProjectBySlug,
+  FetchProjectsByCategoryId,
+} from "@/features/projects/ProjectActions";
+import { format } from "date-fns";
+import { enGB } from "date-fns/locale";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-const OUTCOMES = [
-  "A clearer route from visitor interest to enquiry",
-  "A responsive interface that works cleanly on smaller screens",
-  "A maintainable structure that can grow after launch",
-];
-
-export function generateStaticParams() {
-  return MOCKPROJECTPOSTS.map((project) => ({ slug: project.slug }));
-}
-
 export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = MOCKPROJECTPOSTS.find((item) => item.slug === slug);
+  const response = await FetchProjectBySlug(slug);
+
+  const project = response.data;
 
   if (!project) {
     return {
@@ -40,13 +37,18 @@ export async function generateMetadata({
 
 export default async function SingleProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = MOCKPROJECTPOSTS.find((item) => item.slug === slug);
+  const response = await FetchProjectBySlug(slug);
+  const project = response.data;
 
-  if (!project) notFound();
+  const secondResponse = await FetchProjectsByCategoryId(
+    project.projectCategoryId,
+    project.id,
+  );
+  const related = secondResponse.data;
 
-  const relatedProjects = MOCKPROJECTPOSTS.filter(
-    (item) => item.slug !== slug,
-  ).slice(0, 3);
+  const uploadedDate = format(project.createdAt, "d MMMM yyyy", {
+    locale: enGB,
+  });
 
   return (
     <PageContainer size="dashboard" className="py-10 sm:py-14 lg:py-16">
@@ -66,7 +68,7 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
 
           <div className="grid gap-6 px-2 lg:px-8">
             <p className="w-fit rounded-full border bg-background/70 px-4 py-1 text-sm font-medium text-muted-foreground shadow-xs backdrop-blur-sm">
-              {project.category}
+              {project.category.name}
             </p>
             <div className="grid gap-4">
               <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">
@@ -76,21 +78,10 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
                 {project.excerpt}
               </p>
             </div>
-            <ul className="grid gap-3">
-              {OUTCOMES.map((outcome) => (
-                <li
-                  key={outcome}
-                  className="flex items-start gap-3 rounded-md bg-background/60 px-4 py-3 shadow-[0_8px_28px_color-mix(in_oklch,var(--background),transparent_35%)] ring-1 ring-border/50 backdrop-blur-sm"
-                >
-                  <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary" />
-                  <span>{outcome}</span>
-                </li>
-              ))}
-            </ul>
           </div>
 
           <div className="relative mx-auto w-full max-w-2xl overflow-hidden rounded-[2rem] bg-background/70 p-3 shadow-[0_28px_100px_color-mix(in_oklch,var(--foreground),transparent_91%)] ring-1 ring-border backdrop-blur-sm">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.45rem]">
+            <div className="relative aspect-4/3 overflow-hidden rounded-[1.45rem]">
               <Image
                 src={project.image}
                 alt={project.title}
@@ -110,15 +101,15 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
               <dl className="mt-5 grid gap-4 text-sm">
                 <div>
                   <dt className="text-muted-foreground">Type</dt>
-                  <dd className="mt-1 font-medium">{project.category}</dd>
+                  <dd className="mt-1 font-medium">{project.category.name}</dd>
                 </div>
                 <div>
-                  <dt className="text-muted-foreground">Role</dt>
-                  <dd className="mt-1 font-medium">{project.author.role}</dd>
+                  <dt className="text-muted-foreground">Created By</dt>
+                  <dd className="mt-1 font-medium">{project.author.name}</dd>
                 </div>
                 <div>
-                  <dt className="text-muted-foreground">Approach</dt>
-                  <dd className="mt-1 font-medium">Design and development</dd>
+                  <dt className="text-muted-foreground">Uploaded</dt>
+                  <dd className="mt-1 font-medium">{uploadedDate}</dd>
                 </div>
               </dl>
             </div>
@@ -139,12 +130,7 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
             </div>
           </aside>
 
-          <div className="tiptap-content px-1 text-lg leading-8 text-foreground/90 sm:px-4 lg:px-0">
-            <h2>Project overview</h2>
-            {project.content.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
+          <EditorContent content={project.content} />
         </div>
 
         <section className="grid gap-5">
@@ -164,14 +150,14 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
             </Link>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
-            {relatedProjects.map((relatedProject) => (
+            {related.map((relatedProject) => (
               <Link
                 key={relatedProject.slug}
                 href={`/projects/${relatedProject.slug}`}
                 className="group rounded-3xl bg-card p-5 shadow-[0_14px_50px_color-mix(in_oklch,var(--foreground),transparent_95%)] ring-1 ring-border"
               >
                 <p className="text-sm font-medium text-muted-foreground">
-                  {relatedProject.category}
+                  {relatedProject.category.name}
                 </p>
                 <h3 className="mt-3 line-clamp-2 text-lg font-semibold leading-snug">
                   {relatedProject.title}

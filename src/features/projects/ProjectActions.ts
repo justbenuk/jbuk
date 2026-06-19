@@ -122,6 +122,43 @@ export async function fetchProjectById(projectId: string) {
   }
 }
 
+export async function FetchProjectBySlug(slug: string) {
+  try {
+    const data = await db.project.findUnique({
+      where: { slug },
+      include: { category: true, company: true, author: true, media: true },
+    });
+
+    if (!data) {
+      throw new Error("Failed to fetch project");
+    }
+    return { success: true, data };
+  } catch (error) {
+    throw new Error(`Fetch project: ${error}`);
+  }
+}
+
+export async function FetchProjectsByCategoryId(
+  categoryId: string,
+  projectId: string,
+) {
+  try {
+    const data = await db.project.findMany({
+      where: { projectCategoryId: categoryId, NOT: { id: projectId } },
+      include: { category: true, company: true, author: true, media: true },
+      take: 3,
+      orderBy: { createdAt: "desc" },
+    });
+
+    if (!data) {
+      throw new Error("Failed to fetch project");
+    }
+    return { success: true, data };
+  } catch (error) {
+    throw new Error(`Fetch project: ${error}`);
+  }
+}
+
 export async function fetchAllProjectsByCompanyId() {
   const session = await auth.api.getSession({
     headers: await headers(),
