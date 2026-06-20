@@ -4,10 +4,12 @@ import ThemeToggle from "./shared/ThemeToggle";
 
 export default function SecondMenu() {
   return (
-    <div className="flex flex-row items-center justify-center gap-2">
+    <div className="flex flex-row items-center justify-center space-x-4">
       <ThemeToggle />
       <MainUserMenu />
-      <MobileMenu />
+      <div className="lg:hidden mt-2">
+        <MobileMenu />
+      </div>
     </div>
   );
 }

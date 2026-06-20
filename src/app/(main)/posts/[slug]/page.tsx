@@ -17,16 +17,57 @@ export async function generateMetadata({
 }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const response = await FetchPostBySlug(slug);
+  const post = response.data;
 
-  if (!response.data) {
+  if (!post) {
     return {
       title: "Post not found",
     };
   }
 
   return {
-    title: response.data.title,
-    description: response.data.excerpt,
+    authors: [{ name: post.author.name }],
+
+    alternates: {
+      canonical: `https://justben.uk/posts/${post.slug}`,
+    },
+
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `https://justben.uk/posts/${post.slug}`,
+      siteName: "Just Ben UK",
+      type: "article",
+
+      images: [
+        {
+          url: post.image,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [post.image],
+      creator: "@justbenuk",
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
   };
 }
 

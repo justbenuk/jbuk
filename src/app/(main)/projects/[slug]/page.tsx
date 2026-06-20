@@ -30,8 +30,48 @@ export async function generateMetadata({
   }
 
   return {
-    title: project.title,
-    description: project.excerpt,
+    authors: [{ name: project.author.name }],
+
+    alternates: {
+      canonical: `https://justben.uk/projects/${project.slug}`,
+    },
+
+    openGraph: {
+      title: project.title,
+      description: project.excerpt,
+      url: `https://justben.uk/projects/${project.slug}`,
+      siteName: "Just Ben UK",
+      type: "article",
+
+      images: [
+        {
+          url: project.image,
+          width: 1200,
+          height: 630,
+          alt: project.title,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.excerpt,
+      images: [project.image],
+      creator: "@justbenuk",
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
   };
 }
 
